@@ -59,22 +59,8 @@ function registerTopic(payload) {
   const bnSheet = findSheetByKeywords("Linkbainop");
   if (!gvSheet || !bnSheet) return { error: "Không tìm thấy các tab cần thiết" };
 
-  const gvData = gvSheet.getDataRange().getValues();
-
-  // 0. Ràng buộc: Phải hoàn thành BCTT mới được đăng ký KLTN
-  if (loaiDeTai === 'KLTN') {
-    const bcttFound = gvData.some(row => {
-      const isSV = cleanEmailStr(row[0]) === emailSV.toLowerCase();
-      const isBCTT = String(row[6]).trim() === 'BCTT' || String(row[2]).trim() === 'BCTT';
-      const isDone = ['Completed', 'Pass', 'Yes', 'Graded', 'Confirmed'].includes(String(row[5]).trim());
-      return isSV && isBCTT && isDone;
-    });
-    if (!bcttFound) {
-      return { error: "Bạn chưa đủ điều kiện đăng ký KLTN. Yêu cầu hoàn thành Báo cáo thực tập (BCTT) trước." };
-    }
-  }
-
   // 1. LinkGiangvien - Role = GVHD, End = Registered
+  const gvData = gvSheet.getDataRange().getValues();
   let foundGv = -1;
   for(let i=1; i<gvData.length; i++) {
     const cleanEmail = cleanEmailStr(gvData[i][0]);

@@ -71,22 +71,7 @@ function StudentView({ user, activeTab }) {
 
   // === ROUTING ===
   if (activeTab === 'register') return <RegistrationForm user={user} masterData={masterData} onRefresh={fetchData} loai="BCTT" />;
-  
-  if (activeTab === 'register_kltn') {
-    // Ràng buộc: bcttStep === 6 là hoàn thành BCTT (5 bước + bước 6 là Pass)
-    if (bcttStep < 6) {
-      return (
-        <RequirementBlock 
-          title="CHƯA ĐỦ ĐIỀU KIỆN ĐĂNG KÝ KLTN"
-          message="Bạn cần hoàn thành học phần Báo cáo thực tập (BCTT) và có kết quả Đạt từ GVHD mới đủ điều kiện đăng ký Khóa luận tốt nghiệp."
-          currentStep={bcttStep}
-          totalSteps={5}
-        />
-      );
-    }
-    return <RegistrationForm user={user} masterData={masterData} onRefresh={fetchData} loai="KLTN" />;
-  }
-
+  if (activeTab === 'register_kltn') return <RegistrationForm user={user} masterData={masterData} onRefresh={fetchData} loai="KLTN" />;
   if (activeTab === 'status') return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
       <ProgressTracker title="TIẾN ĐỘ BÁO CÁO THỰC TẬP (BCTT)" user={user} currentStep={bcttStep} onRefresh={fetchData} loai="BCTT"
@@ -375,32 +360,5 @@ const FormBlock = ({ label, children }) => (
     {children}
   </div>
 );
-
-function RequirementBlock({ title, message, currentStep, totalSteps }) {
-  return (
-    <div className="animate-fade-in" style={{ maxWidth: '800px', margin: '60px auto', textAlign: 'center' }}>
-      <div className="card-flat" style={{ padding: '60px 40px', borderTop: '6px solid #ef4444' }}>
-        <div style={{ width: '80px', height: '80px', background: '#fee2e2', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
-          <AlertCircle size={40} color="#ef4444" />
-        </div>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1e293b', marginBottom: '16px' }}>{title}</h2>
-        <p style={{ color: '#64748b', lineHeight: '1.6', fontSize: '1.05rem', marginBottom: '32px' }}>{message}</p>
-        
-        <div style={{ background: '#f8fafc', padding: '24px', borderRadius: '12px', textAlign: 'left', marginBottom: '32px' }}>
-          <p style={{ fontSize: '0.85rem', fontWeight: '800', marginBottom: '12px', color: '#475569' }}>TIẾN ĐỘ BCTT HIỆN TẠI CỦA BẠN:</p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ flex: 1, height: '10px', background: '#e2e8f0', borderRadius: '10px', overflow: 'hidden' }}>
-              <div style={{ width: `${(currentStep/totalSteps)*100}%`, height: '100%', background: '#ef4444' }} />
-            </div>
-            <span style={{ fontWeight: '900', color: '#ef4444' }}>{currentStep-1} / {totalSteps}</span>
-          </div>
-          <p style={{ fontSize: '0.75rem', marginTop: '12px', color: '#94a3b8' }}>* Bạn cần hoàn thành tất cả các bước và được GVHD xác nhận "Completed" để mở khóa đăng ký KLTN.</p>
-        </div>
-        
-        <button onClick={() => window.location.reload()} className="btn-primary" style={{ background: '#1e293b' }}>CẬP NHẬT TRẠNG THÁI</button>
-      </div>
-    </div>
-  );
-}
 
 export default StudentView;
