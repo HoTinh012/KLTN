@@ -1,0 +1,415 @@
+:root {
+  --primary: #004b91;
+  --primary-hover: #003a70;
+  --sidebar-bg: #002d5a; /* Navy Blue đậm chuyên nghiệp */
+  --sidebar-hover: #013e7a;
+  --sidebar-active: #004b91;
+  --header-bg: #ffffff;
+  --body-bg: #f8fafc;
+  --text-main: #0f172a; /* Slate 900 - Đen xanh đậm, cực kỳ dễ đọc */
+  --text-muted: #334155; /* Slate 700 - Xám đậm chuyên nghiệp */
+  --success: #10b981;
+  --error: #ef4444;
+  --border-color: #cbd5e1; /* Làm đậm viền một chút */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-main); /* Cưỡng bức tất cả chữ mặc định là màu đậm */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-main) !important;
+  font-weight: 800;
+}
+
+p, span, label, td, th {
+  color: var(--text-main);
+}
+
+input, select, textarea {
+  color: var(--text-main) !important;
+  background-color: #ffffff !important;
+}
+
+input::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 1;
+}
+
+body {
+  background-color: var(--body-bg);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Sidebar Sát Lề Trái - Cố định 100vh */
+.sidebar {
+  width: 280px;
+  background-color: var(--sidebar-bg);
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  z-index: 200;
+  box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+}
+
+.logo-section {
+  padding: 30px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.logo-box {
+  width: 42px;
+  height: 42px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.logo-text {
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.sidebar-user {
+  margin: 24px 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin: 0 auto 12px;
+  overflow: hidden;
+  background: white;
+}
+
+.sidebar-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Menu items */
+.menu-container {
+  flex: 1;
+  padding: 10px 12px;
+}
+
+.menu-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  margin: 20px 12px 10px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: all 0.2s;
+  background: transparent;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.menu-item:hover {
+  background: var(--sidebar-hover);
+  color: white;
+}
+
+.menu-item.active {
+  background: var(--sidebar-active);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.logout-section {
+  padding: 20px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Header mỏng đẹp */
+.header {
+  height: 70px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: fixed;
+  left: 280px;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.header-search {
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 400px;
+}
+
+.header-search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  width: 100%;
+  color: var(--text-main);
+}
+
+/* Content Area - Full width */
+.main-content {
+  margin-left: 280px;
+  padding: 102px 40px 40px;
+  min-height: 100vh;
+}
+
+/* Flat Cards */
+.card-flat {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Table Clean Style */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th {
+  background: #f8fafb;
+  padding: 16px 20px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+table td {
+  padding: 20px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+}
+
+.table-row:hover {
+  background: #fcfdfe;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* --- LOGIN SPLIT LAYOUT --- */
+.login-split-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.login-image-side {
+  flex: 6.5;
+  position: relative;
+  background-image: url('https://media.vov.vn/sites/default/files/styles/video_poster/public/2021-08/truong_dai_hoc_su_pham_ky_thuat_tphcm.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.1));
+}
+
+.login-image-content {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  color: white;
+  z-index: 10;
+}
+
+.login-image-footer {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  color: white;
+  z-index: 10;
+}
+
+.login-form-side {
+  flex: 3.5;
+  background: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  border-left: 1px solid #e2e8f0;
+}
+
+.login-card-elevated {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  padding: 48px;
+  border-radius: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.02);
+}
+
+.google-login-btn {
+  width: 100%;
+  padding: 16px;
+  background: #004b91;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.google-login-btn:hover {
+  background: #003a70;
+  box-shadow: 0 8px 20px rgba(0,75,145,0.2);
+}
+
+.login-input-group {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.login-input-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.login-input-wrapper {
+  position: relative;
+}
+
+.login-input-wrapper input {
+  width: 100%;
+  padding: 14px 14px 14px 44px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--text-main); /* Đảm bảo chữ màu đen */
+}
+
+.login-input-wrapper .icon {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  color: #94a3b8;
+}
+
+.login-card-footer {
+  margin-top: 32px;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .login-image-side { display: none; }
+  .login-form-side { flex: 1; padding: 20px; }
+  .login-card-elevated { padding: 32px 24px; }
+}
