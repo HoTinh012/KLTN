@@ -1,0 +1,4414 @@
+﻿{
+    "users":  [
+                  {
+                      "Email":  "hieunk@hcmute.edu.vn",
+                      "MS":  "0408",
+                      "Ten":  "Nguyễn Khắc Hiếu",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "trangltd@hcmute.edu.vn",
+                      "MS":  "2275",
+                      "Ten":  "Lê Trường Diễm Trang",
+                      "Role":  "Lecturer",
+                      "Major":  "KDQT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "longntc@hcmute.edu.vn",
+                      "MS":  "0168",
+                      "Ten":  "Nguyễn Thị Châu Long",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "vangdq@hcmute.edu.vn",
+                      "MS":  "0131",
+                      "Ten":  "Đàng Quang Vắng",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "huongltm@hcmute.edu.vn",
+                      "MS":  "9858",
+                      "Ten":  "Lê Thị Mai Hương",
+                      "Role":  "TBM",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "yendtk@hcmute.edu.vn",
+                      "MS":  "0714",
+                      "Ten":  "Đào Thị Kim Yến",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "phuongtta@hcmute.edu.vn",
+                      "MS":  "0498",
+                      "Ten":  "Trần Thụy Ái Phương",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "anhctn@hcmute.edu.vn",
+                      "MS":  "0843",
+                      "Ten":  "Cao Thị Nhân Anh",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "nuongltm@hcmute.edu.vn",
+                      "MS":  "6121",
+                      "Ten":  "Lê Thị Mỹ Nương",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "nghianh@hcmute.edu.vn",
+                      "MS":  "5052",
+                      "Ten":  "Nguyễn Hữu Nghĩa",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "anhnth@hcmute.edu.vn",
+                      "MS":  "0499",
+                      "Ten":  "Nguyễn Thị Hoàng Anh",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "tramnth@hcmute.edu.vn",
+                      "MS":  "2088",
+                      "Ten":  "Nguyễn Thị Huyền Trâm",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "duyvq@hcmute.edu.vn",
+                      "MS":  "6197",
+                      "Ten":  "Vương Quốc Duy",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "hongntt@hcmute.edu.vn",
+                      "MS":  "0501",
+                      "Ten":  "Nguyễn Thị Thu Hồng",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "phamhieu@hcmute.edu.vn",
+                      "MS":  "7081",
+                      "Ten":  "Phạm Hiếu",
+                      "Role":  "Lecturer",
+                      "Major":  "Ktoan",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "toaitk@hcmute.edu.vn",
+                      "MS":  "0760",
+                      "Ten":  "Trần Kim Toại",
+                      "Role":  "Lecturer",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "lananhnt@hcmute.edu.vn",
+                      "MS":  "4580",
+                      "Ten":  "Nguyễn Thị Lan Anh",
+                      "Role":  "Lecturer",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "viltt@hcmute.edu.vn",
+                      "MS":  "5018",
+                      "Ten":  "Lại Thị Tường Vi",
+                      "Role":  "Lecturer",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "linhtd@hcmute.edu.vn",
+                      "MS":  "7085",
+                      "Ten":  "Trương Diệu Linh",
+                      "Role":  "Lecturer",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "huynpa@hcmute.edu.vn",
+                      "MS":  "0625",
+                      "Ten":  "Nguyễn Phan Anh Huy",
+                      "Role":  "Lecturer",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "ngocnpn@hcmute.edu.vn",
+                      "MS":  "3999",
+                      "Ten":  "Nguyễn Phan Như Ngọc",
+                      "Role":  "Lecturer",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "hoatrt@hcmute.edu.vn",
+                      "MS":  "0644",
+                      "Ten":  "Trương Thị Hòa",
+                      "Role":  "TBM",
+                      "Major":  "KDQT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "phuongthuynt@hcmute.edu.vn",
+                      "MS":  "5038",
+                      "Ten":  "Nguyễn Thị Phương Thủy",
+                      "Role":  "Lecturer",
+                      "Major":  "KDQT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "quanhnm@hcmute.edu.vn",
+                      "MS":  "0322",
+                      "Ten":  "Hà Nguyễn Minh Quân",
+                      "Role":  "Lecturer",
+                      "Major":  "KDQT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "nguyenthuyphuong@hcmute.edu.vn",
+                      "MS":  "5054",
+                      "Ten":  "Nguyễn Thúy Phương",
+                      "Role":  "Lecturer",
+                      "Major":  "KDQT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thanhmv@hcmute.edu.vn",
+                      "MS":  "5065",
+                      "Ten":  "Mai Văn Thành",
+                      "Role":  "Lecturer",
+                      "Major":  "KDQT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thanhltt@hcmute.edu.vn",
+                      "MS":  "1631",
+                      "Ten":  "Lê Thị Tuyết Thanh",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thaindh@hcmute.edu.vn",
+                      "MS":  "9830",
+                      "Ten":  "Nguyễn Danh Hà Thái",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thiennd@hcmute.edu.vn",
+                      "MS":  "0805",
+                      "Ten":  "Nguyễn Đình Thiên",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "lamgiangkkt@hcmute.edu.vn",
+                      "MS":  "1873",
+                      "Ten":  "Tô Trần Lam Giang",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "vanngta@hcmute.edu.vn",
+                      "MS":  "0495",
+                      "Ten":  "Nguyễn Thị Anh Vân",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "tramntm@hcmute.edu.vn",
+                      "MS":  "0323",
+                      "Ten":  "Nguyễn Thị Mai Trâm",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "btanh@hcmute.edu.vn",
+                      "MS":  "4589",
+                      "Ten":  "Bùi Thu Anh",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "vanntt@hcmute.edu.vn",
+                      "MS":  "9312",
+                      "Ten":  "Nguyễn Thị Thanh Vân",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thupx@hcmute.edu.vn",
+                      "MS":  "5067",
+                      "Ten":  "Phạm Xuân Thu",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "tuhtc@hcmute.edu.vn",
+                      "MS":  "9313",
+                      "Ten":  "Huỳnh Thị Cẩm Tú",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thangpvh@hcmute.edu.vn",
+                      "MS":  "5046",
+                      "Ten":  "Phan Văn Hồng Thắng",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "xuyenhth@hcmute.edu.vn",
+                      "MS":  "4014",
+                      "Ten":  "Hồ Thị Hồng Xuyên",
+                      "Role":  "Lecturer",
+                      "Major":  "Log",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "huect@hcmute.edu.vn",
+                      "MS":  "7073",
+                      "Ten":  "Chu Thị Huệ",
+                      "Role":  "Lecturer",
+                      "Major":  "Log",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thinhbt@hcmute.edu.vn",
+                      "MS":  "6823",
+                      "Ten":  "Bùi Tiến Thịnh",
+                      "Role":  "Lecturer",
+                      "Major":  "Log",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "nguyenpk@hcmute.edu.vn",
+                      "MS":  "5021",
+                      "Ten":  "Phạm Khôi Nguyên",
+                      "Role":  "Lecturer",
+                      "Major":  "Log",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "tothihang@hcmute.edu.vn",
+                      "MS":  "7074",
+                      "Ten":  "Tô Thị Hằng",
+                      "Role":  "Lecturer",
+                      "Major":  "Log",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "hanhvtx@hcmute.edu.vn",
+                      "MS":  "3891",
+                      "Ten":  "Võ Thị Xuân Hạnh",
+                      "Role":  "Lecturer",
+                      "Major":  "Log",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "trucldt@hcmute.edu.vn",
+                      "MS":  "5099",
+                      "Ten":  "Lê Đỗ Thiên Trúc",
+                      "Role":  "Lecturer",
+                      "Major":  "KDQT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "minhta@hcmute.edu.vn",
+                      "MS":  "5020",
+                      "Ten":  "Trương Ánh Minh",
+                      "Role":  "Lecturer",
+                      "Major":  "KDQT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "namvt@hcmute.edu.vn",
+                      "MS":  "0537",
+                      "Ten":  "Vòng Thình Nam",
+                      "Role":  "TBM",
+                      "Major":  "Log",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thuynguyen@hcmute.edu.vn",
+                      "MS":  "2962",
+                      "Ten":  "Nguyễn Thị Thanh Thúy",
+                      "Role":  "TBM",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "hienptt@hcmute.edu.vn",
+                      "MS":  "0494",
+                      "Ten":  "Phan Thị Thanh Hiền",
+                      "Role":  "Lecturer",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "hongnt@hcmute.edu.vn",
+                      "MS":  "0260",
+                      "Ten":  "Nguyễn Thị Hồng",
+                      "Role":  "TBM",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "thienise@gmail.com",
+                      "MS":  "1111",
+                      "Ten":  "Nguyễn Đình Thiên 1",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "ise.thien@gmail.com",
+                      "MS":  "2222",
+                      "Ten":  "Nguyễn Đình Thiên 2",
+                      "Role":  "TBM",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  },
+                  {
+                      "Email":  "23124045@student.hcmute.edu.vn",
+                      "MS":  "23124045",
+                      "Ten":  "Nguyễn Thị Xuân An",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124049@student.hcmute.edu.vn",
+                      "MS":  "23124049",
+                      "Ten":  "Võ Phương Anh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124052@student.hcmute.edu.vn",
+                      "MS":  "23124052",
+                      "Ten":  "La Hải Bình",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124057@student.hcmute.edu.vn",
+                      "MS":  "23124057",
+                      "Ten":  "Nguyễn Phúc Hoàng Cương",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124068@student.hcmute.edu.vn",
+                      "MS":  "23124068",
+                      "Ten":  "Nguyễn Cao Đạt",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124069@student.hcmute.edu.vn",
+                      "MS":  "23124069",
+                      "Ten":  "Thái Lâm Phú Gia",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124071@student.hcmute.edu.vn",
+                      "MS":  "23124071",
+                      "Ten":  "Trần Hồng Hương Giang",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124073@student.hcmute.edu.vn",
+                      "MS":  "23124073",
+                      "Ten":  "Lê Thị Thu Hà",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22151076@student.hcmute.edu.vn",
+                      "MS":  "22151076",
+                      "Ten":  "Bùi Gia Hân",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124076@student.hcmute.edu.vn",
+                      "MS":  "23124076",
+                      "Ten":  "Nguyễn Lê Ngọc Hân",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124077@student.hcmute.edu.vn",
+                      "MS":  "23124077",
+                      "Ten":  "Đào Lê Xuân Hòa",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124084@student.hcmute.edu.vn",
+                      "MS":  "23124084",
+                      "Ten":  "Lê Nguyễn Lan Hương",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124086@student.hcmute.edu.vn",
+                      "MS":  "23124086",
+                      "Ten":  "Huỳnh Hoàng Khang",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124090@student.hcmute.edu.vn",
+                      "MS":  "23124090",
+                      "Ten":  "Nguyễn Ngọc Bảo Lam",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124091@student.hcmute.edu.vn",
+                      "MS":  "23124091",
+                      "Ten":  "Võ Thị Mỹ Lệ",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124093@student.hcmute.edu.vn",
+                      "MS":  "23124093",
+                      "Ten":  "Phạm Trần Nhật Linh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124094@student.hcmute.edu.vn",
+                      "MS":  "23124094",
+                      "Ten":  "Nguyễn Trần Nhật Mai",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124095@student.hcmute.edu.vn",
+                      "MS":  "23124095",
+                      "Ten":  "Phạm Ngọc Thanh Mai",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124099@student.hcmute.edu.vn",
+                      "MS":  "23124099",
+                      "Ten":  "Thái Duy Nam",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124101@student.hcmute.edu.vn",
+                      "MS":  "23124101",
+                      "Ten":  "Châu Kim Ngân",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124102@student.hcmute.edu.vn",
+                      "MS":  "23124102",
+                      "Ten":  "Đỗ Thị Ái Ngân",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124106@student.hcmute.edu.vn",
+                      "MS":  "23124106",
+                      "Ten":  "Phạm Nguyễn Minh Nguyên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124109@student.hcmute.edu.vn",
+                      "MS":  "23124109",
+                      "Ten":  "Nguyễn Hoàng Phương Nhi",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124110@student.hcmute.edu.vn",
+                      "MS":  "23124110",
+                      "Ten":  "Nguyễn Thị Xuân Nhi",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124112@student.hcmute.edu.vn",
+                      "MS":  "23124112",
+                      "Ten":  "Lê Nguyễn Thanh Như",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124113@student.hcmute.edu.vn",
+                      "MS":  "23124113",
+                      "Ten":  "Nguyễn Ngọc Nữ",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124114@student.hcmute.edu.vn",
+                      "MS":  "23124114",
+                      "Ten":  "Lê Quỳnh Phương",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124116@student.hcmute.edu.vn",
+                      "MS":  "23124116",
+                      "Ten":  "Lê Thị Phước",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124117@student.hcmute.edu.vn",
+                      "MS":  "23124117",
+                      "Ten":  "Phạm Hồng Phước",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23151165@student.hcmute.edu.vn",
+                      "MS":  "23151165",
+                      "Ten":  "Đỗ Thiên Quốc",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124118@student.hcmute.edu.vn",
+                      "MS":  "23124118",
+                      "Ten":  "Hồ Thị Hoàng Quyên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124120@student.hcmute.edu.vn",
+                      "MS":  "23124120",
+                      "Ten":  "Nguyễn Phương Ngọc Quyên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124122@student.hcmute.edu.vn",
+                      "MS":  "23124122",
+                      "Ten":  "Nguyễn Phương Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124123@student.hcmute.edu.vn",
+                      "MS":  "23124123",
+                      "Ten":  "Nguyễn Thị Diễm Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124124@student.hcmute.edu.vn",
+                      "MS":  "23124124",
+                      "Ten":  "Phạm Như Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124128@student.hcmute.edu.vn",
+                      "MS":  "23124128",
+                      "Ten":  "Trương Lê Hà Thanh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124130@student.hcmute.edu.vn",
+                      "MS":  "23124130",
+                      "Ten":  "Nguyễn Lê Chiến Thắng",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124132@student.hcmute.edu.vn",
+                      "MS":  "23124132",
+                      "Ten":  "Nguyễn Quốc Thắng",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22124115@student.hcmute.edu.vn",
+                      "MS":  "22124115",
+                      "Ten":  "Võ Duy Thiện",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23149138@student.hcmute.edu.vn",
+                      "MS":  "23149138",
+                      "Ten":  "Phạm Trọng Thịnh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22128070@student.hcmute.edu.vn",
+                      "MS":  "22128070",
+                      "Ten":  "Võ Minh Thông",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124138@student.hcmute.edu.vn",
+                      "MS":  "23124138",
+                      "Ten":  "Lê Vân Thủy Tiên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124139@student.hcmute.edu.vn",
+                      "MS":  "23124139",
+                      "Ten":  "Nguyễn Thị Kiều Tiên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124141@student.hcmute.edu.vn",
+                      "MS":  "23124141",
+                      "Ten":  "Phạm Đức Toàn",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124146@student.hcmute.edu.vn",
+                      "MS":  "23124146",
+                      "Ten":  "Nguyễn Phú Trung",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124147@student.hcmute.edu.vn",
+                      "MS":  "23124147",
+                      "Ten":  "Đỗ Thanh Trúc",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124148@student.hcmute.edu.vn",
+                      "MS":  "23124148",
+                      "Ten":  "Trần Minh Thảo Trúc",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124151@student.hcmute.edu.vn",
+                      "MS":  "23124151",
+                      "Ten":  "Định Tuấn",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22161210@student.hcmute.edu.vn",
+                      "MS":  "22161210",
+                      "Ten":  "Võ Thanh Tuấn",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124153@student.hcmute.edu.vn",
+                      "MS":  "23124153",
+                      "Ten":  "Nguyễn Thị Tuyết",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124154@student.hcmute.edu.vn",
+                      "MS":  "23124154",
+                      "Ten":  "Vũ Thanh Tùng",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124155@student.hcmute.edu.vn",
+                      "MS":  "23124155",
+                      "Ten":  "Nguyễn Dương Phương Uyên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124156@student.hcmute.edu.vn",
+                      "MS":  "23124156",
+                      "Ten":  "Trần Phương Uyên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124158@student.hcmute.edu.vn",
+                      "MS":  "23124158",
+                      "Ten":  "Nguyễn Hoàng Phương Vi",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124160@student.hcmute.edu.vn",
+                      "MS":  "23124160",
+                      "Ten":  "Kiều Tuyết Viên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124161@student.hcmute.edu.vn",
+                      "MS":  "23124161",
+                      "Ten":  "Cao Phương Vy",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22116024@student.hcmute.edu.vn",
+                      "MS":  "22116024",
+                      "Ten":  "Ngô Nguyễn Thảo Vy",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124163@student.hcmute.edu.vn",
+                      "MS":  "23124163",
+                      "Ten":  "Nguyễn Thị Yến Vy",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124164@student.hcmute.edu.vn",
+                      "MS":  "23124164",
+                      "Ten":  "Trần Nguyễn Phương Vy",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124046@student.hcmute.edu.vn",
+                      "MS":  "23124046",
+                      "Ten":  "Lê Hoàng Ngọc Anh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124047@student.hcmute.edu.vn",
+                      "MS":  "23124047",
+                      "Ten":  "Nguyễn Ngọc Minh Anh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124050@student.hcmute.edu.vn",
+                      "MS":  "23124050",
+                      "Ten":  "Huỳnh Gia Bảo",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124051@student.hcmute.edu.vn",
+                      "MS":  "23124051",
+                      "Ten":  "Nguyễn Gia Bảo",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124054@student.hcmute.edu.vn",
+                      "MS":  "23124054",
+                      "Ten":  "Trần Thị Hồng Cẩm",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124055@student.hcmute.edu.vn",
+                      "MS":  "23124055",
+                      "Ten":  "Dương Chí Công",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124059@student.hcmute.edu.vn",
+                      "MS":  "23124059",
+                      "Ten":  "Lê Hoàng Diện",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124061@student.hcmute.edu.vn",
+                      "MS":  "23124061",
+                      "Ten":  "Nguyễn Thị Thùy Dung",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124064@student.hcmute.edu.vn",
+                      "MS":  "23124064",
+                      "Ten":  "Trần Hoài Dương",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124065@student.hcmute.edu.vn",
+                      "MS":  "23124065",
+                      "Ten":  "Võ Hoàng Thùy Dương",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124080@student.hcmute.edu.vn",
+                      "MS":  "23124080",
+                      "Ten":  "Nguyễn Huy",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124081@student.hcmute.edu.vn",
+                      "MS":  "23124081",
+                      "Ten":  "Phan Lê Huy",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124085@student.hcmute.edu.vn",
+                      "MS":  "23124085",
+                      "Ten":  "Huỳnh An Khang",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124088@student.hcmute.edu.vn",
+                      "MS":  "23124088",
+                      "Ten":  "Phạm Kim Khánh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124100@student.hcmute.edu.vn",
+                      "MS":  "23124100",
+                      "Ten":  "Trần Thị Thuý Nga",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124103@student.hcmute.edu.vn",
+                      "MS":  "23124103",
+                      "Ten":  "Dương Thế Nghĩa",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22124087@student.hcmute.edu.vn",
+                      "MS":  "22124087",
+                      "Ten":  "Lê Thị Hồng Ngọc",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124107@student.hcmute.edu.vn",
+                      "MS":  "23124107",
+                      "Ten":  "Lê Thị Minh Nguyệt",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124121@student.hcmute.edu.vn",
+                      "MS":  "23124121",
+                      "Ten":  "Võ Thị Kiều Quyên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124136@student.hcmute.edu.vn",
+                      "MS":  "23124136",
+                      "Ten":  "Lại Minh Thư",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22124123@student.hcmute.edu.vn",
+                      "MS":  "22124123",
+                      "Ten":  "Bùi Trần Hoài Thương",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124142@student.hcmute.edu.vn",
+                      "MS":  "23124142",
+                      "Ten":  "Phạm Thị Thùy Trang",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124145@student.hcmute.edu.vn",
+                      "MS":  "23124145",
+                      "Ten":  "Phan Quốc Trí",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124149@student.hcmute.edu.vn",
+                      "MS":  "23124149",
+                      "Ten":  "Cao Hoàng Trường",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124150@student.hcmute.edu.vn",
+                      "MS":  "23124150",
+                      "Ten":  "Nguyễn Phi Trường",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "21124426@student.hcmute.edu.vn",
+                      "MS":  "21124426",
+                      "Ten":  "Phan Minh Anh Tuấn",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124152@student.hcmute.edu.vn",
+                      "MS":  "23124152",
+                      "Ten":  "Vũ Anh Tuấn",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124162@student.hcmute.edu.vn",
+                      "MS":  "23124162",
+                      "Ten":  "Đặng Thị Thúy Vy",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124053@student.hcmute.edu.vn",
+                      "MS":  "23124053",
+                      "Ten":  "Nguyễn Như Bình",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124056@student.hcmute.edu.vn",
+                      "MS":  "23124056",
+                      "Ten":  "Nguyễn Nhật Công",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124058@student.hcmute.edu.vn",
+                      "MS":  "23124058",
+                      "Ten":  "Vưu Hữu Cường",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124060@student.hcmute.edu.vn",
+                      "MS":  "23124060",
+                      "Ten":  "Lê Thị Minh Diệu",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124063@student.hcmute.edu.vn",
+                      "MS":  "23124063",
+                      "Ten":  "Tăng Kỳ Duyên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124066@student.hcmute.edu.vn",
+                      "MS":  "23124066",
+                      "Ten":  "Trương Quang Đại",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124067@student.hcmute.edu.vn",
+                      "MS":  "23124067",
+                      "Ten":  "Huỳnh Thái Thành Đạt",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124070@student.hcmute.edu.vn",
+                      "MS":  "23124070",
+                      "Ten":  "Lê Thị Cẩm Giang",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124072@student.hcmute.edu.vn",
+                      "MS":  "23124072",
+                      "Ten":  "Lê Ngọc Thái Hà",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124074@student.hcmute.edu.vn",
+                      "MS":  "23124074",
+                      "Ten":  "Trương Thị Thu Hà",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124075@student.hcmute.edu.vn",
+                      "MS":  "23124075",
+                      "Ten":  "Nguyễn Vy Hạ",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124082@student.hcmute.edu.vn",
+                      "MS":  "23124082",
+                      "Ten":  "Trương Minh Hùng",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124083@student.hcmute.edu.vn",
+                      "MS":  "23124083",
+                      "Ten":  "Hoàng Nam Hưng",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124087@student.hcmute.edu.vn",
+                      "MS":  "23124087",
+                      "Ten":  "Dương Bảo Khánh",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124089@student.hcmute.edu.vn",
+                      "MS":  "23124089",
+                      "Ten":  "Phan Lê Diễm Kiều",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124096@student.hcmute.edu.vn",
+                      "MS":  "23124096",
+                      "Ten":  "Phan Hồng My",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124097@student.hcmute.edu.vn",
+                      "MS":  "23124097",
+                      "Ten":  "Hồ Thị Ly Na",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124104@student.hcmute.edu.vn",
+                      "MS":  "23124104",
+                      "Ten":  "Trần Nguyễn Hồng Ngọc",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124105@student.hcmute.edu.vn",
+                      "MS":  "23124105",
+                      "Ten":  "Lưu Nguyễn Thảo Nguyên",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23116189@student.hcmute.edu.vn",
+                      "MS":  "23116189",
+                      "Ten":  "Doãn Thị Yến Nhi",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124111@student.hcmute.edu.vn",
+                      "MS":  "23124111",
+                      "Ten":  "Nguyễn Thị Yến Nhi",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "20110545@student.hcmute.edu.vn",
+                      "MS":  "20110545",
+                      "Ten":  "Lê Duy Phương",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124115@student.hcmute.edu.vn",
+                      "MS":  "23124115",
+                      "Ten":  "Lê Tấn Phước",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124125@student.hcmute.edu.vn",
+                      "MS":  "23124125",
+                      "Ten":  "Phan Hoàng Sơn",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124127@student.hcmute.edu.vn",
+                      "MS":  "23124127",
+                      "Ten":  "Trịnh Thái Thanh Tâm",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124129@student.hcmute.edu.vn",
+                      "MS":  "23124129",
+                      "Ten":  "Nguyễn Thị Phương Thảo",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22160036@student.hcmute.edu.vn",
+                      "MS":  "22160036",
+                      "Ten":  "Nguyễn Thị Thu Thảo",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124131@student.hcmute.edu.vn",
+                      "MS":  "23124131",
+                      "Ten":  "Nguyễn Ngọc Thắng",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124133@student.hcmute.edu.vn",
+                      "MS":  "23124133",
+                      "Ten":  "Ngô Chí Thiện",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23143202@student.hcmute.edu.vn",
+                      "MS":  "23143202",
+                      "Ten":  "Lê Minh Thuận",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124134@student.hcmute.edu.vn",
+                      "MS":  "23124134",
+                      "Ten":  "Lê Trần Thanh Thúy",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22160040@student.hcmute.edu.vn",
+                      "MS":  "22160040",
+                      "Ten":  "Lương Ngọc Minh Thư",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124137@student.hcmute.edu.vn",
+                      "MS":  "23124137",
+                      "Ten":  "Vũ Huỳnh Anh Thư",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "23124140@student.hcmute.edu.vn",
+                      "MS":  "23124140",
+                      "Ten":  "Lê Đức Tín",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22149204@student.hcmute.edu.vn",
+                      "MS":  "22149204",
+                      "Ten":  "Võ Lâm Vĩ",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "22142436@student.hcmute.edu.vn",
+                      "MS":  "22142436",
+                      "Ten":  "Trần Hán Vương",
+                      "Role":  "Student",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  "CLC"
+                  },
+                  {
+                      "Email":  "24136002@student.hcmute.edu.vn",
+                      "MS":  "24136002",
+                      "Ten":  "Ngô Thị Kiều An",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136003@student.hcmute.edu.vn",
+                      "MS":  "24136003",
+                      "Ten":  "Nguyễn Hữu An",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136006@student.hcmute.edu.vn",
+                      "MS":  "24136006",
+                      "Ten":  "Nguyễn Trần Tuấn Anh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136012@student.hcmute.edu.vn",
+                      "MS":  "24136012",
+                      "Ten":  "Trần Hoài Bảo",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126021@student.hcmute.edu.vn",
+                      "MS":  "24126021",
+                      "Ten":  "Nguyễn Thị Hoà Bình",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136013@student.hcmute.edu.vn",
+                      "MS":  "24136013",
+                      "Ten":  "Phạm Thanh Bình",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136014@student.hcmute.edu.vn",
+                      "MS":  "24136014",
+                      "Ten":  "Nguyễn Ngọc Bảo Châu",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136015@student.hcmute.edu.vn",
+                      "MS":  "24136015",
+                      "Ten":  "Nguyễn Thị Minh Châu",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136016@student.hcmute.edu.vn",
+                      "MS":  "24136016",
+                      "Ten":  "Phan Huy Chương",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136018@student.hcmute.edu.vn",
+                      "MS":  "24136018",
+                      "Ten":  "Trần Khánh Duy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136019@student.hcmute.edu.vn",
+                      "MS":  "24136019",
+                      "Ten":  "Đào Thị Duyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136020@student.hcmute.edu.vn",
+                      "MS":  "24136020",
+                      "Ten":  "Phan Thị Mỹ Duyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136022@student.hcmute.edu.vn",
+                      "MS":  "24136022",
+                      "Ten":  "Nguyễn Ngọc Xuân Đào",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136024@student.hcmute.edu.vn",
+                      "MS":  "24136024",
+                      "Ten":  "Nguyễn Quốc Thu Hà",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136025@student.hcmute.edu.vn",
+                      "MS":  "24136025",
+                      "Ten":  "Vũ Trí Hải",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136026@student.hcmute.edu.vn",
+                      "MS":  "24136026",
+                      "Ten":  "Nguyễn Thị Bích Hằng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126078@student.hcmute.edu.vn",
+                      "MS":  "23126078",
+                      "Ten":  "Diệp Gia Hân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136029@student.hcmute.edu.vn",
+                      "MS":  "24136029",
+                      "Ten":  "Phạm Hoàng Bảo Hân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136030@student.hcmute.edu.vn",
+                      "MS":  "24136030",
+                      "Ten":  "Huỳnh Đặng Thu Hiền",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136031@student.hcmute.edu.vn",
+                      "MS":  "24136031",
+                      "Ten":  "Võ Thị Hoàn",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136032@student.hcmute.edu.vn",
+                      "MS":  "24136032",
+                      "Ten":  "Lê Ngọc Minh Hoàng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136033@student.hcmute.edu.vn",
+                      "MS":  "24136033",
+                      "Ten":  "Nguyễn Huy Hoàng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136037@student.hcmute.edu.vn",
+                      "MS":  "24136037",
+                      "Ten":  "Hoàng Ngọc Huyền",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136038@student.hcmute.edu.vn",
+                      "MS":  "24136038",
+                      "Ten":  "Nguyễn Kiều Hương",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126091@student.hcmute.edu.vn",
+                      "MS":  "23126091",
+                      "Ten":  "Thái Bửu Khanh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136041@student.hcmute.edu.vn",
+                      "MS":  "24136041",
+                      "Ten":  "Võ Anh Khoa",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136043@student.hcmute.edu.vn",
+                      "MS":  "24136043",
+                      "Ten":  "Huỳnh Thị Kim",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136044@student.hcmute.edu.vn",
+                      "MS":  "24136044",
+                      "Ten":  "Phan Công Kỷ",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136904@student.hcmute.edu.vn",
+                      "MS":  "24136904",
+                      "Ten":  "Bùi Duy Linh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136045@student.hcmute.edu.vn",
+                      "MS":  "24136045",
+                      "Ten":  "Phạm Kim Bảo Linh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136046@student.hcmute.edu.vn",
+                      "MS":  "24136046",
+                      "Ten":  "Trần Huỳnh Ngọc Long",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136047@student.hcmute.edu.vn",
+                      "MS":  "24136047",
+                      "Ten":  "Đoàn Thị Bình Minh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136048@student.hcmute.edu.vn",
+                      "MS":  "24136048",
+                      "Ten":  "Phạm Ngọc Hà My",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136049@student.hcmute.edu.vn",
+                      "MS":  "24136049",
+                      "Ten":  "Nguyễn Lê Na",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136050@student.hcmute.edu.vn",
+                      "MS":  "24136050",
+                      "Ten":  "Nguyễn Vũ Vy Na",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136051@student.hcmute.edu.vn",
+                      "MS":  "24136051",
+                      "Ten":  "Nguyễn Thị Thúy Nga",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136052@student.hcmute.edu.vn",
+                      "MS":  "24136052",
+                      "Ten":  "Đào Thị Mỹ Ngân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136053@student.hcmute.edu.vn",
+                      "MS":  "24136053",
+                      "Ten":  "Nguyễn Tuyết Ngân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136054@student.hcmute.edu.vn",
+                      "MS":  "24136054",
+                      "Ten":  "Trịnh Thị Trúc Ngân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24155053@student.hcmute.edu.vn",
+                      "MS":  "24155053",
+                      "Ten":  "Đỗ Bích Ngọc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136060@student.hcmute.edu.vn",
+                      "MS":  "24136060",
+                      "Ten":  "Nguyễn Dương Thanh Nhàn",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136064@student.hcmute.edu.vn",
+                      "MS":  "24136064",
+                      "Ten":  "Nguyễn Thị Phương Nhi",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136065@student.hcmute.edu.vn",
+                      "MS":  "24136065",
+                      "Ten":  "Phạm Thảo Nhi",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24160048@student.hcmute.edu.vn",
+                      "MS":  "24160048",
+                      "Ten":  "Hà Huỳnh Khánh Như",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136067@student.hcmute.edu.vn",
+                      "MS":  "24136067",
+                      "Ten":  "Trần Hồng Phúc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136068@student.hcmute.edu.vn",
+                      "MS":  "24136068",
+                      "Ten":  "Nguyễn Thị Cúc Phương",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136080@student.hcmute.edu.vn",
+                      "MS":  "24136080",
+                      "Ten":  "Nguyễn Thị Phương Thảo",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136081@student.hcmute.edu.vn",
+                      "MS":  "24136081",
+                      "Ten":  "Đinh Thị Hồng Thắm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136083@student.hcmute.edu.vn",
+                      "MS":  "24136083",
+                      "Ten":  "Nguyễn Đặng Hồng Thắm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136084@student.hcmute.edu.vn",
+                      "MS":  "24136084",
+                      "Ten":  "Tạ Thị Ngọc Thi",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136085@student.hcmute.edu.vn",
+                      "MS":  "24136085",
+                      "Ten":  "Lê Đinh Bảo Thơ",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136089@student.hcmute.edu.vn",
+                      "MS":  "24136089",
+                      "Ten":  "Nguyễn Ngọc Thúy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136090@student.hcmute.edu.vn",
+                      "MS":  "24136090",
+                      "Ten":  "Huỳnh Thị Anh Thư",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136092@student.hcmute.edu.vn",
+                      "MS":  "24136092",
+                      "Ten":  "Phan Lê Anh Thư",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136094@student.hcmute.edu.vn",
+                      "MS":  "24136094",
+                      "Ten":  "Thái Thị Minh Thư",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136095@student.hcmute.edu.vn",
+                      "MS":  "24136095",
+                      "Ten":  "Trần Thị Minh Thư",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136096@student.hcmute.edu.vn",
+                      "MS":  "24136096",
+                      "Ten":  "Võ Hoàng Uyên Thư",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136097@student.hcmute.edu.vn",
+                      "MS":  "24136097",
+                      "Ten":  "Dương Ý Thương",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136098@student.hcmute.edu.vn",
+                      "MS":  "24136098",
+                      "Ten":  "Phan Ngọc Quỳnh Thy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126142@student.hcmute.edu.vn",
+                      "MS":  "23126142",
+                      "Ten":  "Dương Huỳnh Uyên Trang",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136100@student.hcmute.edu.vn",
+                      "MS":  "24136100",
+                      "Ten":  "Đỗ Linh Bảo Trân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136101@student.hcmute.edu.vn",
+                      "MS":  "24136101",
+                      "Ten":  "Nguyễn Minh Trí",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136102@student.hcmute.edu.vn",
+                      "MS":  "24136102",
+                      "Ten":  "Nguyễn Lê Đức Trọng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136104@student.hcmute.edu.vn",
+                      "MS":  "24136104",
+                      "Ten":  "Nguyễn Thị Thanh Trúc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136105@student.hcmute.edu.vn",
+                      "MS":  "24136105",
+                      "Ten":  "Ba Xuân Tuấn",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136106@student.hcmute.edu.vn",
+                      "MS":  "24136106",
+                      "Ten":  "Nguyễn Thị Thùy Tuyến",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126151@student.hcmute.edu.vn",
+                      "MS":  "23126151",
+                      "Ten":  "Phạm Nguyễn Hoàng Tú",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136109@student.hcmute.edu.vn",
+                      "MS":  "24136109",
+                      "Ten":  "Nguyễn Thảo Uyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136110@student.hcmute.edu.vn",
+                      "MS":  "24136110",
+                      "Ten":  "Võ Tú Uyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136111@student.hcmute.edu.vn",
+                      "MS":  "24136111",
+                      "Ten":  "Lê Phạm Triệu Vân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126277@student.hcmute.edu.vn",
+                      "MS":  "24126277",
+                      "Ten":  "Nguyễn Ngọc Kiều Vy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126278@student.hcmute.edu.vn",
+                      "MS":  "24126278",
+                      "Ten":  "Nguyễn Thị Tường Vy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126060@student.hcmute.edu.vn",
+                      "MS":  "23126060",
+                      "Ten":  "Nguyễn Hoài An",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126061@student.hcmute.edu.vn",
+                      "MS":  "23126061",
+                      "Ten":  "Nguyễn Ngọc Quỳnh An",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126063@student.hcmute.edu.vn",
+                      "MS":  "23126063",
+                      "Ten":  "Bùi Thị Lan Anh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136004@student.hcmute.edu.vn",
+                      "MS":  "24136004",
+                      "Ten":  "Bùi Thị Mỹ Anh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136005@student.hcmute.edu.vn",
+                      "MS":  "24136005",
+                      "Ten":  "Nguyễn Hà Hoàng Anh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24124011@student.hcmute.edu.vn",
+                      "MS":  "24124011",
+                      "Ten":  "Phạm Thị Kim Anh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136008@student.hcmute.edu.vn",
+                      "MS":  "24136008",
+                      "Ten":  "Võ Phương Anh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136009@student.hcmute.edu.vn",
+                      "MS":  "24136009",
+                      "Ten":  "Nguyễn Thị Ngọc Ánh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24134006@student.hcmute.edu.vn",
+                      "MS":  "24134006",
+                      "Ten":  "Nguyễn Hoàng Gia Ân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136010@student.hcmute.edu.vn",
+                      "MS":  "24136010",
+                      "Ten":  "Trần Hứa Nhật Ân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126065@student.hcmute.edu.vn",
+                      "MS":  "23126065",
+                      "Ten":  "Nguyễn Đức Bảo",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126066@student.hcmute.edu.vn",
+                      "MS":  "23126066",
+                      "Ten":  "Võ Quốc Bảo",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126067@student.hcmute.edu.vn",
+                      "MS":  "23126067",
+                      "Ten":  "Trần Doanh Doanh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126069@student.hcmute.edu.vn",
+                      "MS":  "23126069",
+                      "Ten":  "Phan Nguyễn Thuỳ Dung",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126070@student.hcmute.edu.vn",
+                      "MS":  "23126070",
+                      "Ten":  "Nguyễn Khánh Duy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126072@student.hcmute.edu.vn",
+                      "MS":  "23126072",
+                      "Ten":  "Ngô Phương Đài",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136023@student.hcmute.edu.vn",
+                      "MS":  "24136023",
+                      "Ten":  "Nguyễn Hương Giang",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136027@student.hcmute.edu.vn",
+                      "MS":  "24136027",
+                      "Ten":  "Trần Thị Khánh Hằng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126080@student.hcmute.edu.vn",
+                      "MS":  "23126080",
+                      "Ten":  "Lê Thảo Hân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126082@student.hcmute.edu.vn",
+                      "MS":  "23126082",
+                      "Ten":  "Phan Thị Thúy Hiền",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126083@student.hcmute.edu.vn",
+                      "MS":  "23126083",
+                      "Ten":  "Phan Văn Hiệu",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126084@student.hcmute.edu.vn",
+                      "MS":  "23126084",
+                      "Ten":  "Nguyễn Thị Kiều Hoa",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126085@student.hcmute.edu.vn",
+                      "MS":  "23126085",
+                      "Ten":  "Lê Thị Thanh Hoà",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126086@student.hcmute.edu.vn",
+                      "MS":  "23126086",
+                      "Ten":  "Hoàng Thị Hợp",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136034@student.hcmute.edu.vn",
+                      "MS":  "24136034",
+                      "Ten":  "Bùi Vũ Quang Huy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24124031@student.hcmute.edu.vn",
+                      "MS":  "24124031",
+                      "Ten":  "Trần Đặng Đăng Huy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136039@student.hcmute.edu.vn",
+                      "MS":  "24136039",
+                      "Ten":  "Lê Thị Vân Khánh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126092@student.hcmute.edu.vn",
+                      "MS":  "23126092",
+                      "Ten":  "Đinh Thị Diễm Kiều",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126093@student.hcmute.edu.vn",
+                      "MS":  "23126093",
+                      "Ten":  "Trịnh Thị Linh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24162068@student.hcmute.edu.vn",
+                      "MS":  "24162068",
+                      "Ten":  "Phạm Thị Kiều Loan",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126098@student.hcmute.edu.vn",
+                      "MS":  "23126098",
+                      "Ten":  "Nguyễn Thị Ngọc Ngà",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126100@student.hcmute.edu.vn",
+                      "MS":  "23126100",
+                      "Ten":  "Nguyễn Thị Hồng Ngân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126101@student.hcmute.edu.vn",
+                      "MS":  "23126101",
+                      "Ten":  "Nguyễn Thị Thanh Ngân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136055@student.hcmute.edu.vn",
+                      "MS":  "24136055",
+                      "Ten":  "Võ Trần Thảo Ngân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136056@student.hcmute.edu.vn",
+                      "MS":  "24136056",
+                      "Ten":  "Võ Việt Ngân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136057@student.hcmute.edu.vn",
+                      "MS":  "24136057",
+                      "Ten":  "Huỳnh Thị Ánh Ngọc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126104@student.hcmute.edu.vn",
+                      "MS":  "23126104",
+                      "Ten":  "Lâm Huỳnh Bảo Ngọc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126105@student.hcmute.edu.vn",
+                      "MS":  "23126105",
+                      "Ten":  "Lê Nguyễn Khánh Ngọc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126108@student.hcmute.edu.vn",
+                      "MS":  "23126108",
+                      "Ten":  "Lê Ngọc Thảo Nguyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136063@student.hcmute.edu.vn",
+                      "MS":  "24136063",
+                      "Ten":  "Biện Hồ Minh Nhật",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126109@student.hcmute.edu.vn",
+                      "MS":  "23126109",
+                      "Ten":  "Đặng Thị Ý Nhi",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136066@student.hcmute.edu.vn",
+                      "MS":  "24136066",
+                      "Ten":  "Vũ Đinh Tố Như",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126114@student.hcmute.edu.vn",
+                      "MS":  "23126114",
+                      "Ten":  "Hồ Thị Ngọc Phương",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126115@student.hcmute.edu.vn",
+                      "MS":  "23126115",
+                      "Ten":  "Lê Huỳnh Ngọc Phượng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136069@student.hcmute.edu.vn",
+                      "MS":  "24136069",
+                      "Ten":  "Phạm Vũ Anh Quân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136070@student.hcmute.edu.vn",
+                      "MS":  "24136070",
+                      "Ten":  "Trần Thị Bích Quy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136071@student.hcmute.edu.vn",
+                      "MS":  "24136071",
+                      "Ten":  "Dương Ngọc Quyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126116@student.hcmute.edu.vn",
+                      "MS":  "23126116",
+                      "Ten":  "Huỳnh Thị Kim Quyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136072@student.hcmute.edu.vn",
+                      "MS":  "24136072",
+                      "Ten":  "Trần Lệ Quyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126117@student.hcmute.edu.vn",
+                      "MS":  "23126117",
+                      "Ten":  "Trần Ngọc Thảo Quyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126118@student.hcmute.edu.vn",
+                      "MS":  "23126118",
+                      "Ten":  "Trần Thị Kim Quyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136073@student.hcmute.edu.vn",
+                      "MS":  "24136073",
+                      "Ten":  "Châu Thị Diễm Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126119@student.hcmute.edu.vn",
+                      "MS":  "23126119",
+                      "Ten":  "Lê Hương Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126120@student.hcmute.edu.vn",
+                      "MS":  "23126120",
+                      "Ten":  "Lê Thị Kim Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126121@student.hcmute.edu.vn",
+                      "MS":  "23126121",
+                      "Ten":  "Nguyễn Nhựt Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136074@student.hcmute.edu.vn",
+                      "MS":  "24136074",
+                      "Ten":  "Nguyễn Thị Phương Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136075@student.hcmute.edu.vn",
+                      "MS":  "24136075",
+                      "Ten":  "Trần Thị Như Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126122@student.hcmute.edu.vn",
+                      "MS":  "23126122",
+                      "Ten":  "Trương Như Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136077@student.hcmute.edu.vn",
+                      "MS":  "24136077",
+                      "Ten":  "Phạm Thế Tài",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136079@student.hcmute.edu.vn",
+                      "MS":  "24136079",
+                      "Ten":  "Nguyễn Trần Thanh Tâm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136082@student.hcmute.edu.vn",
+                      "MS":  "24136082",
+                      "Ten":  "Khưu Anh Thắm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126128@student.hcmute.edu.vn",
+                      "MS":  "23126128",
+                      "Ten":  "Lê Tiến Thân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126130@student.hcmute.edu.vn",
+                      "MS":  "23126130",
+                      "Ten":  "Nguyễn Tài Thiện",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136087@student.hcmute.edu.vn",
+                      "MS":  "24136087",
+                      "Ten":  "Nguyễn Thị Minh Thủy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136088@student.hcmute.edu.vn",
+                      "MS":  "24136088",
+                      "Ten":  "Nguyễn Thu Thủy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126134@student.hcmute.edu.vn",
+                      "MS":  "23126134",
+                      "Ten":  "Nguyễn Thị Ngọc Thúy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126135@student.hcmute.edu.vn",
+                      "MS":  "23126135",
+                      "Ten":  "Phạm Thị Thanh Thúy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136091@student.hcmute.edu.vn",
+                      "MS":  "24136091",
+                      "Ten":  "Nguyễn Thị Minh Thư",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126137@student.hcmute.edu.vn",
+                      "MS":  "23126137",
+                      "Ten":  "Trần Thị Hoài Thương",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126143@student.hcmute.edu.vn",
+                      "MS":  "23126143",
+                      "Ten":  "Nguyễn Ngọc Đoan Trang",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126144@student.hcmute.edu.vn",
+                      "MS":  "23126144",
+                      "Ten":  "Nguyễn Thị Mai Trâm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126147@student.hcmute.edu.vn",
+                      "MS":  "23126147",
+                      "Ten":  "Nguyễn Minh Trí",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136103@student.hcmute.edu.vn",
+                      "MS":  "24136103",
+                      "Ten":  "Nguyễn Thanh Trúc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126148@student.hcmute.edu.vn",
+                      "MS":  "23126148",
+                      "Ten":  "Bùi Nhựt Trường",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126149@student.hcmute.edu.vn",
+                      "MS":  "23126149",
+                      "Ten":  "Lê Nhựt Trường",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126150@student.hcmute.edu.vn",
+                      "MS":  "23126150",
+                      "Ten":  "Võ Ngọc Tuyết",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126154@student.hcmute.edu.vn",
+                      "MS":  "23126154",
+                      "Ten":  "Lương Nguyễn Phương Uyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126158@student.hcmute.edu.vn",
+                      "MS":  "23126158",
+                      "Ten":  "Nguyễn Quốc Vinh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136112@student.hcmute.edu.vn",
+                      "MS":  "24136112",
+                      "Ten":  "Phạm Hoàng Vũ",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126161@student.hcmute.edu.vn",
+                      "MS":  "23126161",
+                      "Ten":  "Nguyễn Ngọc Thảo Vy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126901@student.hcmute.edu.vn",
+                      "MS":  "24126901",
+                      "Ten":  "Nguyễn Ngọc Anh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136007@student.hcmute.edu.vn",
+                      "MS":  "24136007",
+                      "Ten":  "Quách Kiều Anh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126012@student.hcmute.edu.vn",
+                      "MS":  "24126012",
+                      "Ten":  "Lương Kim Ngọc Ánh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136901@student.hcmute.edu.vn",
+                      "MS":  "24136901",
+                      "Ten":  "Vũ Ngọc Ánh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126016@student.hcmute.edu.vn",
+                      "MS":  "24126016",
+                      "Ten":  "Nguyễn Gia Bảo",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126019@student.hcmute.edu.vn",
+                      "MS":  "24126019",
+                      "Ten":  "Nguyễn Thị Thu Biên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136021@student.hcmute.edu.vn",
+                      "MS":  "24136021",
+                      "Ten":  "Đặng Thùy Dương",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136902@student.hcmute.edu.vn",
+                      "MS":  "24136902",
+                      "Ten":  "Bùi Văn Đạt",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126047@student.hcmute.edu.vn",
+                      "MS":  "24126047",
+                      "Ten":  "Nguyễn Lê Huỳnh Đức",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126051@student.hcmute.edu.vn",
+                      "MS":  "24126051",
+                      "Ten":  "Bùi Thị Thu Hà",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126077@student.hcmute.edu.vn",
+                      "MS":  "23126077",
+                      "Ten":  "Phạm Mỹ Hằng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136028@student.hcmute.edu.vn",
+                      "MS":  "24136028",
+                      "Ten":  "Đặng Nguyễn Gia Hân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126079@student.hcmute.edu.vn",
+                      "MS":  "23126079",
+                      "Ten":  "Huỳnh Ngọc Bảo Hân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126081@student.hcmute.edu.vn",
+                      "MS":  "23126081",
+                      "Ten":  "Trương Lê Bảo Hân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126077@student.hcmute.edu.vn",
+                      "MS":  "24126077",
+                      "Ten":  "Trần Phan Minh Hoài",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126083@student.hcmute.edu.vn",
+                      "MS":  "24126083",
+                      "Ten":  "Bùi Khang Huy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126084@student.hcmute.edu.vn",
+                      "MS":  "24126084",
+                      "Ten":  "Đinh Nhật Huy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126087@student.hcmute.edu.vn",
+                      "MS":  "24126087",
+                      "Ten":  "Nguyễn Gia Huy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136035@student.hcmute.edu.vn",
+                      "MS":  "24136035",
+                      "Ten":  "Phan Văn Huy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126090@student.hcmute.edu.vn",
+                      "MS":  "24126090",
+                      "Ten":  "Vũ Trọng Huy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136036@student.hcmute.edu.vn",
+                      "MS":  "24136036",
+                      "Ten":  "Phùng Thị Mỹ Huyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126089@student.hcmute.edu.vn",
+                      "MS":  "23126089",
+                      "Ten":  "Nguyễn Thị Huyền",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126091@student.hcmute.edu.vn",
+                      "MS":  "24126091",
+                      "Ten":  "Tạ Bùi Thanh Huyền",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126120@student.hcmute.edu.vn",
+                      "MS":  "24126120",
+                      "Ten":  "Nguyễn Đặng Tấn Lộc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126094@student.hcmute.edu.vn",
+                      "MS":  "23126094",
+                      "Ten":  "Hồ Lâm Minh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126096@student.hcmute.edu.vn",
+                      "MS":  "23126096",
+                      "Ten":  "Lê Thị Kiều My",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126097@student.hcmute.edu.vn",
+                      "MS":  "23126097",
+                      "Ten":  "Nguyễn Thị Trà My",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126099@student.hcmute.edu.vn",
+                      "MS":  "23126099",
+                      "Ten":  "Hồ Hoàng Ngân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126149@student.hcmute.edu.vn",
+                      "MS":  "24126149",
+                      "Ten":  "Đỗ Hữu Nghĩa",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126103@student.hcmute.edu.vn",
+                      "MS":  "23126103",
+                      "Ten":  "Nguyễn Hữu Nghĩa",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126150@student.hcmute.edu.vn",
+                      "MS":  "24126150",
+                      "Ten":  "Đinh Thị Như Ngọc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24159051@student.hcmute.edu.vn",
+                      "MS":  "24159051",
+                      "Ten":  "Phan Nguyễn Tâm Như",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126113@student.hcmute.edu.vn",
+                      "MS":  "23126113",
+                      "Ten":  "Phạm Hoàng Phúc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126183@student.hcmute.edu.vn",
+                      "MS":  "24126183",
+                      "Ten":  "Nguyễn Thị Y Phụng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126185@student.hcmute.edu.vn",
+                      "MS":  "24126185",
+                      "Ten":  "Phạm Lê Hà Phương",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126188@student.hcmute.edu.vn",
+                      "MS":  "24126188",
+                      "Ten":  "Dương Thái Quyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "22136052@student.hcmute.edu.vn",
+                      "MS":  "22136052",
+                      "Ten":  "Lê Nguyễn Diễm Quỳnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126192@student.hcmute.edu.vn",
+                      "MS":  "24126192",
+                      "Ten":  "Trần Thái Sinh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126198@student.hcmute.edu.vn",
+                      "MS":  "24126198",
+                      "Ten":  "Bùi Thị Mỹ Tâm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136078@student.hcmute.edu.vn",
+                      "MS":  "24136078",
+                      "Ten":  "Dương Thanh Tâm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126200@student.hcmute.edu.vn",
+                      "MS":  "24126200",
+                      "Ten":  "Phan Thị Minh Tâm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126202@student.hcmute.edu.vn",
+                      "MS":  "24126202",
+                      "Ten":  "Lê Hữu Thanh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126127@student.hcmute.edu.vn",
+                      "MS":  "23126127",
+                      "Ten":  "Lê Quốc Thái",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126208@student.hcmute.edu.vn",
+                      "MS":  "24126208",
+                      "Ten":  "Trần Quốc Thái",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126210@student.hcmute.edu.vn",
+                      "MS":  "24126210",
+                      "Ten":  "Đỗ Mạnh Thắng",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126131@student.hcmute.edu.vn",
+                      "MS":  "23126131",
+                      "Ten":  "Nguyễn Văn Thiệu",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126219@student.hcmute.edu.vn",
+                      "MS":  "24126219",
+                      "Ten":  "Nguyễn Trường Thịnh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136086@student.hcmute.edu.vn",
+                      "MS":  "24136086",
+                      "Ten":  "Nguyễn Nam Thuận",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136093@student.hcmute.edu.vn",
+                      "MS":  "24136093",
+                      "Ten":  "Phạm Lưu Minh Thư",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23136118@student.hcmute.edu.vn",
+                      "MS":  "23136118",
+                      "Ten":  "Nguyễn Thị Trâm",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126252@student.hcmute.edu.vn",
+                      "MS":  "24126252",
+                      "Ten":  "Nguyễn Bảo Trân",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126254@student.hcmute.edu.vn",
+                      "MS":  "24126254",
+                      "Ten":  "Nguyễn Thị Kiều Trinh",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126262@student.hcmute.edu.vn",
+                      "MS":  "24126262",
+                      "Ten":  "Nguyễn Thanh Trúc",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126268@student.hcmute.edu.vn",
+                      "MS":  "24126268",
+                      "Ten":  "Phạm Hà Tú",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126152@student.hcmute.edu.vn",
+                      "MS":  "23126152",
+                      "Ten":  "Lâm Kiết Tường",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126270@student.hcmute.edu.vn",
+                      "MS":  "24126270",
+                      "Ten":  "Đặng Ngọc Phương Uyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126155@student.hcmute.edu.vn",
+                      "MS":  "23126155",
+                      "Ten":  "Phạm Nhã Uyên",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126156@student.hcmute.edu.vn",
+                      "MS":  "23126156",
+                      "Ten":  "Phạm Phú Văn",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126157@student.hcmute.edu.vn",
+                      "MS":  "23126157",
+                      "Ten":  "Trần Thị Kiều Vi",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136113@student.hcmute.edu.vn",
+                      "MS":  "24136113",
+                      "Ten":  "Huỳnh Thúy Vy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126159@student.hcmute.edu.vn",
+                      "MS":  "23126159",
+                      "Ten":  "Hứa Yến Vy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126274@student.hcmute.edu.vn",
+                      "MS":  "24126274",
+                      "Ten":  "Lê Thanh Vy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136114@student.hcmute.edu.vn",
+                      "MS":  "24136114",
+                      "Ten":  "Trần Khánh Vy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "23126162@student.hcmute.edu.vn",
+                      "MS":  "23126162",
+                      "Ten":  "Vũ Dương Thúy Vy",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24136115@student.hcmute.edu.vn",
+                      "MS":  "24136115",
+                      "Ten":  "Lê Thị Mỹ Yến",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "24126291@student.hcmute.edu.vn",
+                      "MS":  "24126291",
+                      "Ten":  "Nguyễn Thị Như Ý",
+                      "Role":  "Student",
+                      "Major":  "TMĐT",
+                      "HeDaoTao":  "Đại trà"
+                  },
+                  {
+                      "Email":  "hosytinh04@gmail.com",
+                      "MS":  "2962121323",
+                      "Ten":  "Hồ Sĩ Tịnh",
+                      "Role":  "TBM",
+                      "Major":  "QLCN",
+                      "HeDaoTao":  ""
+                  }
+              ],
+    "dots":  [
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "KLTN",
+                     "Major":  "QLCN",
+                     "Dot":  "Đợt 1 HK1 26-27",
+                     "Active":  "No",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "BCTT",
+                     "Major":  "QLCN",
+                     "Dot":  "Đợt 2 HK1 26-27",
+                     "Active":  "No",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "KLTN",
+                     "Major":  "QLCN",
+                     "Dot":  "Đợt 1 HK1 26-27",
+                     "Active":  "Yes",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "BCTT",
+                     "Major":  "QLCN",
+                     "Dot":  "Đợt 2 HK1 26-27",
+                     "Active":  "Yes",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "KLTN",
+                     "Major":  "TMĐT",
+                     "Dot":  "Đợt 1 HK1 26-27",
+                     "Active":  "Yes",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "BCTT",
+                     "Major":  "TMĐT",
+                     "Dot":  "Đợt 2 HK1 26-27",
+                     "Active":  "Yes",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "KLTN",
+                     "Major":  "KDQT",
+                     "Dot":  "Đợt 1 HK1 26-27",
+                     "Active":  "Yes",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "BCTT",
+                     "Major":  "KDQT",
+                     "Dot":  "Đợt 2 HK1 26-27",
+                     "Active":  "Yes",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "KLTN",
+                     "Major":  "Log",
+                     "Dot":  "Đợt 1 HK1 26-27",
+                     "Active":  "Yes",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 },
+                 {
+                     "StartReg":  "2026-03-28T17:00:00.000Z",
+                     "EndReg":  "2026-04-06T17:00:00.000Z",
+                     "Loaidetai":  "BCTT",
+                     "Major":  "Log",
+                     "Dot":  "Đợt 2 HK1 26-27",
+                     "Active":  "Yes",
+                     "StartEx":  "",
+                     "EndEx":  ""
+                 }
+             ],
+    "quotas":  [
+                   {
+                       "Email":  "hieunk@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  15
+                   },
+                   {
+                       "Email":  "trangltd@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  20
+                   },
+                   {
+                       "Email":  "longntc@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  25
+                   },
+                   {
+                       "Email":  "vangdq@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  30
+                   },
+                   {
+                       "Email":  "huongltm@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  35
+                   },
+                   {
+                       "Email":  "yendtk@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  40
+                   },
+                   {
+                       "Email":  "phuongtta@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  45
+                   },
+                   {
+                       "Email":  "anhctn@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  50
+                   },
+                   {
+                       "Email":  "nuongltm@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  55
+                   },
+                   {
+                       "Email":  "nghianh@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  60
+                   },
+                   {
+                       "Email":  "anhnth@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  65
+                   },
+                   {
+                       "Email":  "tramnth@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  70
+                   },
+                   {
+                       "Email":  "duyvq@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  75
+                   },
+                   {
+                       "Email":  "hongntt@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  80
+                   },
+                   {
+                       "Email":  "phamhieu@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  85
+                   },
+                   {
+                       "Email":  "toaitk@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  90
+                   },
+                   {
+                       "Email":  "lananhnt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  95
+                   },
+                   {
+                       "Email":  "viltt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  100
+                   },
+                   {
+                       "Email":  "linhtd@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  105
+                   },
+                   {
+                       "Email":  "huynpa@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  110
+                   },
+                   {
+                       "Email":  "ngocnpn@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  115
+                   },
+                   {
+                       "Email":  "hoatrt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  120
+                   },
+                   {
+                       "Email":  "phuongthuynt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  125
+                   },
+                   {
+                       "Email":  "quanhnm@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  130
+                   },
+                   {
+                       "Email":  "nguyenthuyphuong@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  135
+                   },
+                   {
+                       "Email":  "thanhmv@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  140
+                   },
+                   {
+                       "Email":  "thanhltt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  142
+                   },
+                   {
+                       "Email":  "thaindh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  149
+                   },
+                   {
+                       "Email":  "thiennd@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  155
+                   },
+                   {
+                       "Email":  "lamgiangkkt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  160
+                   },
+                   {
+                       "Email":  "vanngta@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  165
+                   },
+                   {
+                       "Email":  "tramntm@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  170
+                   },
+                   {
+                       "Email":  "btanh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  175
+                   },
+                   {
+                       "Email":  "vanntt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  180
+                   },
+                   {
+                       "Email":  "thupx@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  185
+                   },
+                   {
+                       "Email":  "tuhtc@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  190
+                   },
+                   {
+                       "Email":  "thangpvh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  195
+                   },
+                   {
+                       "Email":  "xuyenhth@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  200
+                   },
+                   {
+                       "Email":  "huect@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  205
+                   },
+                   {
+                       "Email":  "thinhbt@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  210
+                   },
+                   {
+                       "Email":  "nguyenpk@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  215
+                   },
+                   {
+                       "Email":  "tothihang@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  220
+                   },
+                   {
+                       "Email":  "hanhvtx@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  225
+                   },
+                   {
+                       "Email":  "trucldt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  230
+                   },
+                   {
+                       "Email":  "minhta@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  235
+                   },
+                   {
+                       "Email":  "namvt@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  240
+                   },
+                   {
+                       "Email":  "thuynguyen@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  245
+                   },
+                   {
+                       "Email":  "hienptt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  250
+                   },
+                   {
+                       "Email":  "hongnt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  255
+                   },
+                   {
+                       "Email":  "ise.thien@gmail.com",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "DaiTra",
+                       "Quota":  265
+                   },
+                   {
+                       "Email":  "hieunk@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  270
+                   },
+                   {
+                       "Email":  "trangltd@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  275
+                   },
+                   {
+                       "Email":  "longntc@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  280
+                   },
+                   {
+                       "Email":  "vangdq@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  285
+                   },
+                   {
+                       "Email":  "huongltm@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  290
+                   },
+                   {
+                       "Email":  "yendtk@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  295
+                   },
+                   {
+                       "Email":  "phuongtta@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  300
+                   },
+                   {
+                       "Email":  "anhctn@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  305
+                   },
+                   {
+                       "Email":  "nuongltm@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  310
+                   },
+                   {
+                       "Email":  "nghianh@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  315
+                   },
+                   {
+                       "Email":  "anhnth@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  320
+                   },
+                   {
+                       "Email":  "tramnth@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  325
+                   },
+                   {
+                       "Email":  "duyvq@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  330
+                   },
+                   {
+                       "Email":  "hongntt@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  335
+                   },
+                   {
+                       "Email":  "phamhieu@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  340
+                   },
+                   {
+                       "Email":  "toaitk@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  345
+                   },
+                   {
+                       "Email":  "lananhnt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  350
+                   },
+                   {
+                       "Email":  "viltt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  355
+                   },
+                   {
+                       "Email":  "linhtd@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  360
+                   },
+                   {
+                       "Email":  "huynpa@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  365
+                   },
+                   {
+                       "Email":  "ngocnpn@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  370
+                   },
+                   {
+                       "Email":  "hoatrt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  375
+                   },
+                   {
+                       "Email":  "phuongthuynt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  380
+                   },
+                   {
+                       "Email":  "quanhnm@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  385
+                   },
+                   {
+                       "Email":  "nguyenthuyphuong@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  390
+                   },
+                   {
+                       "Email":  "thanhmv@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  395
+                   },
+                   {
+                       "Email":  "thanhltt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  400
+                   },
+                   {
+                       "Email":  "thaindh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  405
+                   },
+                   {
+                       "Email":  "thiennd@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  410
+                   },
+                   {
+                       "Email":  "lamgiangkkt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  415
+                   },
+                   {
+                       "Email":  "vanngta@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  420
+                   },
+                   {
+                       "Email":  "tramntm@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  425
+                   },
+                   {
+                       "Email":  "btanh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  430
+                   },
+                   {
+                       "Email":  "vanntt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  435
+                   },
+                   {
+                       "Email":  "thupx@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  440
+                   },
+                   {
+                       "Email":  "tuhtc@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  445
+                   },
+                   {
+                       "Email":  "thangpvh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  450
+                   },
+                   {
+                       "Email":  "xuyenhth@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  455
+                   },
+                   {
+                       "Email":  "huect@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  460
+                   },
+                   {
+                       "Email":  "thinhbt@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  465
+                   },
+                   {
+                       "Email":  "nguyenpk@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  470
+                   },
+                   {
+                       "Email":  "tothihang@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  475
+                   },
+                   {
+                       "Email":  "hanhvtx@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  480
+                   },
+                   {
+                       "Email":  "trucldt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  485
+                   },
+                   {
+                       "Email":  "minhta@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  490
+                   },
+                   {
+                       "Email":  "namvt@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  495
+                   },
+                   {
+                       "Email":  "thuynguyen@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  500
+                   },
+                   {
+                       "Email":  "hienptt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  505
+                   },
+                   {
+                       "Email":  "hongnt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  510
+                   },
+                   {
+                       "Email":  "ise.thien@gmail.com",
+                       "Major":  "QLCN",
+                       "HeDaoTao":  "CLC",
+                       "Quota":  520
+                   }
+               ],
+    "fields":  [
+                   {
+                       "Email":  "trangltd@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "hoatrt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "phuongthuynt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "quanhnm@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "nguyenthuyphuong@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "thanhmv@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "trucldt@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "minhta@hcmute.edu.vn",
+                       "Major":  "KDQT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "longntc@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  "Mô phỏng"
+                   },
+                   {
+                       "Email":  "vangdq@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "huongltm@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "yendtk@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "phuongtta@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "anhctn@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "nuongltm@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "nghianh@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "anhnth@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "tramnth@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "duyvq@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "hongntt@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "phamhieu@hcmute.edu.vn",
+                       "Major":  "Ktoan",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "xuyenhth@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "huect@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "thinhbt@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "nguyenpk@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "tothihang@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "hanhvtx@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "namvt@hcmute.edu.vn",
+                       "Major":  "Log",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "hieunk@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Chất lượng"
+                   },
+                   {
+                       "Email":  "thanhltt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Marketing"
+                   },
+                   {
+                       "Email":  "thaindh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Mô phỏng"
+                   },
+                   {
+                       "Email":  "thaindh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Sản xuất"
+                   },
+                   {
+                       "Email":  "thiennd@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Chất lượng"
+                   },
+                   {
+                       "Email":  "thiennd@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Sản xuất"
+                   },
+                   {
+                       "Email":  "thiennd@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "AI"
+                   },
+                   {
+                       "Email":  "thiennd@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Mô phỏng"
+                   },
+                   {
+                       "Email":  "lamgiangkkt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Chất lượng"
+                   },
+                   {
+                       "Email":  "vanngta@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Chất lượng"
+                   },
+                   {
+                       "Email":  "tramntm@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Sản xuất"
+                   },
+                   {
+                       "Email":  "btanh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "vanntt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "thupx@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "tuhtc@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "thangpvh@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "Sản xuất"
+                   },
+                   {
+                       "Email":  "thuynguyen@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "HR"
+                   },
+                   {
+                       "Email":  "hienptt@hcmute.edu.vn",
+                       "Major":  "QLCN",
+                       "Field":  "HR"
+                   },
+                   {
+                       "Email":  "ise.thien@gmail.com",
+                       "Major":  "QLCN",
+                       "Field":  "Mô phỏng"
+                   },
+                   {
+                       "Email":  "toaitk@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "lananhnt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "viltt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "linhtd@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "huynpa@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "ngocnpn@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "Field":  ""
+                   },
+                   {
+                       "Email":  "hongnt@hcmute.edu.vn",
+                       "Major":  "TMĐT",
+                       "Field":  ""
+                   }
+               ],
+    "linkGiangvien":  [
+                          {
+                              "EmailSV":  "123887@student.hcmute.edu.vn",
+                              "EmailGV":  "000@hcmute.edu.vn",
+                              "Role":  "GVHD",
+                              "Diadiem":  "Online",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: GVHD (BB GVHD)"
+                          },
+                          {
+                              "EmailSV":  "123887@student.hcmute.edu.vn",
+                              "EmailGV":  "111@hcmute.edu.vn",
+                              "Role":  "GVPB",
+                              "Diadiem":  "Online",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: GVPB (BB GVPB)"
+                          },
+                          {
+                              "EmailSV":  "123887@student.hcmute.edu.vn",
+                              "EmailGV":  "111@hcmute.edu.vn",
+                              "Role":  "CTHD",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: CTHD (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "123887@student.hcmute.edu.vn",
+                              "EmailGV":  "123@hcmute.edu.vn",
+                              "Role":  "TVHD1",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: TVHD1 (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "123887@student.hcmute.edu.vn",
+                              "EmailGV":  "345@hcmute.edu.vn",
+                              "Role":  "TVHD2",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: TVHD2 (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "123887@student.hcmute.edu.vn",
+                              "EmailGV":  "678@hcmute.edu.vn",
+                              "Role":  "ThukyHD",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: ThukyHD (Biên bản Hội đồng)"
+                          },
+                          {
+                              "EmailSV":  "123456@student.hcmute.edu.vn",
+                              "EmailGV":  "111@hcmute.edu.vn",
+                              "Role":  "GVHD",
+                              "Diadiem":  "Online",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: GVHD (BB GVHD)"
+                          },
+                          {
+                              "EmailSV":  "123456@student.hcmute.edu.vn",
+                              "EmailGV":  "123@hcmute.edu.vn",
+                              "Role":  "GVPB",
+                              "Diadiem":  "Online",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: GVPB (BB GVPB)"
+                          },
+                          {
+                              "EmailSV":  "123456@student.hcmute.edu.vn",
+                              "EmailGV":  "111@hcmute.edu.vn",
+                              "Role":  "CTHD",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "No",
+                              "Link":  "Link Biên bản: CTHD (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "123456@student.hcmute.edu.vn",
+                              "EmailGV":  "123@hcmute.edu.vn",
+                              "Role":  "TVHD1",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "No",
+                              "Link":  "Link Biên bản: TVHD1 (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "123456@student.hcmute.edu.vn",
+                              "EmailGV":  "345@hcmute.edu.vn",
+                              "Role":  "TVHD2",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "No",
+                              "Link":  "Link Biên bản: TVHD2 (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "123456@student.hcmute.edu.vn",
+                              "EmailGV":  "678@hcmute.edu.vn",
+                              "Role":  "ThukyHD",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: ThukyHD (Biên bản Hội đồng)"
+                          },
+                          {
+                              "EmailSV":  "120000@student.hcmute.edu.vn",
+                              "EmailGV":  "000@hcmute.edu.vn",
+                              "Role":  "GVHD",
+                              "Diadiem":  "Online",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: GVHD (BB GVHD)"
+                          },
+                          {
+                              "EmailSV":  "120000@student.hcmute.edu.vn",
+                              "EmailGV":  "111@hcmute.edu.vn",
+                              "Role":  "GVPB",
+                              "Diadiem":  "Online",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: GVPB (BB GVPB)"
+                          },
+                          {
+                              "EmailSV":  "120000@student.hcmute.edu.vn",
+                              "EmailGV":  "111@hcmute.edu.vn",
+                              "Role":  "CTHD",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: CTHD (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "120000@student.hcmute.edu.vn",
+                              "EmailGV":  "123@hcmute.edu.vn",
+                              "Role":  "TVHD1",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: TVHD1 (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "120000@student.hcmute.edu.vn",
+                              "EmailGV":  "345@hcmute.edu.vn",
+                              "Role":  "TVHD2",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: TVHD2 (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "120000@student.hcmute.edu.vn",
+                              "EmailGV":  "678@hcmute.edu.vn",
+                              "Role":  "ThukyHD",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: ThukyHD (Biên bản Hội đồng)"
+                          },
+                          {
+                              "EmailSV":  "1200006@student.hcmute.edu.vn",
+                              "EmailGV":  "111@hcmute.edu.vn",
+                              "Role":  "GVHD",
+                              "Diadiem":  "Online",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: GVHD (BB GVHD)"
+                          },
+                          {
+                              "EmailSV":  "1200006@student.hcmute.edu.vn",
+                              "EmailGV":  "123@hcmute.edu.vn",
+                              "Role":  "GVPB",
+                              "Diadiem":  "Online",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: GVPB (BB GVPB)"
+                          },
+                          {
+                              "EmailSV":  "1200006@student.hcmute.edu.vn",
+                              "EmailGV":  "111@hcmute.edu.vn",
+                              "Role":  "CTHD",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: CTHD (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "1200006@student.hcmute.edu.vn",
+                              "EmailGV":  "123@hcmute.edu.vn",
+                              "Role":  "TVHD1",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: TVHD1 (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "1200006@student.hcmute.edu.vn",
+                              "EmailGV":  "345@hcmute.edu.vn",
+                              "Role":  "TVHD2",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: TVHD2 (BB Chấm điểm HĐ)"
+                          },
+                          {
+                              "EmailSV":  "1200006@student.hcmute.edu.vn",
+                              "EmailGV":  "678@hcmute.edu.vn",
+                              "Role":  "ThukyHD",
+                              "Diadiem":  "HD1-P301",
+                              "Diem":  "",
+                              "End":  "Yes",
+                              "Link":  "Link Biên bản: ThukyHD (Biên bản Hội đồng)"
+                          },
+                          {
+                              "EmailSV":  "thienise@gmail.com",
+                              "EmailGV":  "thaindh@hcmute.edu.vn",
+                              "Role":  "HD",
+                              "Diadiem":  "",
+                              "Diem":  "",
+                              "End":  "Approved",
+                              "Link":  ""
+                          },
+                          {
+                              "EmailSV":  "tue apr 07 2026 00:00:00 gmt+0700 (giờ đông dương)",
+                              "EmailGV":  "23124102@student.hcmute.edu.vn",
+                              "Role":  "thanhltt@hcmute.edu.vn",
+                              "Diadiem":  "BCTT",
+                              "Diem":  "New",
+                              "End":  "",
+                              "Link":  ""
+                          }
+                      ],
+    "linkBainop":  [
+                       {
+                           "EmailSV":  "123345@student.hcmute.edu.vn",
+                           "Tendetai":  "dfhk",
+                           "DotHK":  "Đợt 1 HK1 26-27",
+                           "Loaidetai":  "BCTT",
+                           "Linkbai":  "Bài làm"
+                       },
+                       {
+                           "EmailSV":  "123345@student.hcmute.edu.vn",
+                           "Tendetai":  "dfhk",
+                           "DotHK":  "Đợt 1 HK1 26-27",
+                           "Loaidetai":  "BCTT",
+                           "Linkbai":  "Phiếu Xác nhận TT"
+                       },
+                       {
+                           "EmailSV":  "123345@student.hcmute.edu.vn",
+                           "Tendetai":  "lakjlfdkjalf",
+                           "DotHK":  "Đợt 1 HK2 26-27",
+                           "Loaidetai":  "KLTN",
+                           "Linkbai":  "Link bài sau khi xong KLTN"
+                       },
+                       {
+                           "EmailSV":  "123345@student.hcmute.edu.vn",
+                           "Tendetai":  "lakjlfdkjalf",
+                           "DotHK":  "Đợt 1 HK2 26-27",
+                           "Loaidetai":  "KLTN",
+                           "Linkbai":  "Link bài Turnitin KLTN"
+                       },
+                       {
+                           "EmailSV":  "123345@student.hcmute.edu.vn",
+                           "Tendetai":  "lakjlfdkjalf",
+                           "DotHK":  "Đợt 1 HK2 26-27",
+                           "Loaidetai":  "KLTN",
+                           "Linkbai":  "Link bài chỉnh sửa sau khi bảo vệ"
+                       },
+                       {
+                           "EmailSV":  "123345@student.hcmute.edu.vn",
+                           "Tendetai":  "lakjlfdkjalf",
+                           "DotHK":  "Đợt 1 HK2 26-27",
+                           "Loaidetai":  "KLTN",
+                           "Linkbai":  "Link Biên bản giải trình chỉnh sửa sau khi bảo vệ"
+                       },
+                       {
+                           "EmailSV":  "thienise@gmail.com",
+                           "Tendetai":  "ds",
+                           "DotHK":  "Đợt 2 HK1 26-27",
+                           "Loaidetai":  "BCTT",
+                           "Linkbai":  ""
+                       }
+                   ],
+    "diem":  [
+
+             ]
+}

@@ -1,23 +1,27 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbwWbPoqE-6llHXUJlvzbm8p53dfgSqVsxVHjsncsOaeMYXcETSgaNtihz2QqS3wefX1oA/exec'; // HÃY THAY BẰNG URL DEPLOY MỚI CỦA BẠN
+const API_URL = 'https://script.google.com/macros/s/AKfycbxAGAEh6snWjMFtnPSP_tjz0eD6yqp7LkjheEvasDxg_p7JwCH2Ly81X9-AqkFi-_B0/exec';
+
+// === HELPER: Tra cứu tên SV/GV từ danh sách users ===
+function lookupName(email, users) {
+  if (!email || !users) return email || '---';
+  const u = users.find(u => String(u.Email).toLowerCase().trim() === String(email).toLowerCase().trim());
+  return u ? u.Ten : email;
+}
 
 const api = {
-  // Lấy toàn bộ dữ liệu (Master Data)
   getMasterData: async () => {
     try {
       const response = await fetch(API_URL);
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (err) {
       console.error("Lỗi getMasterData:", err);
       throw err;
     }
   },
 
-  // Đăng nhập (Xác thực qua Email)
   login: async (email) => {
     try {
       const data = await api.getMasterData();
-      const user = data.users.find(u => 
+      const user = data.users.find(u =>
         String(u.Email).toLowerCase().trim() === String(email).toLowerCase().trim()
       );
       if (user) return { success: true, user };
@@ -28,108 +32,102 @@ const api = {
     }
   },
 
-  // Đăng ký đề tài (BCTT / KLTN)
+  // SV đăng ký đề tài (BCTT / KLTN)
   registerTopic: async (payload) => {
     try {
-      // payload: { emailSV, emailGV, tenDeTai, nganh, dot, loaiDeTai, mangDeTai, congty }
       await fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'register', payload })
       });
       return { success: true };
-    } catch (err) {
-      console.error("Lỗi registerTopic:", err);
-      throw err;
-    }
+    } catch (err) { console.error("Lỗi registerTopic:", err); throw err; }
   },
 
-  // GVHD Phê duyệt (Có thể đổi tên đề tài)
+  // GVHD phê duyệt đề tài
   approveTopicBulk: async (payload) => {
     try {
-      // payload: { emailGV, svEmails: [], status: 'Approved'/'Rejected', newTitle: '' }
       await fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'approveTopicBulk', payload })
       });
       return { success: true };
-    } catch (err) {
-      console.error("Lỗi approveTopicBulk:", err);
-      throw err;
-    }
+    } catch (err) { console.error("Lỗi approveTopicBulk:", err); throw err; }
   },
 
-  // Trưởng bộ môn phân công (GVPB & Hội đồng)
-  assignTBM: async (payload) => {
+  // TBM phân công GVPB (tạo row mới Role=GVPB)
+  assignGVPB: async (payload) => {
     try {
-      // payload: { svEmail, reviewerEmail, councilID, loaiDeTai }
       await fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'assignTBM', payload })
+        body: JSON.stringify({ action: 'assignGVPB', payload })
       });
       return { success: true };
-    } catch (err) {
-      console.error("Lỗi assignTBM:", err);
-      throw err;
-    }
+    } catch (err) { console.error("Lỗi assignGVPB:", err); throw err; }
   },
 
-  // Chấm điểm (GVHD, GVPB, Hội đồng)
+  // TBM tạo hội đồng (4 rows: CTHD, TVHD1, TVHD2, ThukyHD)
+  createCouncil: async (payload) => {
+    try {
+      await fetch(API_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'createCouncil', payload })
+      });
+      return { success: true };
+    } catch (err) { console.error("Lỗi createCouncil:", err); throw err; }
+  },
+
+  // Chấm điểm (GVHD / GVPB / HĐ)
   submitGrade: async (payload) => {
     try {
-      // payload: { emailSV, role: 'GVHD'/'GVPB'/'HD', grade, comment, loaiDeTai, councilMinutes: '' }
       await fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'submitGrade', payload })
       });
       return { success: true };
-    } catch (err) {
-      console.error("Lỗi submitGrade:", err);
-      throw err;
-    }
+    } catch (err) { console.error("Lỗi submitGrade:", err); throw err; }
+  },
+
+  // TBM cập nhật quota
+  updateQuota: async (payload) => {
+    try {
+      await fetch(API_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'updateQuota', payload })
+      });
+      return { success: true };
+    } catch (err) { console.error("Lỗi updateQuota:", err); throw err; }
   },
 
   // Admin quản lý đợt
   updatePeriod: async (payload) => {
     try {
-      // payload: { periodName, major, type, isActive: true/false }
       await fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'updatePeriod', payload })
       });
       return { success: true };
-    } catch (err) {
-      console.error("Lỗi updatePeriod:", err);
-      throw err;
-    }
+    } catch (err) { console.error("Lỗi updatePeriod:", err); throw err; }
   },
 
-  // Tải file lên Drive và lưu link vào Sheet
+  // Upload file lên Drive
   uploadFile: async (payload) => {
     try {
-      // payload: { emailSV, name, base64, loaiDeTai, fieldName } 
-      // fieldName: BCTT_Report, BCTT_Confirm, KLTN_Full, KLTN_Revised, etc.
       await fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'uploadFile', payload })
       });
       return { success: true };
-    } catch (err) {
-      console.error("Lỗi uploadFile:", err);
-      throw err;
-    }
+    } catch (err) { console.error("Lỗi uploadFile:", err); throw err; }
   }
 };
 
+export { lookupName };
 export default api;

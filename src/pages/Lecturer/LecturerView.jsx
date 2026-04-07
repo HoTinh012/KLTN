@@ -1,165 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../api';
-import { Check, X, FileText, Star, Clock, CheckCircle, Users, Mail, Search, Edit3, ShieldCheck } from 'lucide-react';
+import api, { lookupName } from '../../api';
+import { Check, X, FileText, Star, Clock, CheckCircle, Users, Mail, Search, Edit3, ShieldCheck, ClipboardCheck, AlertCircle, Upload, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function LecturerView({ user, activeTab }) {
   const [masterData, setMasterData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [editingTitle, setEditingTitle] = useState({ emailSV: '', title: '' });
-  const [gradingForm, setGradingForm] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
-  useEffect(() => {
-    fetchData();
-  }, [user.Email]);
+  useEffect(() => { fetchData(); }, [user.Email]);
 
   const fetchData = async () => {
     setLoading(true);
-    try {
-      const data = await api.getMasterData();
-      setMasterData(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    try { setMasterData(await api.getMasterData()); }
+    catch (err) { console.error(err); }
+    finally { setLoading(false); }
   };
 
-  if (loading) return <div style={{ padding: '2rem' }}>Đang tải danh sách công việc...</div>;
-  if (!masterData) return <div style={{ color: 'red', padding: '2rem' }}>Lỗi tải dữ liệu Master Data.</div>;
+  if (loading) return <div style={{ padding: '2rem' }}>Đang tải dữ liệu...</div>;
+  if (!masterData) return <div style={{ color: 'red', padding: '2rem' }}>Lỗi tải dữ liệu.</div>;
 
-  // Lọc sinh viên theo 3 vai trò: HD, PB, Hội đồng
-  const hdStudents = masterData.linkGiangvien.filter(r => String(r.EmailGV).toLowerCase() === user.Email.toLowerCase());
-  const pbStudents = masterData.linkGiangvien.filter(r => String(r.ReviewerEmail).toLowerCase() === user.Email.toLowerCase());
-  const councilStudents = masterData.linkGiangvien.filter(r => String(r.CouncilID).includes(user.Email) || String(r.CouncilID).includes(user.Ten));
+  const em = user.Email.toLowerCase();
+  const allReg = masterData.linkGiangvien || [];
+  const users = masterData.users || [];
 
-  const handleApprove = async (emailSV, status) => {
-    const title = editingTitle.emailSV === emailSV ? editingTitle.title : '';
-    try {
-      await api.approveTopicBulk({
-        emailGV: user.Email,
-        svEmails: [emailSV],
-        status: status,
-        newTitle: title
-      });
-      alert(`Đã ${status === 'Approved' ? 'Duyệt' : 'Từ chối'} thành công!`);
-      setEditingTitle({ emailSV: '', title: '' });
-      fetchData();
-    } catch (err) { alert('Lỗi thao tác!'); }
-  };
+  // Lọc theo email GV và role
+  const hdStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && (r.Role === 'GVHD' || r.Role === 'BCTT' || r.Role === 'KLTN'));
+  const pbStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'GVPB');
+  const councilStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && ['CTHD','TVHD1','TVHD2','ThukyHD'].includes(r.Role));
+  const cthdStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'CTHD');
+  const thukyStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'ThukyHD');
 
-  const handleSubmitGrade = async (e) => {
-    e.preventDefault();
-    try {
-      await api.submitGrade(gradingForm);
-      alert('Nhập điểm thành công!');
-      setGradingForm(null);
-      fetchData();
-    } catch (err) { alert('Lỗi nhập điểm!'); }
-  };
+  const pendingApproval = hdStudents.filter(s => {
+    const end = String(s.End || '').trim();
+    return end === 'Registered' || end === 'New' || !end;
+  });
 
   return (
     <div className="animate-fade-in" style={{ width: '100%' }}>
       <AnimatePresence mode="wait">
-        {activeTab === 'home' && <HomeView user={user} hd={hdStudents} pb={pbStudents} council={councilStudents} masterData={masterData} />}
-        
-        {activeTab === 'guidance' && (
-          <motion.div key="guidance" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '24px' }}>Phê duyệt đề tài (Giai đoạn BCTT/KLTN)</h2>
-            <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
-              <table style={{ width: '100%' }}>
-                <thead>
-                  <tr>
-                    <th>SINH VIÊN</th>
-                    <th>LOẠI</th>
-                    <th>ĐỀ TÀI / CÔNG TY</th>
-                    <th>PHÊ DUYỆT & ĐỔI TÊN</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {hdStudents.map(s => {
-                    const sub = masterData.linkBainop.find(b => b.EmailSV === s.EmailSV && b.Loai === s.Role) || {};
-                    const isNew = s.End === 'New';
-                    return (
-                      <tr key={s.EmailSV} className="table-row">
-                        <td><div style={{ fontWeight: '700' }}>{s.EmailSV}</div></td>
-                        <td><span style={{ fontSize: '0.7rem', fontWeight: '800', background: '#eff6ff', color: '#1e40af', padding: '4px 8px', borderRadius: '4px' }}>{s.Role}</span></td>
-                        <td>
-                          <div style={{ fontWeight: '700', fontSize: '0.9rem' }}>{sub.TenDeTai || '---'}</div>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{sub.CongTy} | {sub.MangDeTai}</div>
-                        </td>
-                        <td style={{ textAlign: 'right' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'flex-end' }}>
-                            {isNew ? (
-                              <>
-                                <input 
-                                  type="text" 
-                                  placeholder="Sửa tên đề tài (nếu cần)..." 
-                                  style={{ padding: '8px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.8rem', width: '200px' }}
-                                  onChange={(e) => setEditingTitle({ emailSV: s.EmailSV, title: e.target.value })}
-                                />
-                                <button className="btn-success" onClick={() => handleApprove(s.EmailSV, 'Approved')} style={{ padding: '8px' }}><Check size={18} /></button>
-                                <button className="btn-error" onClick={() => handleApprove(s.EmailSV, 'Rejected')} style={{ padding: '8px' }}><X size={18} /></button>
-                              </>
-                            ) : (
-                              <span style={{ color: 'var(--success)', fontWeight: '800', fontSize: '0.8rem' }}>✓ ĐÃ DUYỆT</span>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
-        )}
-
+        {activeTab === 'home' && <HomeView user={user} users={users} hd={hdStudents} pb={pbStudents} council={councilStudents} pending={pendingApproval.length} />}
+        {activeTab === 'guidance' && <GuidanceView students={hdStudents} masterData={masterData} onRefresh={fetchData} user={user} />}
+        {activeTab === 'reviewer' && <ReviewerView students={pbStudents} masterData={masterData} onRefresh={fetchData} user={user} />}
+        {activeTab === 'council' && <CouncilView students={councilStudents} masterData={masterData} user={user} onRefresh={fetchData} />}
+        {activeTab === 'president' && <PresidentView students={cthdStudents} masterData={masterData} user={user} onRefresh={fetchData} />}
+        {activeTab === 'secretary' && <SecretaryView students={thukyStudents} masterData={masterData} user={user} onRefresh={fetchData} />}
+        {activeTab === 'suggestion' && <SuggestionView user={user} />}
         {activeTab === 'grading' && (
-           <motion.div key="grading" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '8px' }}>Chấm điểm & Đánh giá</h2>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>Nhập điểm và nhận xét cho các vai trò Hướng dẫn, Phản biện và Hội đồng.</p>
-              
-              <div className="card-flat">
-                 <h3 style={{ marginBottom: '20px', fontWeight: '800' }}>DANH SÁCH CHẤM ĐIỂM</h3>
-                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-                    {hdStudents.map(s => <GradingCard key={s.EmailSV} s={s} role="GVHD" onOpen={() => setGradingForm({ emailSV: s.EmailSV, role: 'GVHD', loaiDeTai: s.Role, grade: '', comment: '' })} />)}
-                    {pbStudents.map(s => <GradingCard key={s.EmailSV} s={s} role="GVPB" onOpen={() => setGradingForm({ emailSV: s.EmailSV, role: 'GVPB', loaiDeTai: s.Role, grade: '', comment: '' })} />)}
-                    {councilStudents.map(s => <GradingCard key={s.EmailSV} s={s} role="HD" onOpen={() => setGradingForm({ emailSV: s.EmailSV, role: 'HD', loaiDeTai: s.Role, grade: '', comment: '', councilMinutes: '' })} />)}
-                 </div>
-              </div>
-           </motion.div>
+          selectedStudent
+            ? <GradingDetail student={selectedStudent} user={user} onBack={() => setSelectedStudent(null)} onRefresh={fetchData} masterData={masterData} />
+            : <GradingListView hd={hdStudents} pb={pbStudents} council={councilStudents} masterData={masterData} onSelect={setSelectedStudent} />
         )}
       </AnimatePresence>
+    </div>
+  );
+}
 
-      {/* MODAL NHẬP ĐIỂM */}
-      {gradingForm && (
-        <div className="modal-overlay">
-          <div className="card-flat" style={{ width: '500px', padding: '32px' }}>
-             <h3 style={{ marginBottom: '24px', fontWeight: '800' }}>Chấm điểm: {gradingForm.emailSV}</h3>
-             <form onSubmit={handleSubmitGrade}>
-                <label style={{ display: 'block', marginBottom: '16px' }}>
-                   <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)', marginBottom: '8px' }}>VAI TRÒ: {gradingForm.role}</span>
-                   <input type="number" step="0.1" max="10" required placeholder="Nhập điểm (0-10)..." className="input-field" 
-                          onChange={e => setGradingForm({...gradingForm, grade: e.target.value})} style={{ width: '100%', padding: '12px' }} />
-                </label>
-                <label style={{ display: 'block', marginBottom: '16px' }}>
-                   <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)', marginBottom: '8px' }}>NHẬN XÉT / GÓP Ý</span>
-                   <textarea required className="input-field" placeholder="Nhập ý kiến chuyên môn..." rows="4" 
-                             onChange={e => setGradingForm({...gradingForm, comment: e.target.value})} style={{ width: '100%', padding: '12px' }}></textarea>
-                </label>
-                {gradingForm.role === 'HD' && (
-                   <label style={{ display: 'block', marginBottom: '20px' }}>
-                      <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)', marginBottom: '8px' }}>LINK BIÊN BẢN HỘI ĐỒNG (Nếu có)</span>
-                      <input type="text" className="input-field" placeholder="Dán link biên bản..." 
-                             onChange={e => setGradingForm({...gradingForm, councilMinutes: e.target.value})} style={{ width: '100%', padding: '12px' }} />
-                   </label>
-                )}
-                <div style={{ display: 'flex', gap: '12px' }}>
-                   <button type="submit" className="btn-primary" style={{ flex: 2 }}>LƯU KẾT QUẢ</button>
-                   <button type="button" onClick={() => setGradingForm(null)} className="btn-secondary" style={{ flex: 1 }}>HỦY</button>
-                </div>
-             </form>
+// ===================== HOME =====================
+function HomeView({ user, users, hd, pb, council, pending }) {
+  return (
+    <div>
+      <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '8px' }}>Chào mừng, GV {user.Ten}</h2>
+      <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>Hệ thống quản lý UniThesis - Phân hệ Giảng viên</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+         <StatCard title="HƯỚNG DẪN" val={hd.length} icon={Users} color="#004b91" />
+         <StatCard title="PHẢN BIỆN" val={pb.length} icon={ShieldCheck} color="#059669" />
+         <StatCard title="HỘI ĐỒNG" val={council.length} icon={Users} color="#7c3aed" />
+         <StatCard title="CHỜ DUYỆT" val={pending} icon={Clock} color="#ea580c" />
+      </div>
+      {pending > 0 && (
+        <div className="card-flat" style={{ borderLeft: '4px solid #ea580c' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <AlertCircle size={18} color="#ea580c" />
+            <span style={{ fontWeight: '800' }}>Bạn có <strong style={{ color: '#ea580c' }}>{pending}</strong> đề tài chờ phê duyệt.</span>
           </div>
         </div>
       )}
@@ -167,42 +80,496 @@ function LecturerView({ user, activeTab }) {
   );
 }
 
-function HomeView({ user, hd, pb, council, masterData }) {
-   return (
-      <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-         <div className="card-flat">
-            <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '8px' }}>Hộp thư Phê Duyệt</h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>Chào mừng Giảng viên {user.Ten}.</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
-               <StatCard title="HƯỚNG DẪN" val={hd.length} icon={Users} color="#004b91" />
-               <StatCard title="PHẢN BIỆN" val={pb.length} icon={ShieldCheck} color="#059669" />
-               <StatCard title="HỘI ĐỒNG" val={council.length} icon={Users} color="#7c3aed" />
-            </div>
-         </div>
-      </motion.div>
-   );
+// ===================== GUIDANCE (Hướng dẫn) =====================
+function GuidanceView({ students, masterData, onRefresh, user }) {
+  const [editingTitle, setEditingTitle] = useState({});
+  const users = masterData.users || [];
+
+  const handleApprove = async (emailSV, status) => {
+    const title = editingTitle[emailSV] || '';
+    try {
+      await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status, newTitle: title });
+      alert(`Đã ${status === 'Approved' ? 'Duyệt' : 'Từ chối'} đề tài!`);
+      onRefresh();
+    } catch (err) { alert('Lỗi thao tác!'); }
+  };
+
+  const handleFinalConfirm = async (emailSV) => {
+    try {
+      await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status: 'Completed', newTitle: '' });
+      alert('Đã xác nhận hoàn tất!'); onRefresh();
+    } catch (err) { alert('Lỗi xác nhận!'); }
+  };
+
+  return (
+    <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
+      <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
+        <h3 style={{ fontWeight: '800' }}>Phê duyệt & Hướng dẫn Đề tài ({students.length})</h3>
+      </div>
+      <table style={{ width: '100%' }}>
+        <thead><tr><th>SINH VIÊN</th><th>LOẠI</th><th>ĐỀ TÀI</th><th>ĐỢT</th><th style={{ textAlign: 'right' }}>THAO TÁC</th></tr></thead>
+        <tbody>
+          {students.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Chưa có sinh viên nào đăng ký.</td></tr>}
+          {students.map((s, idx) => {
+            const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()) || {};
+            const endVal = String(s.End || '').trim();
+            const isNew = endVal === 'Registered' || endVal === 'New' || !endVal;
+            const svName = lookupName(s.EmailSV, users);
+            const loai = String(s.Link || s.Role || '').trim(); // Link column stores BCTT/KLTN
+            return (
+              <tr key={idx} className="table-row">
+                <td>
+                  <div style={{ fontWeight: '700' }}>{svName}</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.EmailSV}</div>
+                </td>
+                <td><span style={{ fontSize: '0.7rem', fontWeight: '800', background: '#eff6ff', color: '#1e40af', padding: '4px 8px', borderRadius: '4px' }}>{loai || s.Role}</span></td>
+                <td>
+                  <div style={{ fontWeight: '700', fontSize: '0.9rem' }}>{sub.Tendetai || '---'}</div>
+                  {s.Diadiem && <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.Diadiem}</div>}
+                </td>
+                <td style={{ fontSize: '0.8rem' }}>{sub.DotHK || '---'}</td>
+                <td style={{ textAlign: 'right' }}>
+                  {isNew ? (
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
+                      <input type="text" placeholder="Đổi tên đề tài..." style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '0.78rem', width: '160px' }}
+                        onChange={(e) => setEditingTitle({...editingTitle, [s.EmailSV]: e.target.value})} />
+                      <button className="btn-success" onClick={() => handleApprove(s.EmailSV, 'Approved')} title="Duyệt"><Check size={16} /></button>
+                      <button style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 12px', cursor: 'pointer' }} onClick={() => handleApprove(s.EmailSV, 'Rejected')} title="Từ chối"><X size={16} /></button>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
+                      <span style={{ color: endVal === 'Rejected' ? '#ef4444' : 'var(--success)', fontWeight: '800', fontSize: '0.8rem' }}>
+                        {endVal === 'Completed' || endVal === 'Yes' || endVal === 'Pass' ? '✓ HOÀN TẤT' : endVal === 'Rejected' ? '✕ TỪ CHỐI' : `✓ ${endVal}`}
+                      </span>
+                      {(endVal === 'Approved' || endVal === 'Graded') && (
+                        <button className="btn-primary" onClick={() => handleFinalConfirm(s.EmailSV)} style={{ fontSize: '0.7rem', padding: '4px 10px' }}>Xác nhận HT</button>
+                      )}
+                    </div>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
-const StatCard = ({ title, val, icon: Icon, color }) => (
-   <div style={{ padding: '24px', background: `${color}10`, borderRadius: '12px', border: `1px solid ${color}30` }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color: color, marginBottom: '12px' }}>
-         <Icon size={20} /> <span style={{ fontWeight: '800', fontSize: '0.8rem' }}>{title}</span>
+// ===================== REVIEWER (Phản biện) =====================
+function ReviewerView({ students, masterData, onRefresh, user }) {
+  const [gradingEmail, setGradingEmail] = useState(null);
+  const [score, setScore] = useState('');
+  const [comment, setComment] = useState('');
+  const users = masterData.users || [];
+
+  const handleSubmitPB = async (emailSV) => {
+    try {
+      await api.submitGrade({ emailSV, role: 'GVPB', grade: score, comment, loaiDeTai: 'KLTN' });
+      alert('Đã lưu điểm phản biện!');
+      setGradingEmail(null); setScore(''); setComment('');
+      onRefresh();
+    } catch(e) { alert('Lỗi lưu điểm!'); }
+  };
+
+  return (
+    <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
+      <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
+        <h3 style={{ fontWeight: '800' }}>Sinh viên Phản biện ({students.length})</h3>
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Đọc báo cáo, nhập nhận xét và điểm phản biện</p>
       </div>
-      <div style={{ fontSize: '2rem', fontWeight: '900', color: color }}>{val}</div>
-   </div>
+      <table style={{ width: '100%' }}>
+        <thead><tr><th>SINH VIÊN</th><th>ĐỀ TÀI</th><th>BÀI NỘP</th><th style={{ textAlign: 'right' }}>CHẤM ĐIỂM PB</th></tr></thead>
+        <tbody>
+          {students.length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Chưa được phân công phản biện.</td></tr>}
+          {students.map((s, idx) => {
+            const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase() && String(b.Loaidetai).trim() === 'KLTN') || {};
+            const svName = lookupName(s.EmailSV, users);
+            const isGrading = gradingEmail === s.EmailSV;
+            return (
+              <React.Fragment key={idx}>
+                <tr className="table-row">
+                  <td>
+                    <div style={{ fontWeight: '700' }}>{svName}</div>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.EmailSV}</div>
+                  </td>
+                  <td style={{ fontWeight: '700', fontSize: '0.88rem' }}>{sub.Tendetai || '---'}</td>
+                  <td>
+                    {sub.Linkbai ? <a href={sub.Linkbai} target="_blank" rel="noreferrer" className="btn-primary" style={{ fontSize: '0.7rem', padding: '4px 10px' }}><Eye size={14} /> Xem bài</a> : <span style={{ color: '#94a3b8' }}>Chưa nộp</span>}
+                  </td>
+                  <td style={{ textAlign: 'right' }}>
+                    {s.Diem ? <span style={{ color: 'var(--success)', fontWeight: '800' }}>Đã chấm: {s.Diem}</span> : (
+                      <button className="btn-primary-blue" style={{ fontSize: '0.75rem', padding: '8px 16px' }} onClick={() => setGradingEmail(isGrading ? null : s.EmailSV)}>
+                        {isGrading ? 'Đóng' : 'Nhập điểm PB'}
+                      </button>
+                    )}
+                  </td>
+                </tr>
+                {isGrading && (
+                  <tr><td colSpan="4" style={{ background: '#f8fafc', padding: '20px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr auto', gap: '16px', alignItems: 'end' }}>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '800', marginBottom: '6px' }}>ĐIỂM PHẢN BIỆN</label>
+                        <input type="number" step="0.1" min="0" max="10" value={score} onChange={e => setScore(e.target.value)} className="input-field-custom" placeholder="0 - 10" />
+                      </div>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '800', marginBottom: '6px' }}>NHẬN XÉT</label>
+                        <input type="text" value={comment} onChange={e => setComment(e.target.value)} className="input-field-custom" placeholder="Nhập nhận xét phản biện..." />
+                      </div>
+                      <button className="btn-success" style={{ padding: '12px 24px' }} onClick={() => handleSubmitPB(s.EmailSV)}>Lưu điểm</button>
+                    </div>
+                  </td></tr>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// ===================== COUNCIL (Hội đồng) =====================
+function CouncilView({ students, masterData, user, onRefresh }) {
+  const users = masterData.users || [];
+  const [gradingEmail, setGradingEmail] = useState(null);
+  const [score, setScore] = useState('');
+  const [comment, setComment] = useState('');
+
+  const handleSubmitHD = async (emailSV) => {
+    try {
+      await api.submitGrade({ emailSV, role: 'HỘI ĐỒNG', grade: score, comment, loaiDeTai: 'KLTN' });
+      alert('Đã lưu điểm hội đồng!');
+      setGradingEmail(null); setScore(''); setComment('');
+      onRefresh();
+    } catch(e) { alert('Lỗi!'); }
+  };
+
+  return (
+    <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
+      <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
+        <h3 style={{ fontWeight: '800' }}>Hội đồng chấm ({students.length})</h3>
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Danh sách SV trong hội đồng mà bạn tham gia</p>
+      </div>
+      <table style={{ width: '100%' }}>
+        <thead><tr><th>SINH VIÊN</th><th>VAI TRÒ</th><th>ĐỊA ĐIỂM</th><th>BÀI NỘP</th><th style={{ textAlign: 'right' }}>HÀNH ĐỘNG</th></tr></thead>
+        <tbody>
+          {students.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Chưa tham gia hội đồng nào.</td></tr>}
+          {students.map((s, idx) => {
+            const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase() && String(b.Loaidetai).trim() === 'KLTN') || {};
+            const svName = lookupName(s.EmailSV, users);
+            const isGrading = gradingEmail === s.EmailSV;
+            const roleLabel = { CTHD: 'Chủ tịch', TVHD1: 'Thành viên 1', TVHD2: 'Thành viên 2', ThukyHD: 'Thư ký' }[s.Role] || s.Role;
+            return (
+              <React.Fragment key={idx}>
+                <tr className="table-row">
+                  <td><div style={{ fontWeight: '700' }}>{svName}</div><div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.EmailSV}</div></td>
+                  <td><span style={{ fontSize: '0.72rem', fontWeight: '800', background: '#f3e8ff', color: '#7c3aed', padding: '4px 10px', borderRadius: '4px' }}>{roleLabel}</span></td>
+                  <td style={{ fontSize: '0.85rem' }}>{s.Diadiem || '---'}</td>
+                  <td>{sub.Linkbai ? <a href={sub.Linkbai} target="_blank" rel="noreferrer" className="btn-primary" style={{ fontSize: '0.7rem', padding: '4px 10px' }}><Eye size={14} /> Xem</a> : 'Chưa nộp'}</td>
+                  <td style={{ textAlign: 'right' }}>
+                    {s.Diem ? <span style={{ color: 'var(--success)', fontWeight: '800' }}>Đã chấm: {s.Diem}</span> : (
+                      <button className="btn-primary-blue" style={{ fontSize: '0.72rem', padding: '6px 14px' }} onClick={() => setGradingEmail(isGrading ? null : s.EmailSV)}>Nhập điểm HĐ</button>
+                    )}
+                  </td>
+                </tr>
+                {isGrading && (
+                  <tr><td colSpan="5" style={{ background: '#f8fafc', padding: '20px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr auto', gap: '16px', alignItems: 'end' }}>
+                      <div><label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '800', marginBottom: '6px' }}>ĐIỂM HỘI ĐỒNG</label>
+                        <input type="number" step="0.1" min="0" max="10" value={score} onChange={e => setScore(e.target.value)} className="input-field-custom" /></div>
+                      <div><label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '800', marginBottom: '6px' }}>NHẬN XÉT</label>
+                        <input type="text" value={comment} onChange={e => setComment(e.target.value)} className="input-field-custom" placeholder="Nhận xét..." /></div>
+                      <button className="btn-success" style={{ padding: '12px 24px' }} onClick={() => handleSubmitHD(s.EmailSV)}>Lưu</button>
+                    </div>
+                  </td></tr>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// ===================== PRESIDENT (Chủ tịch) =====================
+function PresidentView({ students, masterData, user, onRefresh }) {
+  const users = masterData.users || [];
+
+  const handleConfirm = async (emailSV) => {
+    try {
+      await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status: 'Completed', newTitle: '' });
+      alert('Đã xác nhận hoàn tất KLTN!'); onRefresh();
+    } catch(e) { alert('Lỗi!'); }
+  };
+
+  return (
+    <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
+      <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
+        <h3 style={{ fontWeight: '800' }}>Vai trò Chủ tịch Hội đồng ({students.length})</h3>
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Xác nhận SV hoàn tất chỉnh sửa sau bảo vệ</p>
+      </div>
+      <table style={{ width: '100%' }}>
+        <thead><tr><th>SINH VIÊN</th><th>ĐỀ TÀI</th><th>ĐỊA ĐIỂM</th><th>TRẠNG THÁI</th><th style={{ textAlign: 'right' }}>THAO TÁC</th></tr></thead>
+        <tbody>
+          {students.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Bạn chưa được phân làm Chủ tịch HĐ nào.</td></tr>}
+          {students.map((s, idx) => {
+            const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()) || {};
+            const svName = lookupName(s.EmailSV, users);
+            const endVal = String(s.End || '').trim();
+            return (
+              <tr key={idx} className="table-row">
+                <td><div style={{ fontWeight: '700' }}>{svName}</div><div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.EmailSV}</div></td>
+                <td style={{ fontWeight: '700', fontSize: '0.88rem' }}>{sub.Tendetai || '---'}</td>
+                <td>{s.Diadiem || '---'}</td>
+                <td><span style={{ fontSize: '0.78rem', fontWeight: '800', color: endVal === 'Yes' ? '#059669' : '#64748b' }}>{endVal || 'Chờ'}</span></td>
+                <td style={{ textAlign: 'right' }}>
+                  {(endVal !== 'Yes' && endVal !== 'Completed') ? (
+                    <button className="btn-success" style={{ fontSize: '0.72rem', padding: '8px 16px' }} onClick={() => handleConfirm(s.EmailSV)}>
+                      <CheckCircle size={14} /> Xác nhận hoàn tất
+                    </button>
+                  ) : <span style={{ color: 'var(--success)', fontWeight: '800' }}>✓ Đã xác nhận</span>}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// ===================== SECRETARY (Thư ký) =====================
+function SecretaryView({ students, masterData, user, onRefresh }) {
+  const users = masterData.users || [];
+
+  const handleUploadBienBan = async (emailSV) => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file'; fileInput.accept = '.pdf,.docx';
+    fileInput.onchange = async (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result.split(',')[1];
+        try {
+          await api.uploadFile({ emailSV, name: `BienBan_HD_${emailSV}.pdf`, base64, loaiDeTai: 'KLTN', fieldName: 'BienBan_HD' });
+          alert('Đã tải biên bản hội đồng!'); onRefresh();
+        } catch (err) { alert('Lỗi tải file!'); }
+      };
+      reader.readAsDataURL(file);
+    };
+    fileInput.click();
+  };
+
+  return (
+    <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
+      <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
+        <h3 style={{ fontWeight: '800' }}>Vai trò Thư ký Hội đồng ({students.length})</h3>
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Nhập biên bản hội đồng</p>
+      </div>
+      <table style={{ width: '100%' }}>
+        <thead><tr><th>SINH VIÊN</th><th>ĐỀ TÀI</th><th>ĐỊA ĐIỂM</th><th style={{ textAlign: 'right' }}>BIÊN BẢN</th></tr></thead>
+        <tbody>
+          {students.length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Bạn chưa được phân làm Thư ký HĐ nào.</td></tr>}
+          {students.map((s, idx) => {
+            const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()) || {};
+            const svName = lookupName(s.EmailSV, users);
+            return (
+              <tr key={idx} className="table-row">
+                <td><div style={{ fontWeight: '700' }}>{svName}</div><div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.EmailSV}</div></td>
+                <td style={{ fontWeight: '700', fontSize: '0.88rem' }}>{sub.Tendetai || '---'}</td>
+                <td>{s.Diadiem || '---'}</td>
+                <td style={{ textAlign: 'right' }}>
+                  <button className="btn-primary-blue" style={{ fontSize: '0.72rem', padding: '8px 16px' }} onClick={() => handleUploadBienBan(s.EmailSV)}>
+                    <Upload size={14} /> Tải Biên bản
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// ===================== SUGGESTION =====================
+function SuggestionView({ user }) {
+  return (
+    <div className="card-flat">
+      <h3 style={{ marginBottom: '24px', fontWeight: '800' }}>Gợi ý Đề tài mẫu</h3>
+      <div style={{ background: '#f8fafc', padding: '24px', borderRadius: '12px' }}>
+        <label style={{ display: 'block', marginBottom: '16px' }}>
+          <span style={{ display: 'block', fontSize: '0.8rem', fontWeight: '800', marginBottom: '8px' }}>TÊN ĐỀ TÀI GỢI Ý</span>
+          <input type="text" className="input-field-custom" placeholder="Ví dụ: Ứng dụng AI trong nhận diện..." />
+        </label>
+        <label style={{ display: 'block', marginBottom: '16px' }}>
+          <span style={{ display: 'block', fontSize: '0.8rem', fontWeight: '800', marginBottom: '8px' }}>MÔ TẢ / YÊU CẦU</span>
+          <textarea className="input-field-custom" rows="4" placeholder="Mô tả ngắn gọn..."></textarea>
+        </label>
+        <button className="btn-primary-blue">Đăng gợi ý</button>
+      </div>
+    </div>
+  );
+}
+
+// ===================== GRADING LIST =====================
+function GradingListView({ hd, pb, council, masterData, onSelect }) {
+  const users = masterData.users || [];
+  const allStudents = [
+    ...hd.map(s => ({...s, gradingRole: 'GVHD'})),
+    ...pb.map(s => ({...s, gradingRole: 'GVPB'})),
+    ...council.map(s => ({...s, gradingRole: 'HỘI ĐỒNG'})),
+  ];
+  return (
+    <div>
+      <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '32px' }}>Chấm điểm đề tài</h2>
+      {allStudents.length === 0 && <div className="card-flat" style={{ textAlign: 'center', color: '#94a3b8' }}>Chưa có sinh viên cần chấm điểm.</div>}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+        {allStudents.map((s, idx) => {
+          const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()) || {};
+          const svName = lookupName(s.EmailSV, users);
+          const roleColors = { GVHD: '#004b91', GVPB: '#059669', 'HỘI ĐỒNG': '#7c3aed' };
+          return (
+            <div key={idx} className="card-flat" style={{ padding: '24px', cursor: 'pointer', borderTop: `4px solid ${roleColors[s.gradingRole] || '#64748b'}` }} onClick={() => onSelect(s)}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                <span style={{ fontSize: '0.7rem', fontWeight: '900', color: '#64748b' }}>{svName}</span>
+                <span style={{ fontSize: '0.65rem', padding: '4px 8px', borderRadius: '4px', background: `${roleColors[s.gradingRole]}15`, color: roleColors[s.gradingRole], fontWeight: '800' }}>{s.gradingRole}</span>
+              </div>
+              <p style={{ fontWeight: '700', fontSize: '0.88rem', marginBottom: '4px' }}>{sub.Tendetai || '---'}</p>
+              <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '16px' }}>{s.EmailSV}</p>
+              <button className="btn-primary-blue" style={{ width: '100%', fontSize: '0.8rem' }}>Nhập điểm & Turnitin</button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ===================== GRADING DETAIL =====================
+function GradingDetail({ student, user, onBack, onRefresh, masterData }) {
+  const [scores, setScores] = useState({ t1: 0, t2: 0, t3: 0, t4: 0, t5: 0, t6: 0, t7: 0, t8: 0 });
+  const [comment, setComment] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const users = masterData.users || [];
+  
+  const totalCriteria = Object.values(scores).reduce((a, b) => Number(a) + Number(b), 0);
+  const officialScore = totalCriteria.toFixed(1);
+  const svName = lookupName(student.EmailSV, users);
+  const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(student.EmailSV).toLowerCase()) || {};
+  const gradingRole = student.gradingRole || student.role || 'GVHD';
+
+  const handleUploadTurnitin = async () => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file'; fileInput.accept = '.pdf';
+    fileInput.onchange = async (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      setUploading(true);
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result.split(',')[1];
+        try {
+          await api.uploadFile({ emailSV: student.EmailSV, name: `Turnitin_${student.EmailSV}.pdf`, base64, loaiDeTai: 'KLTN', fieldName: 'Turnitin_Report' });
+          alert('Đã tải báo cáo Turnitin!'); onRefresh();
+        } catch (err) { alert('Lỗi!'); }
+        finally { setUploading(false); }
+      };
+      reader.readAsDataURL(file);
+    };
+    fileInput.click();
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await api.submitGrade({ emailSV: student.EmailSV, role: gradingRole, grade: officialScore, comment, loaiDeTai: String(student.Link || student.Role || 'KLTN').trim() });
+      alert('Đã lưu điểm!'); onBack(); onRefresh();
+    } catch(e) { alert('Lỗi lưu điểm!'); }
+  };
+
+  return (
+    <div className="animate-fade-in">
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+        <button onClick={onBack} className="btn-flat" style={{ background: '#f1f5f9', border: 'none', borderRadius: '8px', padding: '8px 12px', cursor: 'pointer' }}><X size={24} /></button>
+        <h2 style={{ fontSize: '1.6rem', fontWeight: '800' }}>Chấm điểm {gradingRole} — {svName}</h2>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '24px' }}>
+        <div>
+          <div className="card-flat" style={{ borderTop: '4px solid var(--primary)', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
+              <ClipboardCheck color="var(--primary)" />
+              <h3 style={{ fontWeight: '800' }}>Bảng điểm & Đánh giá</h3>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
+              <CriteriaInput label="Tiêu chí 1 (1đ)" val={scores.t1} onChange={v => setScores({...scores, t1: v})} />
+              <CriteriaInput label="Tiêu chí 2 (1đ)" val={scores.t2} onChange={v => setScores({...scores, t2: v})} />
+              <CriteriaInput label="Tiêu chí 3 (2đ)" val={scores.t3} onChange={v => setScores({...scores, t3: v})} />
+              <CriteriaInput label="Tiêu chí 4 (2đ)" val={scores.t4} onChange={v => setScores({...scores, t4: v})} />
+              <CriteriaInput label="Tiêu chí 5 (2đ)" val={scores.t5} onChange={v => setScores({...scores, t5: v})} />
+              <CriteriaInput label="Tiêu chí 6 (1đ)" val={scores.t6} onChange={v => setScores({...scores, t6: v})} />
+              <CriteriaInput label="Tiêu chí 7 (1đ)" val={scores.t7} onChange={v => setScores({...scores, t7: v})} />
+              <CriteriaInput label="Tiêu chí 8 (2đ)" val={scores.t8} onChange={v => setScores({...scores, t8: v})} />
+            </div>
+
+            <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '12px', marginBottom: '32px' }}>
+              <p style={{ fontWeight: '800' }}>TỔNG ĐIỂM: {totalCriteria}/12 ➜ ĐIỂM QUY ĐỔI: <span style={{ color: 'var(--primary)', fontSize: '1.2rem' }}>{officialScore}</span></p>
+            </div>
+
+            <div style={{ marginBottom: '32px' }}>
+              <label style={{ display: 'block' }}>
+                <span style={{ display: 'block', fontSize: '0.8rem', fontWeight: '800', marginBottom: '8px' }}>NHẬN XÉT CHI TIẾT</span>
+                <textarea className="input-field-custom" rows="4" value={comment} onChange={e => setComment(e.target.value)} placeholder="Nhập nhận xét..."></textarea>
+              </label>
+            </div>
+
+            <button className="btn-primary-blue" onClick={handleSubmit} style={{ width: '100%' }}>LƯU KẾT QUẢ CHẤM ĐIỂM</button>
+          </div>
+        </div>
+
+        <aside>
+          <div className="card-flat" style={{ marginBottom: '24px' }}>
+            <h4 style={{ fontWeight: '800', fontSize: '0.9rem', marginBottom: '16px' }}>THÔNG TIN SINH VIÊN</h4>
+            <p style={{ fontSize: '0.95rem', fontWeight: '700', marginBottom: '4px' }}>{svName}</p>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '4px' }}>{student.EmailSV}</p>
+            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Đề tài: {sub.Tendetai || '---'}</p>
+            <hr style={{ margin: '16px 0', border: '0', borderTop: '1px solid #eee' }} />
+            {sub.Linkbai ? <a href={sub.Linkbai} target="_blank" rel="noreferrer" className="btn-primary" style={{ width: '100%', display: 'inline-block', textAlign: 'center' }}>Xem file bài nộp</a> : <p style={{ color: '#ef4444', fontSize: '0.8rem' }}>SV chưa nộp bài</p>}
+          </div>
+
+          {gradingRole === 'GVHD' && (
+            <div className="card-flat" style={{ border: '1px dashed var(--primary)' }}>
+              <h4 style={{ fontWeight: '800', fontSize: '0.9rem', marginBottom: '8px' }}>TURNITIN</h4>
+              <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '16px' }}>GVHD upload báo cáo Turnitin trước khi hội đồng chấm.</p>
+              <button className="btn-primary-blue" onClick={handleUploadTurnitin} disabled={uploading}>
+                <Upload size={16} /> {uploading ? 'ĐANG TẢI...' : 'TẢI FILE TURNITIN'}
+              </button>
+            </div>
+          )}
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+// ===================== SHARED COMPONENTS =====================
+const CriteriaInput = ({ label, val, onChange }) => (
+  <div>
+     <span style={{ display: 'block', fontSize: '0.7rem', fontWeight: '800', color: '#64748b', marginBottom: '8px' }}>{label}</span>
+     <input type="number" step="0.1" value={val} onChange={e => onChange(e.target.value)} className="input-field-custom" />
+  </div>
 );
 
-const GradingCard = ({ s, role, onOpen }) => (
-   <div className="table-row" style={{ padding: '20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '12px' }}>
-         <div>
-            <p style={{ fontSize: '0.7rem', fontWeight: '800', color: 'var(--text-muted)' }}>Mã SV: {s.EmailSV}</p>
-            <p style={{ fontWeight: '700', fontSize: '0.95rem' }}>Loại: {s.Role}</p>
-         </div>
-         <span style={{ fontSize: '0.65rem', padding: '4px 8px', borderRadius: '4px', background: 'var(--primary)', color: 'white', fontWeight: '800' }}>{role}</span>
-      </div>
-      <button className="btn-primary" onClick={onOpen} style={{ width: '100%', fontSize: '0.8rem', padding: '10px' }}><Star size={16} /> Chấm điểm ngay</button>
-   </div>
+const StatCard = ({ title, val, icon: Icon, color }) => (
+  <div style={{ padding: '24px', background: 'white', borderRadius: '12px', border: '1px solid #f1f5f9', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
+     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color, marginBottom: '12px' }}>
+        <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: `${color}10`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon size={18} /></div>
+        <span style={{ fontWeight: '800', fontSize: '0.7rem', letterSpacing: '1px' }}>{title}</span>
+     </div>
+     <div style={{ fontSize: '1.8rem', fontWeight: '900', color: '#1e293b' }}>{val}</div>
+  </div>
 );
 
 export default LecturerView;

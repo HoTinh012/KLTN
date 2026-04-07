@@ -3,13 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { 
   User, Folder, TrendingUp, Users, CheckCircle, 
   Calendar, LogOut, Search, Bell, Settings, ChevronRight,
-  Star, ShieldCheck
+  Star, ShieldCheck, Home, FileText, Edit3, Layout, List, BarChart3
 } from 'lucide-react';
 import StudentView from './Student/StudentView';
 import LecturerView from './Lecturer/LecturerView';
 import AdminView from './Admin/AdminView';
 
-// Import Logo cục bộ
 import logoImage from '../assets/img/Logo HCM-UTE_ 1.png';
 
 function Dashboard({ user, onLogout }) {
@@ -21,43 +20,71 @@ function Dashboard({ user, onLogout }) {
     navigate('/login');
   };
 
+  const role = (user.Role || '').toLowerCase();
+  const isStudent = role === 'sinhvien' || role === 'student';
+  const isLecturer = role === 'giangvien' || role === 'lecturer';
+  const isTBM = role === 'admin' || role === 'truongbm' || role === 'head' || role === 'tbm';
+
   const renderContent = () => {
-    const role = user.Role.toLowerCase();
-    if (role === 'sinhvien' || role === 'student') {
-      return <StudentView user={user} activeTab={activeTab} />;
-    } else if (role === 'giangvien' || role === 'lecturer') {
-      return <LecturerView user={user} activeTab={activeTab} />;
-    } else if (role === 'admin' || role === 'truongbm' || role === 'head' || role === 'tbm') {
+    if (isStudent) return <StudentView user={user} activeTab={activeTab} />;
+    if (isTBM) {
+      // TBM cũng là GV → nếu tab thuộc GV thì render LecturerView
+      const gvTabs = ['guidance','reviewer','council','president','secretary','suggestion','grading'];
+      if (gvTabs.includes(activeTab)) return <LecturerView user={user} activeTab={activeTab} />;
       return <AdminView user={user} activeTab={activeTab} />;
-    } else {
-      return <div>Vai trò "{user.Role}" không hợp lệ!.</div>;
     }
+    if (isLecturer) return <LecturerView user={user} activeTab={activeTab} />;
+    return <div>Vai trò "{user.Role}" không hợp lệ!</div>;
   };
 
-  const menuItems = [
-    { id: 'home', label: 'TỔNG QUAN HỆ THỐNG', icon: User },
-    ...((user.Role.toLowerCase() === 'sinhvien' || user.Role.toLowerCase() === 'student') ? [
-      { id: 'register', label: 'Đăng ký đề tài', icon: Folder },
-      { id: 'status', label: 'Theo dõi tiến độ', icon: TrendingUp },
-      { id: 'grades', label: 'Kết quả học tập', icon: CheckCircle }
-    ] : []),
-    ...((user.Role.toLowerCase() === 'giangvien' || user.Role.toLowerCase() === 'lecturer') ? [
-      { id: 'guidance', label: 'PHÊ DUYỆT & HD', icon: Folder },
-      { id: 'grading', label: 'Chấm điểm & Đánh giá', icon: Star },
-      { id: 'review', label: 'DANH SÁCH ĐỀ TÀI', icon: CheckCircle },
-      { id: 'council', label: 'HỘI ĐỒNG BẢO VỆ', icon: Calendar }
-    ] : []),
-    ...(['admin', 'truongbm', 'head', 'tbm'].includes(user.Role.toLowerCase()) ? [
-      { id: 'management', label: 'Quản lý Đào tạo', icon: Users },
-      { id: 'assign', label: 'Phân công & Hội đồng', icon: ShieldCheck },
-      { id: 'periods', label: 'Quản lý Đợt', icon: Calendar },
-      { id: 'stats', label: 'Thống kê', icon: TrendingUp }
-    ] : []),
+  // === MENU DEFINITIONS ===
+
+  const studentMenuItems = [
+    { id: 'register', label: 'Đăng ký BCTT', icon: Folder },
+    { id: 'register_kltn', label: 'Đăng ký KLTN', icon: Layout },
+    { id: 'status', label: 'Theo dõi tiến độ', icon: TrendingUp },
+    { id: 'grades', label: 'Kết quả học tập', icon: CheckCircle }
   ];
+
+  const lecturerMenuItems = [
+    { id: 'guidance', label: 'Hướng dẫn', icon: CheckCircle },
+    { id: 'reviewer', label: 'Phản biện', icon: ShieldCheck },
+    { id: 'council', label: 'Hội đồng', icon: Users },
+    { id: 'president', label: 'Chủ tịch', icon: Star },
+    { id: 'secretary', label: 'Thư ký', icon: FileText },
+    { id: 'suggestion', label: 'Gợi ý đề tài', icon: Edit3 },
+    { id: 'grading', label: 'Chấm điểm', icon: Star },
+  ];
+
+  const adminMenuItems = [
+    { id: 'management', label: 'Mở slot GVHD', icon: Users },
+    { id: 'assign', label: 'Phân công PB/HD', icon: ShieldCheck },
+    { id: 'thesis_list', label: 'Danh sách đề tài', icon: List },
+    { id: 'council_admin', label: 'Hội đồng', icon: Users },
+    { id: 'president_admin', label: 'Chủ tịch', icon: Star },
+    { id: 'stats', label: 'Thống kê', icon: BarChart3 },
+    { id: 'periods', label: 'Quản lý Đợt', icon: Calendar },
+  ];
+
+  let menuItems = [{ id: 'home', label: 'Thông tin chung', icon: Home }];
+  
+  if (isStudent) menuItems = [...menuItems, ...studentMenuItems];
+  if (isLecturer) menuItems = [...menuItems, ...lecturerMenuItems];
+  if (isTBM) {
+    // TBM = Trưởng bộ môn menu + Giảng viên menu (vì TBM cũng là GV)
+    menuItems = [
+      ...menuItems,
+      { type: 'divider', label: 'TRƯỞNG BỘ MÔN' },
+      ...adminMenuItems,
+      { type: 'divider', label: 'GIẢNG VIÊN' },
+      ...lecturerMenuItems,
+    ];
+  }
+
+  const roleLabel = isTBM ? 'Trưởng BM' : isLecturer ? 'Giảng viên' : 'Sinh viên';
 
   return (
     <div className="layout-container">
-      {/* Sidebar - Khớp 100% mẫu ảnh */}
       <aside className="sidebar">
         <div className="logo-section">
            <div className="logo-box">
@@ -76,22 +103,28 @@ function Dashboard({ user, onLogout }) {
            <div style={{ fontWeight: '700', fontSize: '0.9rem', marginBottom: '4px', textAlign: 'center' }}>{user.Ten}</div>
            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', marginBottom: '8px', textAlign: 'center' }}>{user.MS}</div>
            <div style={{ fontSize: '0.65rem', fontWeight: '800', background: 'rgba(255,255,255,0.15)', padding: '4px 12px', borderRadius: '4px', textTransform: 'uppercase', display: 'inline-block', color: '#fff' }}>
-              {user.Role}
+              {roleLabel}
            </div>
         </div>
 
-        <div className="menu-container">
-           <div className="menu-label" style={{ color: 'rgba(255,255,255,0.6)' }}>CHỨC NĂNG</div>
-           {menuItems.map(item => (
-             <button
-               key={item.id}
-               className={`menu-item ${activeTab === item.id ? 'active' : ''}`}
-               onClick={() => setActiveTab(item.id)}
-             >
-               <item.icon size={18} />
-               {item.label}
-             </button>
-           ))}
+        <div className="sidebar-scroll" style={{ flex: 1, overflowY: 'auto' }}>
+          <div className="menu-container">
+             {menuItems.map((item, idx) => {
+               if (item.type === 'divider') {
+                 return <div key={idx} className="menu-label" style={{ color: 'rgba(255,255,255,0.5)', marginTop: '16px' }}>{item.label}</div>;
+               }
+               return (
+                 <button
+                   key={item.id}
+                   className={`menu-item ${activeTab === item.id ? 'active' : ''}`}
+                   onClick={() => setActiveTab(item.id)}
+                 >
+                   <item.icon size={18} />
+                   {item.label}
+                 </button>
+               );
+             })}
+          </div>
         </div>
 
         <div className="logout-section">
@@ -102,13 +135,11 @@ function Dashboard({ user, onLogout }) {
         </div>
       </aside>
 
-      {/* Top Header */}
       <header className="header">
          <div className="header-search">
             <Search size={18} color="var(--text-muted)" />
             <input type="text" placeholder="Tìm kiếm sinh viên, đề tài, giảng viên..." />
          </div>
-
          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <div style={{ textAlign: 'right' }}>
                <div style={{ fontSize: '0.85rem', fontWeight: '700' }}>{user.Ten}</div>
@@ -120,7 +151,6 @@ function Dashboard({ user, onLogout }) {
          </div>
       </header>
 
-      {/* Main Content - Full width */}
       <main className="main-content">
         <div className="animate-fade-in" style={{ width: '100%' }}>
           {renderContent()}

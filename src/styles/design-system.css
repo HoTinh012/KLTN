@@ -413,3 +413,57 @@ table td {
   .login-form-side { flex: 1; padding: 20px; }
   .login-card-elevated { padding: 32px 24px; }
 }
+
+/* --- CẤU HÌNH FORM ĐĂNG KÝ MỚI (THEO MẪU) --- */
+.input-field-custom {
+  width: 100%;
+  padding: 14px 16px;
+  background: #f1f5f9 !important; /* Màu xám nhạt chuẩn mẫu */
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  color: var(--text-main) !important;
+  outline: none;
+}
+
+.input-field-custom:focus {
+  background: #ffffff !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(0,75,145,0.1);
+}
+
+.btn-primary-blue {
+  background: #2563eb; /* Màu xanh dương chuyên nghiệp */
+  color: white !important;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary-blue:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary-blue svg {
+  color: white !important;
+}
+
+.alert-info {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  padding: 16px;
+  border-radius: 8px;
+  color: #1e40af;
+  font-weight: 700;
+}
