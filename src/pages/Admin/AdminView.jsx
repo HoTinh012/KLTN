@@ -57,26 +57,59 @@ function AdminView({ user, activeTab }) {
 // ===================== ADMIN HOME =====================
 function AdminHome({ user, masterData }) {
   const allReg = masterData.linkGiangvien || [];
-  const pendingApproval = allReg.filter(r => r.Role === 'GVHD' && (!r.End || r.End === 'Registered' || r.End === 'New')).length;
+
+  // Đề tài chờ GV duyệt lần đầu
+  const pendingApproval = allReg.filter(r =>
+    (r.Role === 'GVHD' || r.Role === 'BCTT' || r.Role === 'KLTN') &&
+    (!r.End || r.End === 'Registered' || r.End === 'New')
+  ).length;
+
+  // KLTN đã GV duyệt nhưng chưa có GVPB
   const pendingGVPB = allReg.filter(r => {
-    if (r.Role !== 'GVHD' && r.Role !== 'KLTN') return false;
+    const isKLTN = (r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN') || r.Role === 'KLTN';
     const hasGVPB = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && x.Role === 'GVPB');
-    return !hasGVPB && (r.End === 'Approved' || r.End === 'Yes');
+    return isKLTN && !hasGVPB && (r.End === 'Approved' || r.End === 'Yes');
   }).length;
+
+  // KLTN đã qua Turnitin (Graded) nhưng chưa có Hội đồng
+  const pendingCouncil = allReg.filter(r => {
+    const isKLTN = (r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN') || r.Role === 'KLTN';
+    const hasCouncil = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && x.Role === 'CTHD');
+    return isKLTN && r.End === 'Graded' && !hasCouncil;
+  }).length;
+
+  // KLTN SV đã nộp bản sửa, chờ GVHD xác nhận
+  const pendingRevision = allReg.filter(r =>
+    (r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN') &&
+    r.End === 'Revised'
+  ).length;
+
+  const cards = [
+    { label: 'ĐỀ TÀI CHờ GV DUYỆT', count: pendingApproval, color: '#ea580c', desc: 'BCTT + KLTN mới đăng ký chưa được phê duyệt' },
+    { label: 'KLTN CHờ PHÂN GVPB', count: pendingGVPB, color: '#7c3aed', desc: 'KLTN đã GV duyệt, TBM cần phân công GV Phản biện' },
+    { label: 'KLTN CHờ LẬP HỘI ĐỒNG', count: pendingCouncil, color: '#0891b2', desc: 'Đã qua Turnitin, TBM cần lập Hướng + lịch bảo vệ' },
+    { label: 'KLTN CHờ GVHD XÁC NHẬN', count: pendingRevision, color: '#059669', desc: 'SV đã nộp bản sửa, GVHD chưa xác nhận' },
+  ];
 
   return (
     <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <h2 style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '24px' }}>Tổng quan Hệ thống</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-        <div className="card-flat" style={{ borderLeft: '4px solid #ea580c' }}>
-          <h4 style={{ fontWeight: '800', marginBottom: '8px' }}>Đề tài chờ GV duyệt</h4>
-          <p style={{ fontSize: '2rem', fontWeight: '900', color: '#ea580c' }}>{pendingApproval}</p>
-        </div>
-        <div className="card-flat" style={{ borderLeft: '4px solid #7c3aed' }}>
-          <h4 style={{ fontWeight: '800', marginBottom: '8px' }}>KLTN chờ phân GVPB</h4>
-          <p style={{ fontSize: '2rem', fontWeight: '900', color: '#7c3aed' }}>{pendingGVPB}</p>
-        </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
+        {cards.map((c, i) => (
+          <div key={i} className="card-flat" style={{ borderLeft: `4px solid ${c.color}` }}>
+            <p style={{ fontSize: '0.65rem', fontWeight: '900', color: c.color, letterSpacing: '1px', marginBottom: '8px' }}>{c.label}</p>
+            <p style={{ fontSize: '2.2rem', fontWeight: '900', color: c.count > 0 ? c.color : '#94a3b8', lineHeight: 1 }}>{c.count}</p>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '8px' }}>{c.desc}</p>
+          </div>
+        ))}
       </div>
+
+      {(pendingApproval + pendingGVPB + pendingCouncil + pendingRevision) === 0 && (
+        <div className="card-flat" style={{ textAlign: 'center', color: '#059669', padding: '32px' }}>
+          <p style={{ fontSize: '1.1rem', fontWeight: '800' }}>✅ Tất cả quy trình đã cập nhật!</p>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '8px' }}>Không có đề tài nào đang chờ xử lý.</p>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -252,12 +285,12 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
   const allReg = masterData.linkGiangvien || [];
   const users = masterData.users || [];
 
-  // SV KLTN đã approved và có GVPB nhưng chưa có hội đồng
+  // KLTN đã qua Turnitin (End=Graded) và chưa có hội đồng
   const eligibleSV = allReg.filter(r => {
     const isKLTN = (r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN') || r.Role === 'KLTN';
-    const isApproved = r.End === 'Approved' || r.End === 'Yes' || r.End === 'Graded';
+    const isGraded = r.End === 'Graded'; // Chỉ sau khi GV upload Turnitin và duyệt
     const hasCouncil = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && x.Role === 'CTHD');
-    return isKLTN && isApproved && !hasCouncil;
+    return isKLTN && isGraded && !hasCouncil;
   });
 
   // Existing councils

@@ -83,68 +83,136 @@ function HomeView({ user, users, hd, pb, council, pending }) {
 // ===================== GUIDANCE (Hướng dẫn) =====================
 function GuidanceView({ students, masterData, onRefresh, user }) {
   const [editingTitle, setEditingTitle] = useState({});
+  const [uploading, setUploading] = useState(null);
   const users = masterData.users || [];
 
-  const handleApprove = async (emailSV, status) => {
+  const handleApprove = async (emailSV, status, loai) => {
     const title = editingTitle[emailSV] || '';
+    const labels = { Approved: 'Duyệt', Rejected: 'Từ chối', Completed: 'Xác nhận Hoàn tất', Graded: 'Duyệt vào Hội đồng', Confirmed: 'Xác nhận bản sửa' };
     try {
-      await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status, newTitle: title });
-      alert(`Đã ${status === 'Approved' ? 'Duyệt' : 'Từ chối'} đề tài!`);
+      await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status, newTitle: title, loaiDeTai: loai });
+      alert(`✓ Đã ${labels[status] || status}!`);
       onRefresh();
     } catch (err) { alert('Lỗi thao tác!'); }
   };
 
-  const handleFinalConfirm = async (emailSV) => {
-    try {
-      await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status: 'Completed', newTitle: '' });
-      alert('Đã xác nhận hoàn tất!'); onRefresh();
-    } catch (err) { alert('Lỗi xác nhận!'); }
+  const handleUploadTurnitin = async (emailSV) => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file'; fileInput.accept = '.pdf';
+    fileInput.onchange = async (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      setUploading(emailSV);
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result.split(',')[1];
+        try {
+          await api.uploadFile({ emailSV, name: `Turnitin_${emailSV}.pdf`, base64, loaiDeTai: 'KLTN', fieldName: 'Turnitin_Report' });
+          alert('✓ Đã tải Turnitin!'); onRefresh();
+        } catch (err) { alert('Lỗi tải file!'); }
+        finally { setUploading(null); }
+      };
+      reader.readAsDataURL(file);
+    };
+    fileInput.click();
   };
 
   return (
     <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
       <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
         <h3 style={{ fontWeight: '800' }}>Phê duyệt & Hướng dẫn Đề tài ({students.length})</h3>
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Quản lý toàn bộ quy trình hướng dẫn BCTT và KLTN</p>
       </div>
       <table style={{ width: '100%' }}>
-        <thead><tr><th>SINH VIÊN</th><th>LOẠI</th><th>ĐỀ TÀI</th><th>ĐỢT</th><th style={{ textAlign: 'right' }}>THAO TÁC</th></tr></thead>
+        <thead><tr><th>SINH VIÊN</th><th>LOẠI</th><th>ĐỀ TÀI / ĐỢT</th><th>BÀI NỘP</th><th style={{ textAlign: 'right' }}>THAO TÁC WORKFLOW</th></tr></thead>
         <tbody>
           {students.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Chưa có sinh viên nào đăng ký.</td></tr>}
           {students.map((s, idx) => {
-            const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()) || {};
+            const loai = String(s.Link || s.Role || '').trim();
+            const sub = (masterData.linkBainop || []).find(b =>
+              String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase() &&
+              String(b.Loaidetai || '').trim() === loai
+            ) || (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()) || {};
             const endVal = String(s.End || '').trim();
             const isNew = endVal === 'Registered' || endVal === 'New' || !endVal;
+            const isApproved = endVal === 'Approved' || endVal === 'Yes';
+            const isRevised = endVal === 'Revised';
+            const hasReport = !!sub.Linkbai;
             const svName = lookupName(s.EmailSV, users);
-            const loai = String(s.Link || s.Role || '').trim(); // Link column stores BCTT/KLTN
+            const isDone = endVal === 'Completed' || endVal === 'Pass';
+            const isRejected = endVal === 'Rejected';
+            const isGraded = endVal === 'Graded';
+            const isConfirmed = endVal === 'Confirmed';
             return (
               <tr key={idx} className="table-row">
                 <td>
                   <div style={{ fontWeight: '700' }}>{svName}</div>
                   <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.EmailSV}</div>
                 </td>
-                <td><span style={{ fontSize: '0.7rem', fontWeight: '800', background: '#eff6ff', color: '#1e40af', padding: '4px 8px', borderRadius: '4px' }}>{loai || s.Role}</span></td>
                 <td>
-                  <div style={{ fontWeight: '700', fontSize: '0.9rem' }}>{sub.Tendetai || '---'}</div>
-                  {s.Diadiem && <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.Diadiem}</div>}
+                  <span style={{ fontSize: '0.7rem', fontWeight: '800', background: loai === 'KLTN' ? '#dcfce7' : '#eff6ff', color: loai === 'KLTN' ? '#166534' : '#1e40af', padding: '4px 8px', borderRadius: '4px' }}>
+                    {loai || s.Role}
+                  </span>
                 </td>
-                <td style={{ fontSize: '0.8rem' }}>{sub.DotHK || '---'}</td>
-                <td style={{ textAlign: 'right' }}>
-                  {isNew ? (
+                <td>
+                  <div style={{ fontWeight: '700', fontSize: '0.88rem' }}>{sub.Tendetai || '---'}</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{sub.DotHK || '---'}</div>
+                </td>
+                <td>
+                  {hasReport
+                    ? <a href={sub.Linkbai} target="_blank" rel="noreferrer" className="btn-primary" style={{ fontSize: '0.7rem', padding: '4px 10px' }}><Eye size={12} /> Xem file</a>
+                    : <span style={{ color: '#94a3b8', fontSize: '0.75rem' }}>Chưa nộp</span>}
+                </td>
+                <td style={{ textAlign: 'right', minWidth: '260px' }}>
+
+                  {/* CASE 1: Mới đăng ký → GV duyệt lần đầu */}
+                  {isNew && (
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <input type="text" placeholder="Đổi tên đề tài..." style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '0.78rem', width: '160px' }}
+                      <input type="text" placeholder="Đổi tên..." style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '0.75rem', width: '140px' }}
                         onChange={(e) => setEditingTitle({...editingTitle, [s.EmailSV]: e.target.value})} />
-                      <button className="btn-success" onClick={() => handleApprove(s.EmailSV, 'Approved')} title="Duyệt"><Check size={16} /></button>
-                      <button style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 12px', cursor: 'pointer' }} onClick={() => handleApprove(s.EmailSV, 'Rejected')} title="Từ chối"><X size={16} /></button>
+                      <button className="btn-success" onClick={() => handleApprove(s.EmailSV, 'Approved', loai)} title="Duyệt"><Check size={16} /></button>
+                      <button style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 12px', cursor: 'pointer' }} onClick={() => handleApprove(s.EmailSV, 'Rejected', loai)} title="Từ chối"><X size={16} /></button>
                     </div>
-                  ) : (
-                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <span style={{ color: endVal === 'Rejected' ? '#ef4444' : 'var(--success)', fontWeight: '800', fontSize: '0.8rem' }}>
-                        {endVal === 'Completed' || endVal === 'Yes' || endVal === 'Pass' ? '✓ HOÀN TẤT' : endVal === 'Rejected' ? '✕ TỪ CHỐI' : `✓ ${endVal}`}
-                      </span>
-                      {(endVal === 'Approved' || endVal === 'Graded') && (
-                        <button className="btn-primary" onClick={() => handleFinalConfirm(s.EmailSV)} style={{ fontSize: '0.7rem', padding: '4px 10px' }}>Xác nhận HT</button>
-                      )}
+                  )}
+
+                  {/* CASE 2: BCTT – đã duyệt + SV đã nộp BC → GV duyệt kết quả TT */}
+                  {loai === 'BCTT' && isApproved && hasReport && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end' }}>
+                      <span style={{ fontSize: '0.65rem', color: '#f59e0b', fontWeight: '700', background: '#fef3c7', padding: '2px 8px', borderRadius: '4px' }}>SV đã nộp BC thực tập</span>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        <button className="btn-success" style={{ fontSize: '0.75rem', padding: '6px 14px' }} onClick={() => handleApprove(s.EmailSV, 'Completed', loai)}>✓ Hoàn tất BCTT</button>
+                        <button style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer', fontSize: '0.75rem' }} onClick={() => handleApprove(s.EmailSV, 'Rejected', loai)}>✕ Từ chối</button>
+                      </div>
                     </div>
+                  )}
+
+                  {/* CASE 3: KLTN – đã duyệt + SV đã nộp LV → Upload Turnitin + Duyệt HĐ / Từ chối */}
+                  {loai === 'KLTN' && isApproved && hasReport && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end' }}>
+                      <span style={{ fontSize: '0.65rem', color: '#7c3aed', fontWeight: '700', background: '#f3e8ff', padding: '2px 8px', borderRadius: '4px' }}>SV đã nộp LV – Kiểm tra Turnitin</span>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        <button style={{ background: '#6366f1', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '4px' }}
+                          onClick={() => handleUploadTurnitin(s.EmailSV)} disabled={uploading === s.EmailSV}>
+                          <Upload size={12} /> {uploading === s.EmailSV ? '...' : 'Turnitin'}
+                        </button>
+                        <button className="btn-success" style={{ fontSize: '0.7rem', padding: '6px 10px' }} onClick={() => handleApprove(s.EmailSV, 'Graded', loai)}>✓ Duyệt HĐ</button>
+                        <button style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer', fontSize: '0.7rem' }} onClick={() => handleApprove(s.EmailSV, 'Rejected', loai)}>✕ Trượt</button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* CASE 4: KLTN – SV đã upload bản sửa → GVHD xác nhận */}
+                  {loai === 'KLTN' && isRevised && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end' }}>
+                      <span style={{ fontSize: '0.65rem', color: '#059669', fontWeight: '700', background: '#dcfce7', padding: '2px 8px', borderRadius: '4px' }}>SV đã nộp bản sửa</span>
+                      <button className="btn-success" style={{ fontSize: '0.75rem', padding: '8px 16px' }} onClick={() => handleApprove(s.EmailSV, 'Confirmed', loai)}>✓ Xác nhận bản sửa (GVHD)</button>
+                    </div>
+                  )}
+
+                  {/* CASE 5: Trạng thái khác – badge thông báo */}
+                  {!isNew && !(loai === 'BCTT' && isApproved && hasReport) && !(loai === 'KLTN' && isApproved && hasReport) && !isRevised && (
+                    <span style={{ fontWeight: '800', fontSize: '0.8rem', color: isRejected ? '#ef4444' : isDone ? '#059669' : isGraded ? '#7c3aed' : isConfirmed ? '#2563eb' : 'var(--success)' }}>
+                      {isDone ? '✓ HOÀN TẤT' : isRejected ? '✕ ĐÃ TỪ CHỐI' : isGraded ? '✓ Qua Turnitin – Chờ HĐ' : isConfirmed ? '✓ Đã XN sửa – Chờ CT HĐ' : `✓ ${endVal}`}
+                    </span>
                   )}
                 </td>
               </tr>
@@ -296,11 +364,12 @@ function CouncilView({ students, masterData, user, onRefresh }) {
 // ===================== PRESIDENT (Chủ tịch) =====================
 function PresidentView({ students, masterData, user, onRefresh }) {
   const users = masterData.users || [];
+  const allReg = masterData.linkGiangvien || [];
 
   const handleConfirm = async (emailSV) => {
     try {
       await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status: 'Completed', newTitle: '' });
-      alert('Đã xác nhận hoàn tất KLTN!'); onRefresh();
+      alert('✓ Đã chốt hoàn tất KLTN!'); onRefresh();
     } catch(e) { alert('Lỗi!'); }
   };
 
@@ -308,28 +377,44 @@ function PresidentView({ students, masterData, user, onRefresh }) {
     <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
       <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
         <h3 style={{ fontWeight: '800' }}>Vai trò Chủ tịch Hội đồng ({students.length})</h3>
-        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Xác nhận SV hoàn tất chỉnh sửa sau bảo vệ</p>
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Chốt hoàn tất sau khi GVHD đã xác nhận bản sửa của SV</p>
       </div>
       <table style={{ width: '100%' }}>
-        <thead><tr><th>SINH VIÊN</th><th>ĐỀ TÀI</th><th>ĐỊA ĐIỂM</th><th>TRẠNG THÁI</th><th style={{ textAlign: 'right' }}>THAO TÁC</th></tr></thead>
+        <thead><tr><th>SINH VIÊN</th><th>ĐỀ TÀI</th><th>ĐỊA ĐIỂM</th><th>GVHD XÁC NHẬN</th><th style={{ textAlign: 'right' }}>THAO TÁC</th></tr></thead>
         <tbody>
           {students.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Bạn chưa được phân làm Chủ tịch HĐ nào.</td></tr>}
           {students.map((s, idx) => {
             const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()) || {};
             const svName = lookupName(s.EmailSV, users);
             const endVal = String(s.End || '').trim();
+            const isDone = endVal === 'Yes' || endVal === 'Completed';
+            // Kiểm tra GVHD đã xác nhận bản sửa chưa
+            const gvhdRecord = allReg.find(r =>
+              String(r.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase() &&
+              (r.Role === 'GVHD' || r.Role === 'KLTN')
+            );
+            const gvhdEnd = String(gvhdRecord?.End || '').trim();
+            const isGVHDConfirmed = gvhdEnd === 'Confirmed' || gvhdEnd === 'Completed' || gvhdEnd === 'Yes';
             return (
               <tr key={idx} className="table-row">
                 <td><div style={{ fontWeight: '700' }}>{svName}</div><div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{s.EmailSV}</div></td>
                 <td style={{ fontWeight: '700', fontSize: '0.88rem' }}>{sub.Tendetai || '---'}</td>
                 <td>{s.Diadiem || '---'}</td>
-                <td><span style={{ fontSize: '0.78rem', fontWeight: '800', color: endVal === 'Yes' ? '#059669' : '#64748b' }}>{endVal || 'Chờ'}</span></td>
+                <td>
+                  {isGVHDConfirmed
+                    ? <span style={{ color: '#059669', fontWeight: '800', fontSize: '0.78rem' }}>✓ Đã xác nhận</span>
+                    : <span style={{ color: '#f59e0b', fontWeight: '700', fontSize: '0.78rem' }}>⏳ Chờ GVHD xác nhận bản sửa</span>}
+                </td>
                 <td style={{ textAlign: 'right' }}>
-                  {(endVal !== 'Yes' && endVal !== 'Completed') ? (
-                    <button className="btn-success" style={{ fontSize: '0.72rem', padding: '8px 16px' }} onClick={() => handleConfirm(s.EmailSV)}>
-                      <CheckCircle size={14} /> Xác nhận hoàn tất
-                    </button>
-                  ) : <span style={{ color: 'var(--success)', fontWeight: '800' }}>✓ Đã xác nhận</span>}
+                  {isDone
+                    ? <span style={{ color: 'var(--success)', fontWeight: '800' }}>✓ HOÀN TẤT KLTN</span>
+                    : isGVHDConfirmed
+                      ? <button className="btn-success" style={{ fontSize: '0.72rem', padding: '8px 16px' }} onClick={() => handleConfirm(s.EmailSV)}>
+                          <CheckCircle size={14} /> Chốt hoàn tất KLTN
+                        </button>
+                      : <button disabled style={{ fontSize: '0.72rem', padding: '8px 16px', background: '#e2e8f0', color: '#94a3b8', border: 'none', borderRadius: '6px', cursor: 'not-allowed' }}>
+                          Đợi GVHD xác nhận...
+                        </button>}
                 </td>
               </tr>
             );

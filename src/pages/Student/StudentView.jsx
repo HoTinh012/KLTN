@@ -25,7 +25,7 @@ function StudentView({ user, activeTab }) {
   // Tìm bản ghi GVHD cho BCTT và KLTN
   const myBCTT_HD = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVHD' && String(r.Link).trim() === 'BCTT');
   const myKLTN_HD = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN');
-  
+
   // Fallback: tìm bằng Role cũ (BCTT/KLTN) cho dữ liệu cũ
   const myBCTT = myBCTT_HD || allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'BCTT');
   const myKLTN = myKLTN_HD || allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'KLTN');
@@ -36,7 +36,7 @@ function StudentView({ user, activeTab }) {
 
   // GVPB + HĐ records cho KLTN
   const gvpbRecord = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVPB');
-  const councilRecord = allReg.find(r => String(r.EmailSV).toLowerCase() === em && ['CTHD','TVHD1','TVHD2','ThukyHD'].includes(r.Role));
+  const councilRecord = allReg.find(r => String(r.EmailSV).toLowerCase() === em && ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(r.Role));
 
   // === BCTT Steps (1-6) ===
   let bcttStep = 1;
@@ -71,7 +71,18 @@ function StudentView({ user, activeTab }) {
 
   // === ROUTING ===
   if (activeTab === 'register') return <RegistrationForm user={user} masterData={masterData} onRefresh={fetchData} loai="BCTT" />;
-  if (activeTab === 'register_kltn') return <RegistrationForm user={user} masterData={masterData} onRefresh={fetchData} loai="KLTN" />;
+
+  const bcttRecord = (masterData.topics || []).find(
+    t => t.emailSV === user.Email && t.loaiDeTai === "BCTT"
+  );
+
+  if (activeTab === 'register_kltn' && bcttRecord?.Trangthai !== "Đã xác nhận") {
+    return <div>Bạn phải hoàn thành BCTT trước khi đăng ký KLTN</div>;
+  }
+
+  if (activeTab === 'register_kltn') {
+    return <RegistrationForm user={user} masterData={masterData} onRefresh={fetchData} loai="KLTN" />;
+  }
   if (activeTab === 'status') return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
       <ProgressTracker title="TIẾN ĐỘ BÁO CÁO THỰC TẬP (BCTT)" user={user} currentStep={bcttStep} onRefresh={fetchData} loai="BCTT"
@@ -97,10 +108,24 @@ function StudentView({ user, activeTab }) {
       </div>
 
       <div style={{ marginTop: '32px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-        <StatusCard title="TRẠNG THÁI BCTT" step={bcttStep} total={5} theme="#004b91" sub={`GVHD: ${gvhdName_BCTT}`} />
-        <StatusCard title="TRẠNG THÁI KLTN" step={kltnStep} total={10} theme="#059669" sub={`GVHD: ${gvhdName_KLTN}`} />
-      </div>
+        <StatusBadgeCard
+          title="TRẠNG THÁI BCTT"
+          step={bcttStep}
+          sub={`GVHD: ${gvhdName_BCTT}`}
+          loai="BCTT"
+          user={user}
+          onRefresh={fetchData}
+        />
 
+        <StatusBadgeCard
+          title="TRẠNG THÁI KLTN"
+          step={kltnStep}
+          sub={`GVHD: ${gvhdName_KLTN}`}
+          loai="KLTN"
+          user={user}
+          onRefresh={fetchData}
+        />
+      </div>
       {(myBCTT || myKLTN) && (
         <div className="card-flat" style={{ marginTop: '24px' }}>
           <h3 style={{ fontWeight: '800', marginBottom: '16px', fontSize: '1rem' }}>ĐỀ TÀI ĐÃ ĐĂNG KÝ</h3>
@@ -146,6 +171,145 @@ function InfoItem({ label, value }) {
     </div>
   );
 }
+function StatusBadgeCard({ title, step, sub, loai, user, onRefresh }) {
+
+  const getStatus = () => {
+
+    if (loai === "BCTT") {
+      const map = {
+        1: "Chưa đăng ký",
+        2: "Đã đăng ký",
+        3: "GVHD đã duyệt",
+        4: "Đã nộp báo cáo",
+        5: "Đã chấm điểm",
+        6: "Hoàn tất"
+      };
+      return map[step] || "Chưa xác định";
+    }
+
+    if (loai === "KLTN") {
+      const map = {
+        1: "Chưa đăng ký",
+        2: "Đã đăng ký",
+        3: "GVHD đã duyệt",
+        4: "Đã phân GVPB",
+        5: "Đã nộp luận văn",
+        6: "Đã chấm Turnitin",
+        7: "Đã lập hội đồng",
+        8: "Đã bảo vệ",
+        9: "Đang chỉnh sửa",
+        10: "GVHD xác nhận",
+        11: "Hoàn tất"
+      };
+      return map[step] || "Chưa xác định";
+    }
+  };
+
+  const status = getStatus();
+
+  const handleUpload = async (fieldName) => {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".pdf";
+
+    fileInput.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = async () => {
+        const base64 = reader.result.split(",")[1];
+
+        try {
+          await api.uploadFile({
+            emailSV: user.Email,
+            name: `${user.MS}_${fieldName}.pdf`,
+            base64,
+            loaiDeTai: loai,
+            fieldName
+          });
+
+          alert("Tải file thành công!");
+          onRefresh();
+        } catch (err) {
+          alert("Lỗi upload file!");
+        }
+      };
+
+      reader.readAsDataURL(file);
+    };
+
+    fileInput.click();
+  };
+
+  return (
+    <div className="card-flat" style={{ borderLeft: "6px solid #2563eb" }}>
+
+      <p style={{
+        fontSize: "0.75rem",
+        fontWeight: "900",
+        color: "#2563eb",
+        marginBottom: "6px"
+      }}>
+        {title}
+      </p>
+
+      {sub && (
+        <p style={{
+          fontSize: "0.75rem",
+          color: "#64748b",
+          marginBottom: "12px"
+        }}>
+          {sub}
+        </p>
+      )}
+
+      <div style={{
+        fontSize: "1.2rem",
+        fontWeight: "800",
+        color: "#1e293b",
+        marginBottom: "12px"
+      }}>
+        {status}
+      </div>
+
+      {/* ==== NÚT NỘP FILE ==== */}
+
+      {/* BCTT: Chỉ hiện khi GVHD đã duyệt (step 3) và SV chưa nộp */}
+      {loai === "BCTT" && step === 3 && (
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <button onClick={() => handleUpload("BCTT_Report")} className="btn-primary">
+            📄 Nộp Báo cáo TT
+          </button>
+          <button onClick={() => handleUpload("BCTT_Confirm")} className="btn-primary" style={{ background: "#7c3aed" }}>
+            📋 Phiếu xác nhận TT
+          </button>
+        </div>
+      )}
+
+      {/* KLTN: Nộp luận văn khi TBM đã phân GVPB (step 4) */}
+      {loai === "KLTN" && step === 4 && (
+        <button onClick={() => handleUpload("KLTN_Full")} className="btn-primary">
+          📄 Nộp Luận văn
+        </button>
+      )}
+
+      {/* KLTN: Upload bản sửa sau khi Hội đồng chấm (step 8) */}
+      {loai === "KLTN" && step === 8 && (
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <button onClick={() => handleUpload("KLTN_Revised")} className="btn-primary">
+            📝 Nộp bản sửa
+          </button>
+          <button onClick={() => handleUpload("KLTN_Explain")} className="btn-primary" style={{ background: "#7c3aed" }}>
+            📋 BB Giải trình
+          </button>
+        </div>
+      )}
+
+    </div>
+  );
+}
 
 function StatusCard({ title, step, total, theme, sub }) {
   return (
@@ -154,10 +318,10 @@ function StatusCard({ title, step, total, theme, sub }) {
       {sub && <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '12px' }}>{sub}</p>}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
         <span style={{ fontSize: '1.8rem', fontWeight: '900' }}>{step} <span style={{ fontSize: '1rem', color: '#cbd5e1' }}>/ {total}</span></span>
-        <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#64748b' }}>{Math.round(step/total*100)}%</span>
+        <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#64748b' }}>{Math.round(step / total * 100)}%</span>
       </div>
       <div style={{ height: '6px', background: '#f1f5f9', borderRadius: '10px', marginTop: '16px', overflow: 'hidden' }}>
-        <div style={{ width: `${Math.min(100,step/total*100)}%`, height: '100%', background: theme, transition: 'width 0.5s ease' }} />
+        <div style={{ width: `${Math.min(100, step / total * 100)}%`, height: '100%', background: theme, transition: 'width 0.5s ease' }} />
       </div>
     </div>
   );
@@ -200,7 +364,7 @@ function RegistrationForm({ user, masterData, onRefresh, loai }) {
       <div className="card-flat" style={{ padding: '0', overflow: 'hidden', border: 'none' }}>
         <div style={{ padding: '24px 32px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div style={{ width: '42px', height: '42px', background: '#f8fafc', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e2e8f0' }}>
-             <FileText size={20} color="#64748b" />
+            <FileText size={20} color="#64748b" />
           </div>
           <div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: '800' }}>Đăng ký {loai}</h3>
@@ -211,42 +375,42 @@ function RegistrationForm({ user, masterData, onRefresh, loai }) {
         <div style={{ padding: '32px' }}>
           <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px' }}>
             <div style={{ gridColumn: 'span 2' }}><FormBlock label="Tên đề tài dự kiến *">
-               <input type="text" value={form.Tendetai} onChange={e => setForm({...form, Tendetai: e.target.value})} required className="input-field-custom" placeholder="Nhập tên đề tài..." />
+              <input type="text" value={form.Tendetai} onChange={e => setForm({ ...form, Tendetai: e.target.value })} required className="input-field-custom" placeholder="Nhập tên đề tài..." />
             </FormBlock></div>
-            
+
             <FormBlock label="Đợt đăng ký">
-               <select value={form.DotHK} onChange={e => setForm({...form, DotHK: e.target.value})} required className="input-field-custom">
-                  <option value="">-- Chọn đợt --</option>
-                  {filteredDots.map(d => <option key={d.Dot} value={d.Dot}>{d.Dot}</option>)}
-               </select>
+              <select value={form.DotHK} onChange={e => setForm({ ...form, DotHK: e.target.value })} required className="input-field-custom">
+                <option value="">-- Chọn đợt --</option>
+                {filteredDots.map(d => <option key={d.Dot} value={d.Dot}>{d.Dot}</option>)}
+              </select>
             </FormBlock>
 
             <FormBlock label="Giảng viên hướng dẫn">
-               <select value={form.emailGV} onChange={e => setForm({...form, emailGV: e.target.value})} required className="input-field-custom">
-                  <option value="">-- Chọn Giảng viên --</option>
-                  {filteredLecturers.map(l => <option key={l.Email} value={l.Email}>{l.Ten} ({l.Email})</option>)}
-               </select>
+              <select value={form.emailGV} onChange={e => setForm({ ...form, emailGV: e.target.value })} required className="input-field-custom">
+                <option value="">-- Chọn Giảng viên --</option>
+                {filteredLecturers.map(l => <option key={l.Email} value={l.Email}>{l.Ten} ({l.Email})</option>)}
+              </select>
             </FormBlock>
 
             {loai === 'BCTT' && (
-                <div style={{ gridColumn: 'span 2' }}>
-                    <FormBlock label="Công ty thực tập *">
-                        <input type="text" value={form.congty} onChange={e => setForm({...form, congty: e.target.value})} required className="input-field-custom" placeholder="Nhập tên công ty thực tập..." />
-                    </FormBlock>
-                </div>
+              <div style={{ gridColumn: 'span 2' }}>
+                <FormBlock label="Công ty thực tập *">
+                  <input type="text" value={form.congty} onChange={e => setForm({ ...form, congty: e.target.value })} required className="input-field-custom" placeholder="Nhập tên công ty thực tập..." />
+                </FormBlock>
+              </div>
             )}
             {loai === 'KLTN' && (
-                <div style={{ gridColumn: 'span 2' }}>
-                    <FormBlock label="Mảng đề tài / Lĩnh vực">
-                        <input type="text" value={form.mangDeTai} onChange={e => setForm({...form, mangDeTai: e.target.value})} className="input-field-custom" placeholder="VD: Web, Mobile, AI, IoT..." />
-                    </FormBlock>
-                </div>
+              <div style={{ gridColumn: 'span 2' }}>
+                <FormBlock label="Mảng đề tài / Lĩnh vực">
+                  <input type="text" value={form.mangDeTai} onChange={e => setForm({ ...form, mangDeTai: e.target.value })} className="input-field-custom" placeholder="VD: Web, Mobile, AI, IoT..." />
+                </FormBlock>
+              </div>
             )}
 
             <div style={{ gridColumn: 'span 2', marginTop: '16px' }}>
-               <button type="submit" className="btn-primary-blue" disabled={submitting}>
-                  <Send size={18} /> {submitting ? 'ĐANG XỬ LÝ...' : 'ĐĂNG KÝ NGAY'}
-               </button>
+              <button type="submit" className="btn-primary-blue" disabled={submitting}>
+                <Send size={18} /> {submitting ? 'ĐANG XỬ LÝ...' : 'ĐĂNG KÝ NGAY'}
+              </button>
             </div>
           </form>
         </div>
@@ -277,7 +441,7 @@ function ProgressTracker({ title, user, currentStep, onRefresh, loai, steps }) {
   return (
     <div style={{ width: '100%' }}>
       <h3 style={{ marginBottom: '20px', fontSize: '1.1rem', fontWeight: '800', color: '#1e293b', display: 'flex', alignItems: 'center', gap: '10px' }}>
-         <ClipboardList size={18} /> {title}
+        <ClipboardList size={18} /> {title}
       </h3>
       <div className="card-flat" style={{ padding: '40px 24px', overflowX: 'auto' }}>
         <div style={{ display: 'flex', minWidth: '900px', justifyContent: 'space-between', position: 'relative' }}>
@@ -285,9 +449,9 @@ function ProgressTracker({ title, user, currentStep, onRefresh, loai, steps }) {
             <div style={{ width: `${Math.min(100, ((currentStep - 1) / (steps.length - 1)) * 100)}%`, height: '100%', background: 'var(--primary)', transition: 'all 0.5s ease' }} />
           </div>
           {steps.map((step, idx) => {
-             const isPassed = idx + 1 < currentStep;
-             const isCurrent = idx + 1 === currentStep;
-             return (
+            const isPassed = idx + 1 < currentStep;
+            const isCurrent = idx + 1 === currentStep;
+            return (
               <div key={idx} style={{ flex: 1, zIndex: 1, textAlign: 'center' }}>
                 <div style={{
                   width: '28px', height: '28px', borderRadius: '50%', margin: '0 auto 10px',
@@ -297,7 +461,7 @@ function ProgressTracker({ title, user, currentStep, onRefresh, loai, steps }) {
                   {isPassed ? <CheckCircle size={16} /> : idx + 1}
                 </div>
                 <p style={{ fontSize: '0.65rem', fontWeight: '800', color: (isPassed || isCurrent) ? '#1e293b' : '#94a3b8', maxWidth: '80px', margin: '0 auto' }}>{step}</p>
-                
+
                 {isCurrent && (
                   <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center' }}>
                     {loai === 'BCTT' && idx === 2 && <>
@@ -312,7 +476,7 @@ function ProgressTracker({ title, user, currentStep, onRefresh, loai, steps }) {
                   </div>
                 )}
               </div>
-             );
+            );
           })}
         </div>
       </div>
@@ -323,33 +487,33 @@ function ProgressTracker({ title, user, currentStep, onRefresh, loai, steps }) {
 function GradesView({ user, grades }) {
   return (
     <div className="animate-fade-in" style={{ width: '100%' }}>
-       <h2 style={{ marginBottom: '24px', fontSize: '1.8rem', fontWeight: '800' }}>Kết quả học tập</h2>
-       <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
-          <table style={{ width: '100%' }}>
-             <thead>
-                <tr><th>HẠNG MỤC</th><th>ĐIỂM GVHD</th><th>ĐIỂM GVPB</th><th>ĐIỂM HỘI ĐỒNG</th><th>TRUNG BÌNH</th></tr>
-             </thead>
-             <tbody>
-                {grades.map((g, idx) => {
-                  const dHD = parseFloat(g.Diem_GVHD) || 0;
-                  const dPB = parseFloat(g.Diem_GVPB) || 0;  
-                  const dHoi = parseFloat(g.Diem_HoiDong) || 0;
-                  const count = [dHD, dPB, dHoi].filter(v => v > 0).length;
-                  const avg = count > 0 ? ((dHD + dPB + dHoi) / count).toFixed(1) : '---';
-                  return (
-                    <tr key={idx} className="table-row">
-                       <td style={{ fontWeight: '800' }}>{g.Loai || g.LoaiDeTai}</td>
-                       <td>{g.Diem_GVHD || '---'}</td>
-                       <td>{g.Diem_GVPB || '---'}</td>
-                       <td>{g.Diem_HoiDong || '---'}</td>
-                       <td style={{ fontWeight: '900', color: 'var(--primary)', fontSize: '1.1rem' }}>{avg}</td>
-                    </tr>
-                  );
-                })}
-                {grades.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', padding: '20px', color: '#64748b' }}>Chưa có dữ liệu điểm.</td></tr>}
-             </tbody>
-          </table>
-       </div>
+      <h2 style={{ marginBottom: '24px', fontSize: '1.8rem', fontWeight: '800' }}>Kết quả học tập</h2>
+      <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
+        <table style={{ width: '100%' }}>
+          <thead>
+            <tr><th>HẠNG MỤC</th><th>ĐIỂM GVHD</th><th>ĐIỂM GVPB</th><th>ĐIỂM HỘI ĐỒNG</th><th>TRUNG BÌNH</th></tr>
+          </thead>
+          <tbody>
+            {grades.map((g, idx) => {
+              const dHD = parseFloat(g.Diem_GVHD) || 0;
+              const dPB = parseFloat(g.Diem_GVPB) || 0;
+              const dHoi = parseFloat(g.Diem_HoiDong) || 0;
+              const count = [dHD, dPB, dHoi].filter(v => v > 0).length;
+              const avg = count > 0 ? ((dHD + dPB + dHoi) / count).toFixed(1) : '---';
+              return (
+                <tr key={idx} className="table-row">
+                  <td style={{ fontWeight: '800' }}>{g.Loai || g.LoaiDeTai}</td>
+                  <td>{g.Diem_GVHD || '---'}</td>
+                  <td>{g.Diem_GVPB || '---'}</td>
+                  <td>{g.Diem_HoiDong || '---'}</td>
+                  <td style={{ fontWeight: '900', color: 'var(--primary)', fontSize: '1.1rem' }}>{avg}</td>
+                </tr>
+              );
+            })}
+            {grades.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', padding: '20px', color: '#64748b' }}>Chưa có dữ liệu điểm.</td></tr>}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
