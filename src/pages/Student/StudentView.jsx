@@ -22,17 +22,47 @@ function StudentView({ user, activeTab }) {
   const allReg = masterData.linkGiangvien || [];
   const allBn = masterData.linkBainop || [];
 
+  const getTopicType = item => {
+    const raw = item?.Loaidetai ?? item?.LoaiDeTai ?? item?.loaiDeTai ?? item?.loaidetai ?? item?.Link ?? '';
+    const value = String(raw).trim();
+    if (!value) return '';
+    const normalized = value.toUpperCase();
+    if (normalized.includes('BCTT')) return 'BCTT';
+    if (normalized.includes('KLTN')) return 'KLTN';
+    return normalized;
+  };
+
   // Tìm bản ghi GVHD cho BCTT và KLTN
-  const myBCTT_HD = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVHD' && String(r.Link).trim() === 'BCTT');
-  const myKLTN_HD = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN');
+  const myBCTT_HD = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVHD' && getTopicType(r) === 'BCTT');
+  const myKLTN_HD = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVHD' && getTopicType(r) === 'KLTN');
 
-  // Fallback: tìm bằng Role cũ (BCTT/KLTN) cho dữ liệu cũ
-  const myBCTT = myBCTT_HD || allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'BCTT');
-  const myKLTN = myKLTN_HD || allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'KLTN');
+  // Fallback: tìm bằng Role cũ / kiểu đề tài cũ cho dữ liệu chưa chuẩn
+  let myBCTT = myBCTT_HD || allReg.find(r => String(r.EmailSV).toLowerCase() === em && getTopicType(r) === 'BCTT');
+  let myKLTN = myKLTN_HD || allReg.find(r => String(r.EmailSV).toLowerCase() === em && getTopicType(r) === 'KLTN');
 
-  const mySubmissions_BCTT = allBn.find(s => String(s.EmailSV).toLowerCase() === em && String(s.Loaidetai).trim() === 'BCTT') || {};
-  const mySubmissions_KLTN = allBn.find(s => String(s.EmailSV).toLowerCase() === em && String(s.Loaidetai).trim() === 'KLTN') || {};
+  const mySubmissions_BCTT = (allBn || []).filter(s => String(s.EmailSV).toLowerCase() === em && getTopicType(s) === 'BCTT');
+  const mySubmissions_KLTN = (allBn || []).filter(s => String(s.EmailSV).toLowerCase() === em && getTopicType(s) === 'KLTN');
   const myGrades = (masterData.diem || []).filter(g => String(g.EmailSV).toLowerCase() === em);
+
+  const getFirstSubmissionField = (rows, field) => {
+    const item = rows.find(r => r[field]);
+    return item ? item[field] : rows[0]?.[field] || '';
+  };
+
+  if (!myBCTT && mySubmissions_BCTT.length > 0) {
+    myBCTT = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVHD');
+  }
+  if (!myKLTN && mySubmissions_KLTN.length > 0) {
+    myKLTN = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVHD');
+  }
+
+  const isUrlValue = (value) => typeof value === 'string' && /https?:\/\//.test(value);
+  const hasBCTTUpload = mySubmissions_BCTT.some(s => isUrlValue(s.BCTT_Report) || isUrlValue(s.BCTT_Confirm) || isUrlValue(s.Linkbai));
+  const hasKLTNFull = mySubmissions_KLTN.some(s => isUrlValue(s.KLTN_Full) || isUrlValue(s.Linkbai));
+  const hasKLTNTurnitin = mySubmissions_KLTN.some(s => isUrlValue(s.KLTN_Turnitin) || isUrlValue(s.Linkbai));
+
+  const mySubmissions_BCTT_Title = getFirstSubmissionField(mySubmissions_BCTT, 'Tendetai');
+  const mySubmissions_KLTN_Title = getFirstSubmissionField(mySubmissions_KLTN, 'Tendetai');
 
   // GVPB + HĐ records cho KLTN
   const gvpbRecord = allReg.find(r => String(r.EmailSV).toLowerCase() === em && r.Role === 'GVPB');
@@ -44,7 +74,7 @@ function StudentView({ user, activeTab }) {
     bcttStep = 2; // Đã đăng ký
     const endVal = String(myBCTT.End || '').trim();
     if (endVal === 'Approved' || endVal === 'Yes') bcttStep = 3;
-    if (mySubmissions_BCTT.Linkbai) bcttStep = 4; // Đã nộp báo cáo
+    if (hasBCTTUpload) bcttStep = 4; // Đã nộp báo cáo
     const grade = myGrades.find(g => String(g.Loai || g.LoaiDeTai || '').trim() === 'BCTT');
     if (grade && grade.Diem_GVHD) bcttStep = 5;
     if (endVal === 'Completed' || endVal === 'Pass') bcttStep = 6;
@@ -55,16 +85,14 @@ function StudentView({ user, activeTab }) {
   if (myKLTN) {
     kltnStep = 2;
     const endVal = String(myKLTN.End || '').trim();
-    if (endVal === 'Approved') kltnStep = 3;
+    if (endVal === 'Approved' || endVal === 'Yes') kltnStep = 3;
     if (gvpbRecord) kltnStep = 4; // TBM đã phân GVPB
-    if (mySubmissions_KLTN.Linkbai) kltnStep = 5; // Đã nộp luận văn
-    const grade = myGrades.find(g => String(g.Loai || g.LoaiDeTai || '').trim() === 'KLTN');
-    if (endVal === 'Graded') kltnStep = 6; // GV upload turnitin / chấm
+    if (hasKLTNFull) kltnStep = 5; // Đã nộp luận văn
+    if (hasKLTNTurnitin) kltnStep = 6; // Upload Turnitin/Chấm
     if (councilRecord) kltnStep = 7; // Đã có hội đồng
+    const grade = myGrades.find(g => String(g.Loai || g.LoaiDeTai || '').trim() === 'KLTN');
     if (grade && grade.Diem_HoiDong) kltnStep = 8; // Hội đồng chấm
-    // Chỉnh sửa
     if (endVal === 'Revised') kltnStep = 9;
-    // GVHD xác nhận
     if (endVal === 'Confirmed') kltnStep = 10;
     if (endVal === 'Completed' || endVal === 'Yes' || endVal === 'Pass') kltnStep = 11;
   }
@@ -72,23 +100,33 @@ function StudentView({ user, activeTab }) {
   // === ROUTING ===
   if (activeTab === 'register') return <RegistrationForm user={user} masterData={masterData} onRefresh={fetchData} loai="BCTT" />;
 
-  const bcttRecord = (masterData.topics || []).find(
-    t => t.emailSV === user.Email && t.loaiDeTai === "BCTT"
-  );
-
-  if (activeTab === 'register_kltn' && bcttRecord?.Trangthai !== "Đã xác nhận") {
-    return <div>Bạn phải hoàn thành BCTT trước khi đăng ký KLTN</div>;
-  }
-
   if (activeTab === 'register_kltn') {
+    const isBCTTCompleted = bcttStep === 6;
+    // Chỉ khóa nếu chưa hoàn thành BCTT VÀ chưa có đăng ký KLTN nào trước đó
+    if (!isBCTTCompleted && !myKLTN) {
+      return (
+        <div className="animate-fade-in card-flat" style={{ textAlign: 'center', padding: '60px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+          <div style={{ width: '80px', height: '80px', background: '#fee2e2', color: '#ef4444', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ShieldCheck size={40} />
+          </div>
+          <h3 style={{ fontSize: '1.4rem', fontWeight: '800' }}>Tính năng đang khóa</h3>
+          <p style={{ maxWidth: '400px', color: '#64748b', lineHeight: '1.6' }}>
+            Bạn cần <strong>hoàn thành Báo cáo Thực tập (BCTT)</strong> (đạt trạng thái "Hoàn tất") trước khi có thể đăng ký Khóa luận tốt nghiệp.
+          </p>
+          <div style={{ padding: '12px 24px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '0.9rem' }}>
+            Trạng thái hiện tại: <span style={{ fontWeight: '800', color: 'var(--primary)' }}>Bước {bcttStep} / 6</span>
+          </div>
+        </div>
+      );
+    }
     return <RegistrationForm user={user} masterData={masterData} onRefresh={fetchData} loai="KLTN" />;
   }
   if (activeTab === 'status') return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
       <ProgressTracker title="TIẾN ĐỘ BÁO CÁO THỰC TẬP (BCTT)" user={user} currentStep={bcttStep} onRefresh={fetchData} loai="BCTT"
-        steps={['Đăng ký', 'GVHD Duyệt', 'Nộp báo cáo + Xác nhận TT', 'GVHD Chấm điểm', 'Hoàn tất']} />
+        steps={['Đăng ký', 'GVHD Duyệt', 'Nộp báo cáo', 'GVHD Chấm', 'Có điểm', 'Hoàn tất']} />
       <ProgressTracker title="TIẾN ĐỘ KHÓA LUẬN TỐT NGHIỆP (KLTN)" user={user} currentStep={kltnStep} onRefresh={fetchData} loai="KLTN"
-        steps={['Đăng ký', 'GVHD Duyệt', 'Phân GVPB', 'Nộp luận văn', 'Turnitin/Chấm', 'Hội đồng', 'Bảo vệ', 'Chỉnh sửa', 'GVHD Xác nhận', 'Hoàn tất']} />
+        steps={['Đăng ký', 'GVHD Duyệt', 'Phân GVPB', 'Nộp luận văn', 'Turnitin/Chấm', 'Hội đồng', 'Bảo vệ', 'Chỉnh sửa', 'GVHD Xác nhận', 'Đang hoàn tất', 'Hoàn tất']} />
     </div>
   );
   if (activeTab === 'grades') return <GradesView user={user} grades={myGrades} />;
@@ -96,9 +134,26 @@ function StudentView({ user, activeTab }) {
   // === HOME: Thông tin chung ===
   const gvhdName_BCTT = myBCTT ? lookupName(myBCTT.EmailGV, masterData.users) : '---';
   const gvhdName_KLTN = myKLTN ? lookupName(myKLTN.EmailGV, masterData.users) : '---';
+  
+  // TỰ ĐỘNG THông báo: KLTN vừa được mở sau khi BCTT hoàn tất
+  const bcttCompleted = bcttStep === 6;
+  const kltnJustActivated = kltnStep > 1;
 
   return (
     <div className="animate-fade-in" style={{ width: '100%' }}>
+      {bcttCompleted && kltnJustActivated && (
+        <div style={{
+          padding: '16px',
+          marginBottom: '24px',
+          backgroundColor: '#d1fae5',
+          border: '2px solid #10b981',
+          borderRadius: '8px',
+          color: '#065f46'
+        }}>
+          <strong style={{ fontSize: '1.1rem' }}>✓ Chúc mừng!</strong>
+          <p style={{ margin: '8px 0 0 0' }}>BCTT của bạn đã hoàn tất. <strong>KLTN đã được tự động kích hoạt!</strong> Bạn có thể bắt đầu đăng ký và nộp bài KLTN ngay.</p>
+        </div>
+      )}
       <h2 style={{ marginBottom: '24px', fontSize: '1.8rem', fontWeight: '800' }}>Thông tin Sinh viên</h2>
       <div className="card-flat" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '40px' }}>
         <InfoItem label="HỌ VÀ TÊN" value={user.Ten} />
@@ -134,13 +189,13 @@ function StudentView({ user, activeTab }) {
             <tbody>
               {myBCTT && <tr className="table-row">
                 <td><span style={badgeStyle('#004b91')}>BCTT</span></td>
-                <td style={{ fontWeight: '700' }}>{mySubmissions_BCTT.Tendetai || '---'}</td>
+                <td style={{ fontWeight: '700' }}>{mySubmissions_BCTT_Title || '---'}</td>
                 <td>{gvhdName_BCTT}</td>
                 <td><EndBadge val={myBCTT.End} /></td>
               </tr>}
               {myKLTN && <tr className="table-row">
                 <td><span style={badgeStyle('#059669')}>KLTN</span></td>
-                <td style={{ fontWeight: '700' }}>{mySubmissions_KLTN.Tendetai || '---'}</td>
+                <td style={{ fontWeight: '700' }}>{mySubmissions_KLTN_Title || '---'}</td>
                 <td>{gvhdName_KLTN}</td>
                 <td><EndBadge val={myKLTN.End} /></td>
               </tr>}
@@ -232,7 +287,7 @@ function StatusBadgeCard({ title, step, sub, loai, user, onRefresh }) {
 
           alert("Tải file thành công!");
           onRefresh();
-        } catch (err) {
+        } catch {
           alert("Lỗi upload file!");
         }
       };
@@ -355,7 +410,7 @@ function RegistrationForm({ user, masterData, onRefresh, loai }) {
       await api.registerTopic({ ...form, emailSV: user.Email });
       alert('Gửi đăng ký thành công!');
       onRefresh();
-    } catch (err) { alert('Lỗi khi gửi đăng ký!'); }
+    } catch { alert('Lỗi khi gửi đăng ký!'); }
     finally { setSubmitting(false); }
   };
 
@@ -421,17 +476,27 @@ function RegistrationForm({ user, masterData, onRefresh, loai }) {
 
 function ProgressTracker({ title, user, currentStep, onRefresh, loai, steps }) {
   const handleUpload = async (fieldName) => {
+    console.log('📤 handleUpload triggered:', fieldName, 'loai:', loai, 'user:', user.Email);
     const fileInput = document.createElement('input');
     fileInput.type = 'file'; fileInput.accept = '.pdf';
     fileInput.onchange = async (e) => {
-      const file = e.target.files[0]; if (!file) return;
+      const file = e.target.files[0]; 
+      if (!file) { console.log('❌ No file selected'); return; }
+      console.log('📁 File selected:', file.name, file.size, 'bytes');
       const reader = new FileReader();
       reader.onload = async () => {
         const base64 = reader.result.split(',')[1];
+        console.log('✅ Base64 ready, size:', base64.length);
         try {
+          console.log('🚀 Calling api.uploadFile with:', { emailSV: user.Email, fieldName, loai });
           await api.uploadFile({ emailSV: user.Email, name: `${user.MS}_${fieldName}.pdf`, base64, loaiDeTai: loai, fieldName });
-          alert('Tải bài lên thành công!'); onRefresh();
-        } catch (err) { alert('Lỗi tải file!'); }
+          console.log('✅ Upload success!');
+          alert('Tải bài lên thành công!'); 
+          onRefresh();
+        } catch (err) {
+          console.error('❌ Upload error:', err);
+          alert('Lỗi tải file!');
+        }
       };
       reader.readAsDataURL(file);
     };
@@ -484,7 +549,7 @@ function ProgressTracker({ title, user, currentStep, onRefresh, loai, steps }) {
   );
 }
 
-function GradesView({ user, grades }) {
+function GradesView({ grades }) {
   return (
     <div className="animate-fade-in" style={{ width: '100%' }}>
       <h2 style={{ marginBottom: '24px', fontSize: '1.8rem', fontWeight: '800' }}>Kết quả học tập</h2>

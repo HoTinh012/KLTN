@@ -1,4 +1,4 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbxAGAEh6snWjMFtnPSP_tjz0eD6yqp7LkjheEvasDxg_p7JwCH2Ly81X9-AqkFi-_B0/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyCMsir7fLriatzKu6Iax2KZ5NYzUqNDQ92b16qslqPjvxDePyTLDqrTEjDvz78w9Kpew/exec';
 
 // === HELPER: Tra cứu tên SV/GV từ danh sách users ===
 function lookupName(email, users) {
@@ -36,8 +36,8 @@ const api = {
   registerTopic: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'register', payload })
       });
       return { success: true };
@@ -48,8 +48,8 @@ const api = {
   approveTopicBulk: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'approveTopicBulk', payload })
       });
       return { success: true };
@@ -60,8 +60,8 @@ const api = {
   assignGVPB: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'assignGVPB', payload })
       });
       return { success: true };
@@ -72,8 +72,8 @@ const api = {
   createCouncil: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'createCouncil', payload })
       });
       return { success: true };
@@ -84,8 +84,8 @@ const api = {
   submitGrade: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'submitGrade', payload })
       });
       return { success: true };
@@ -96,8 +96,8 @@ const api = {
   updateQuota: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'updateQuota', payload })
       });
       return { success: true };
@@ -108,8 +108,8 @@ const api = {
   updatePeriod: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'updatePeriod', payload })
       });
       return { success: true };
@@ -119,8 +119,8 @@ const api = {
   approveLecturerQuota: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'approveLecturerQuota', payload })
       });
       return { success: true };
@@ -130,8 +130,8 @@ const api = {
   approveFinalRevision: async (payload) => {
     try {
       await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'approveFinalRevision', payload })
       });
       return { success: true };
@@ -141,13 +141,19 @@ const api = {
   // Upload file lên Drive
   uploadFile: async (payload) => {
     try {
-      await fetch(API_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+      console.log('🌐 uploadFile API called with payload:', payload);
+      const response = await fetch(API_URL, {
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'uploadFile', payload })
       });
-      return { success: true };
-    } catch (err) { console.error("Lỗi uploadFile:", err); throw err; }
+      const result = await response.json();
+      console.log('🎯 uploadFile response:', result);
+      return result;
+    } catch (err) {
+      console.error("❌ Lỗi uploadFile:", err);
+      throw err;
+    }
   }
 };
 

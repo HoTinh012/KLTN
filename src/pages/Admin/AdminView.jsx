@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api, { lookupName } from '../../api';
-import { Users, Folder, TrendingUp, CheckCircle, Clock, Search, User, Filter, ShieldCheck, Mail, Calendar, List, Star, FileText, BarChart3, Plus } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Users, Folder, TrendingUp, CheckCircle, Clock, Search, User, Filter, ShieldCheck, Mail, Calendar, List, Star, FileText } from 'lucide-react';
 
 function AdminView({ user, activeTab }) {
   const [masterData, setMasterData] = useState(null);
@@ -23,7 +22,7 @@ function AdminView({ user, activeTab }) {
   const users = masterData.users || [];
   const students = users.filter(u => (u.Role || '').toLowerCase().includes('sinhvien') || (u.Role || '').toLowerCase() === 'student');
   const lecturers = users.filter(u => {
-    const r = (u.Role||'').toLowerCase();
+    const r = (u.Role || '').toLowerCase();
     return r.includes('giangvien') || r === 'lecturer' || r === 'tbm';
   });
   const bcttCount = allReg.filter(r => r.Role === 'GVHD' && String(r.Link).trim() === 'BCTT').length + allReg.filter(r => r.Role === 'BCTT').length;
@@ -55,7 +54,7 @@ function AdminView({ user, activeTab }) {
 }
 
 // ===================== ADMIN HOME =====================
-function AdminHome({ user, masterData }) {
+function AdminHome({ masterData }) {
   const allReg = masterData.linkGiangvien || [];
 
   // Đề tài chờ GV duyệt lần đầu
@@ -66,7 +65,7 @@ function AdminHome({ user, masterData }) {
 
   // KLTN đã GV duyệt nhưng chưa có GVPB
   const pendingGVPB = allReg.filter(r => {
-    const isKLTN = (r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN') || r.Role === 'KLTN';
+    const isKLTN = ((r.Role === 'GVHD' || r.Role === 'HD') && String(r.Link).toUpperCase().includes('KLTN')) || r.Role === 'KLTN';
     const hasGVPB = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && x.Role === 'GVPB');
     return isKLTN && !hasGVPB && (r.End === 'Approved' || r.End === 'Yes');
   }).length;
@@ -80,12 +79,12 @@ function AdminHome({ user, masterData }) {
 
     const isKLTN = (role === 'GVHD' && link === 'KLTN') || role === 'KLTN';
     const isReady = ['Graded', 'Approved', 'Yes', 'Pass'].includes(end);
-    
-    const hasCouncil = allReg.some(x => 
-      String(x.EmailSV || '').toLowerCase() === emailSV && 
+
+    const hasCouncil = allReg.some(x =>
+      String(x.EmailSV || '').toLowerCase() === emailSV &&
       ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(String(x.Role || '').trim())
     );
-    
+
     return isKLTN && isReady && !hasCouncil;
   }).length;
 
@@ -126,16 +125,16 @@ function AdminHome({ user, masterData }) {
 }
 
 // ===================== QUOTA MANAGEMENT =====================
-function QuotaManagement({ lecturers, masterData, onRefresh, user }) {
+function QuotaManagement({ lecturers, masterData, onRefresh }) {
   const [filterPeriod, setFilterPeriod] = useState('');
   const quotas = masterData.quotas || [];
   const dots = masterData.dots || [];
-  
+
   const handleUpdateQuota = async (emailGV, quota) => {
     try {
       await api.updateQuota({ emailGV, quota });
       alert('Đã cập nhật chỉ tiêu!'); onRefresh();
-    } catch (err) { alert('Lỗi cập nhật!'); }
+    } catch { alert('Lỗi cập nhật!'); }
   };
 
   const handleApprove = async (emailGV, currentStatus) => {
@@ -144,7 +143,7 @@ function QuotaManagement({ lecturers, masterData, onRefresh, user }) {
       await api.approveLecturerQuota({ emailGV, status: newStatus });
       alert(`Đã ${newStatus === 'Approved' ? 'duyệt' : 'hủy duyệt'} giảng viên!`);
       onRefresh();
-    } catch (err) { alert('Lỗi!'); }
+    } catch { alert('Lỗi!'); }
   };
 
   const filteredLecturers = filterPeriod ? lecturers.filter(l => l.Major === dots.find(d => d.Dot === filterPeriod)?.Major) : lecturers;
@@ -170,7 +169,7 @@ function QuotaManagement({ lecturers, masterData, onRefresh, user }) {
               const currentHD = (masterData.linkGiangvien || []).filter(r => String(r.EmailGV).toLowerCase() === l.Email.toLowerCase() && r.Role === 'GVHD').length;
               const currentQuota = q ? (q.Quota || q.SoLuong || 15) : 15;
               const status = q ? (q.Status || 'Pending') : 'Pending';
-              
+
               return (
                 <tr key={l.Email} className="table-row">
                   <td style={{ fontWeight: '700' }}>{l.Ten}</td>
@@ -207,17 +206,25 @@ function QuotaManagement({ lecturers, masterData, onRefresh, user }) {
 }
 
 // ===================== ASSIGNMENT (Phân công GVPB) =====================
-function AssignmentView({ masterData, lecturers, onRefresh, user }) {
+function AssignmentView({ masterData, lecturers, onRefresh }) {
   const [form, setForm] = useState({ svEmail: '', reviewerEmail: '' });
   const allReg = masterData.linkGiangvien || [];
   const users = masterData.users || [];
-  
-  // SV KLTN đã approved nhưng chưa có GVPB
+
+  // SV KLTN đã approved VÀ ĐÃ NỘP BÀI nhưng chưa có GVPB
   const kltnApproved = allReg.filter(r => {
-    const isKLTN = (r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN') || r.Role === 'KLTN';
+    const isKLTN = ((r.Role === 'GVHD' || r.Role === 'HD') && String(r.Link).toUpperCase().includes('KLTN')) || r.Role === 'KLTN';
     const isApproved = r.End === 'Approved' || r.End === 'Yes' || r.End === 'Graded';
     const hasGVPB = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && x.Role === 'GVPB');
-    return isKLTN && isApproved && !hasGVPB;
+    
+    // Kiểm tra đã nộp bài KLTN chưa
+    const hasSubmitted = (masterData.linkBainop || []).some(b => 
+      String(b.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && 
+      String(b.Loaidetai).trim().toUpperCase() === 'KLTN' && 
+      (b.Linkbai || b.Link || b.linkbai || b.link)
+    );
+
+    return isKLTN && isApproved && !hasGVPB && hasSubmitted;
   });
 
   // Tất cả KLTN registrations
@@ -230,7 +237,7 @@ function AssignmentView({ masterData, lecturers, onRefresh, user }) {
       alert('Phân công GVPB thành công!');
       setForm({ svEmail: '', reviewerEmail: '' });
       onRefresh();
-    } catch (err) { alert('Lỗi phân công!'); }
+    } catch { alert('Lỗi phân công!'); }
   };
 
   return (
@@ -242,14 +249,14 @@ function AssignmentView({ masterData, lecturers, onRefresh, user }) {
           <form onSubmit={handleAssign}>
             <div style={{ marginBottom: '16px' }}>
               <label style={labelStyle}>SINH VIÊN CHỜ GVPB ({kltnApproved.length})</label>
-              <select required style={selectStyle} value={form.svEmail} onChange={e => setForm({...form, svEmail: e.target.value})}>
+              <select required style={selectStyle} value={form.svEmail} onChange={e => setForm({ ...form, svEmail: e.target.value })}>
                 <option value="">-- Chọn sinh viên --</option>
-                {kltnApproved.map((s,i) => <option key={i} value={s.EmailSV}>{lookupName(s.EmailSV, users)} ({s.EmailSV})</option>)}
+                {kltnApproved.map((s, i) => <option key={i} value={s.EmailSV}>{lookupName(s.EmailSV, users)} ({s.EmailSV})</option>)}
               </select>
             </div>
             <div style={{ marginBottom: '24px' }}>
               <label style={labelStyle}>GIẢNG VIÊN PHẢN BIỆN</label>
-              <select required style={selectStyle} value={form.reviewerEmail} onChange={e => setForm({...form, reviewerEmail: e.target.value})}>
+              <select required style={selectStyle} value={form.reviewerEmail} onChange={e => setForm({ ...form, reviewerEmail: e.target.value })}>
                 <option value="">-- Chọn GVPB --</option>
                 {lecturers.map(l => <option key={l.Email} value={l.Email}>{l.Ten}</option>)}
               </select>
@@ -268,7 +275,7 @@ function AssignmentView({ masterData, lecturers, onRefresh, user }) {
               {allKLTN.map((r, idx) => {
                 const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && String(b.Loaidetai).trim() === 'KLTN') || {};
                 const gvpb = allReg.find(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && x.Role === 'GVPB');
-                const council = allReg.filter(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && ['CTHD','TVHD1','TVHD2','ThukyHD'].includes(x.Role));
+                const council = allReg.filter(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(x.Role));
                 return (
                   <tr key={idx} className="table-row">
                     <td>
@@ -350,21 +357,28 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
     const end = String(r.End || '').trim();
     const emailSV = String(r.EmailSV || '').toLowerCase();
 
-    const isKLTN = (role === 'GVHD' && link === 'KLTN') || role === 'KLTN';
+    const isKLTN = ((role === 'GVHD' || role === 'HD') && String(r.Link).toUpperCase().includes('KLTN')) || role === 'KLTN';
     // Mở rộng trạng thái: Approved (GVHD mới duyệt), Graded (GVHD đã chấm điểm), Yes/Pass (dữ liệu cũ/khác)
     const isReady = ['Graded', 'Approved', 'Yes', 'Pass'].includes(end);
-    
-    const hasCouncil = allReg.some(x => 
-      String(x.EmailSV || '').toLowerCase() === emailSV && 
+
+    const hasCouncil = allReg.some(x =>
+      String(x.EmailSV || '').toLowerCase() === emailSV &&
       ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(String(x.Role || '').trim())
     );
-    
-    return isKLTN && isReady && !hasCouncil;
+
+    // Kiểm tra đã nộp bài KLTN chưa
+    const hasSubmitted = (masterData.linkBainop || []).some(b => 
+      String(b.EmailSV).toLowerCase() === emailSV && 
+      String(b.Loaidetai).trim().toUpperCase() === 'KLTN' && 
+      (b.Linkbai || b.Link || b.linkbai || b.link)
+    );
+
+    return isKLTN && isReady && !hasCouncil && hasSubmitted;
   });
 
   // Existing councils
   const existingCouncils = {};
-  allReg.filter(r => ['CTHD','TVHD1','TVHD2','ThukyHD'].includes(r.Role)).forEach(r => {
+  allReg.filter(r => ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(r.Role)).forEach(r => {
     const key = String(r.EmailSV).toLowerCase();
     if (!existingCouncils[key]) existingCouncils[key] = [];
     existingCouncils[key].push(r);
@@ -377,7 +391,7 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
       alert('Tạo hội đồng thành công!');
       setForm({ svEmail: '', cthd: '', tvhd1: '', tvhd2: '', thuky: '', diadiem: '' });
       onRefresh();
-    } catch(e) { alert('Lỗi!'); }
+    } catch { alert('Lỗi!'); }
   };
 
   return (
@@ -396,9 +410,9 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
           <form onSubmit={handleCreate}>
             <div style={{ marginBottom: '14px' }}>
               <label style={labelStyle}>SINH VIÊN CHỜ LẬP HĐ ({eligibleSV.length})</label>
-              <select required style={selectStyle} value={form.svEmail} onChange={e => setForm({...form, svEmail: e.target.value})}>
+              <select required style={selectStyle} value={form.svEmail} onChange={e => setForm({ ...form, svEmail: e.target.value })}>
                 <option value="">-- Chọn SV --</option>
-                {eligibleSV.map((s,i) => {
+                {eligibleSV.map((s, i) => {
                   const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase() && String(b.Loaidetai).trim() === 'KLTN') || {};
                   return <option key={i} value={s.EmailSV}>{lookupName(s.EmailSV, users)} - {sub.DotHK || '---'}</option>
                 })}
@@ -406,35 +420,35 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
             </div>
             <div style={{ marginBottom: '14px' }}>
               <label style={labelStyle}>CHỦ TỊCH HĐ</label>
-              <select required style={selectStyle} value={form.cthd} onChange={e => setForm({...form, cthd: e.target.value})}>
+              <select required style={selectStyle} value={form.cthd} onChange={e => setForm({ ...form, cthd: e.target.value })}>
                 <option value="">-- Chọn --</option>
                 {lecturers.map(l => <option key={l.Email} value={l.Email}>{l.Ten}</option>)}
               </select>
             </div>
             <div style={{ marginBottom: '14px' }}>
               <label style={labelStyle}>THÀNH VIÊN 1</label>
-              <select required style={selectStyle} value={form.tvhd1} onChange={e => setForm({...form, tvhd1: e.target.value})}>
+              <select required style={selectStyle} value={form.tvhd1} onChange={e => setForm({ ...form, tvhd1: e.target.value })}>
                 <option value="">-- Chọn --</option>
                 {lecturers.map(l => <option key={l.Email} value={l.Email}>{l.Ten}</option>)}
               </select>
             </div>
             <div style={{ marginBottom: '14px' }}>
               <label style={labelStyle}>THÀNH VIÊN 2</label>
-              <select style={selectStyle} value={form.tvhd2} onChange={e => setForm({...form, tvhd2: e.target.value})}>
+              <select style={selectStyle} value={form.tvhd2} onChange={e => setForm({ ...form, tvhd2: e.target.value })}>
                 <option value="">-- Không chọn --</option>
                 {lecturers.map(l => <option key={l.Email} value={l.Email}>{l.Ten}</option>)}
               </select>
             </div>
             <div style={{ marginBottom: '14px' }}>
               <label style={labelStyle}>THƯ KÝ</label>
-              <select required style={selectStyle} value={form.thuky} onChange={e => setForm({...form, thuky: e.target.value})}>
+              <select required style={selectStyle} value={form.thuky} onChange={e => setForm({ ...form, thuky: e.target.value })}>
                 <option value="">-- Chọn --</option>
                 {lecturers.map(l => <option key={l.Email} value={l.Email}>{l.Ten}</option>)}
               </select>
             </div>
             <div style={{ marginBottom: '20px' }}>
               <label style={labelStyle}>ĐỊA ĐIỂM</label>
-              <input type="text" style={selectStyle} value={form.diadiem} onChange={e => setForm({...form, diadiem: e.target.value})} placeholder="VD: P.301 B2" />
+              <input type="text" style={selectStyle} value={form.diadiem} onChange={e => setForm({ ...form, diadiem: e.target.value })} placeholder="VD: P.301 B2" />
             </div>
             <button type="submit" className="btn-primary-blue" style={{ width: '100%', padding: '14px' }}>TẠO HỘI ĐỒNG</button>
           </form>
@@ -444,7 +458,7 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
           <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9' }}>
             <h4 style={{ fontWeight: '800', fontSize: '0.9rem' }}>{viewMode === 'student' ? `HỘI ĐỒNG ĐÃ TẠO (${Object.keys(existingCouncils).length})` : 'PHÂN BỔ GIẢNG VIÊN HỘI ĐỒNG'}</h4>
           </div>
-          
+
           {viewMode === 'student' ? (
             Object.keys(existingCouncils).length === 0 ? (
               <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>Chưa có hội đồng nào.</div>
@@ -479,7 +493,7 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
                 <thead><tr><th>GIẢNG VIÊN</th><th>VAI TRÒ TRONG CÁC HĐ</th></tr></thead>
                 <tbody>
                   {lecturers.map(l => {
-                    const rolesInCouncils = allReg.filter(r => String(r.EmailGV).toLowerCase() === l.Email.toLowerCase() && ['CTHD','TVHD1','TVHD2','ThukyHD'].includes(r.Role));
+                    const rolesInCouncils = allReg.filter(r => String(r.EmailGV).toLowerCase() === l.Email.toLowerCase() && ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(r.Role));
                     if (rolesInCouncils.length === 0) return null;
                     return (
                       <tr key={l.Email} className="table-row">
@@ -543,7 +557,7 @@ function StatsView({ masterData }) {
   const diemData = masterData.diem || [];
   const dots = masterData.dots || [];
 
-  const filteredReg = filterPeriod 
+  const filteredReg = filterPeriod
     ? allReg.filter(r => (r.Role === 'GVHD' || r.Role === 'BCTT' || r.Role === 'KLTN') && (masterData.linkBainop || []).some(b => b.EmailSV === r.EmailSV && b.DotHK === filterPeriod))
     : allReg.filter(r => r.Role === 'GVHD' || r.Role === 'BCTT' || r.Role === 'KLTN');
 
@@ -580,9 +594,9 @@ function StatsView({ masterData }) {
           <div style={{ position: 'relative', width: '120px', height: '120px', margin: '0 auto 16px' }}>
             <svg viewBox="0 0 120 120" style={{ transform: 'rotate(-90deg)' }}>
               <circle cx="60" cy="60" r="50" fill="none" stroke="#f1f5f9" strokeWidth="12" />
-              <circle cx="60" cy="60" r="50" fill="none" stroke="#004b91" strokeWidth="12" strokeDasharray={`${(completedBCTT/Math.max(totalBCTT,1))*314} 314`} strokeLinecap="round" />
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#004b91" strokeWidth="12" strokeDasharray={`${(completedBCTT / Math.max(totalBCTT, 1)) * 314} 314`} strokeLinecap="round" />
             </svg>
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.4rem' }}>{totalBCTT > 0 ? Math.round(completedBCTT/totalBCTT*100) : 0}%</div>
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.4rem' }}>{totalBCTT > 0 ? Math.round(completedBCTT / totalBCTT * 100) : 0}%</div>
           </div>
           <p style={{ fontSize: '0.85rem' }}><strong>{completedBCTT}</strong> / {totalBCTT} hoàn tất</p>
         </div>
@@ -591,9 +605,9 @@ function StatsView({ masterData }) {
           <div style={{ position: 'relative', width: '120px', height: '120px', margin: '0 auto 16px' }}>
             <svg viewBox="0 0 120 120" style={{ transform: 'rotate(-90deg)' }}>
               <circle cx="60" cy="60" r="50" fill="none" stroke="#f1f5f9" strokeWidth="12" />
-              <circle cx="60" cy="60" r="50" fill="none" stroke="#059669" strokeWidth="12" strokeDasharray={`${(completedKLTN/Math.max(totalKLTN,1))*314} 314`} strokeLinecap="round" />
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#059669" strokeWidth="12" strokeDasharray={`${(completedKLTN / Math.max(totalKLTN, 1)) * 314} 314`} strokeLinecap="round" />
             </svg>
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.4rem' }}>{totalKLTN > 0 ? Math.round(completedKLTN/totalKLTN*100) : 0}%</div>
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900', fontSize: '1.4rem' }}>{totalKLTN > 0 ? Math.round(completedKLTN / totalKLTN * 100) : 0}%</div>
           </div>
           <p style={{ fontSize: '0.85rem' }}><strong>{completedKLTN}</strong> / {totalKLTN} hoàn tất</p>
         </div>
@@ -615,11 +629,11 @@ function StatsView({ masterData }) {
       {/* GV Distribution */}
       <div className="card-flat">
         <h3 style={{ fontWeight: '800', marginBottom: '20px' }}>Phân bổ GV Hướng dẫn</h3>
-        {Object.entries(gvCounts).sort((a,b) => b[1]-a[1]).slice(0, 15).map(([gv, count]) => (
+        {Object.entries(gvCounts).sort((a, b) => b[1] - a[1]).slice(0, 15).map(([gv, count]) => (
           <div key={gv} style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
             <div style={{ width: '180px', fontSize: '0.8rem', fontWeight: '700', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{lookupName(gv, users)}</div>
             <div style={{ flex: 1, height: '24px', background: '#f1f5f9', borderRadius: '6px', overflow: 'hidden' }}>
-              <div style={{ width: `${(count/maxGV)*100}%`, height: '100%', background: 'linear-gradient(90deg, #004b91, #2563eb)', borderRadius: '6px', transition: 'width 0.5s ease' }} />
+              <div style={{ width: `${(count / maxGV) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #004b91, #2563eb)', borderRadius: '6px', transition: 'width 0.5s ease' }} />
             </div>
             <span style={{ fontSize: '0.85rem', fontWeight: '800', minWidth: '30px', textAlign: 'right' }}>{count}</span>
           </div>
@@ -653,11 +667,11 @@ function StatsView({ masterData }) {
               {filteredReg.map((r, idx) => {
                 const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase()) || {};
                 const d = diemData.find(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && String(x.Loaidetai).trim() === String(r.Link || r.Role).trim()) || {};
-                
+
                 // Trạng thái duyệt bản sửa
                 const gvhdRow = allReg.find(x => x.EmailSV === r.EmailSV && (x.Role === 'GVHD' || x.Role === 'KLTN'));
                 const cthdRow = allReg.find(x => x.EmailSV === r.EmailSV && x.Role === 'CTHD');
-                
+
                 const gvhdEnd = String(gvhdRow?.End || '').trim();
                 const cthdEnd = String(cthdRow?.End || '').trim();
 
@@ -673,9 +687,9 @@ function StatsView({ masterData }) {
                     <td>
                       <div style={{ fontSize: '0.8rem', maxWidth: '250px' }}>{sub.Tendetai || '---'}</div>
                       <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
-                         {sub.BienBan_HD && <a href={sub.BienBan_HD} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: '#64748b' }}>[BB HĐ]</a>}
-                         {sub.KLTN_Revised && <a href={sub.KLTN_Revised} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: '#64748b' }}>[Bản sửa]</a>}
-                         {sub.KLTN_Explain && <a href={sub.KLTN_Explain} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: '#64748b' }}>[Giải trình]</a>}
+                        {sub.BienBan_HD && <a href={sub.BienBan_HD} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: '#64748b' }}>[BB HĐ]</a>}
+                        {sub.KLTN_Revised && <a href={sub.KLTN_Revised} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: '#64748b' }}>[Bản sửa]</a>}
+                        {sub.KLTN_Explain && <a href={sub.KLTN_Explain} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: '#64748b' }}>[Giải trình]</a>}
                       </div>
                     </td>
                     <td>
@@ -707,13 +721,13 @@ function StatsView({ masterData }) {
 }
 
 // ===================== PERIODS =====================
-function PeriodsView({ masterData, onRefresh, user }) {
+function PeriodsView({ masterData, onRefresh }) {
   const handleToggle = async (d) => {
     const isActive = String(d.Active || '').toLowerCase() === 'yes' || d.Active === true;
     try {
       await api.updatePeriod({ periodName: d.Dot, major: d.Major, type: d.Loaidetai, isActive: !isActive });
       alert(`Đã ${!isActive ? 'mở' : 'đóng'} đợt!`); onRefresh();
-    } catch(e) { alert('Lỗi!'); }
+    } catch { alert('Lỗi!'); }
   };
 
   return (
@@ -731,12 +745,12 @@ function PeriodsView({ masterData, onRefresh, user }) {
                   <td>{d.Loaidetai || '---'}</td>
                   <td>{d.Major || '---'}</td>
                   <td>
-                    <span style={{ padding: '6px 12px', borderRadius: '30px', fontSize: '0.75rem', fontWeight: '900', background: isActive ? '#dcfce7':'#fee2e2', color: isActive ? '#166534':'#991b1b' }}>
+                    <span style={{ padding: '6px 12px', borderRadius: '30px', fontSize: '0.75rem', fontWeight: '900', background: isActive ? '#dcfce7' : '#fee2e2', color: isActive ? '#166534' : '#991b1b' }}>
                       {isActive ? 'ĐANG MỞ' : 'ĐÃ ĐÓNG'}
                     </span>
                   </td>
                   <td style={{ textAlign: 'right' }}>
-                    <button className={isActive ? 'btn-error':'btn-success'} onClick={() => handleToggle(d)} style={{ padding: '8px 16px', fontSize: '0.75rem', border: 'none', borderRadius: '6px', cursor: 'pointer', color: 'white', background: isActive ? '#ef4444' : '#10b981' }}>
+                    <button className={isActive ? 'btn-error' : 'btn-success'} onClick={() => handleToggle(d)} style={{ padding: '8px 16px', fontSize: '0.75rem', border: 'none', borderRadius: '6px', cursor: 'pointer', color: 'white', background: isActive ? '#ef4444' : '#10b981' }}>
                       {isActive ? 'ĐÓNG ĐỢT' : 'MỞ ĐỢT'}
                     </button>
                   </td>
@@ -751,17 +765,20 @@ function PeriodsView({ masterData, onRefresh, user }) {
 }
 
 // ===================== SHARED =====================
-const StatCard = ({ title, val, icon: Icon, color }) => (
-  <div className="card-flat" style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '24px' }}>
-    <div style={{ width: '56px', height: '56px', borderRadius: '12px', background: `${color}10`, display: 'flex', alignItems: 'center', justifyContent: 'center', color }}>
-      <Icon size={28} />
+const StatCard = ({ title, val, icon, color }) => {
+  const Icon = icon;
+  return (
+    <div className="card-flat" style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '24px' }}>
+      <div style={{ width: '56px', height: '56px', borderRadius: '12px', background: `${color}10`, display: 'flex', alignItems: 'center', justifyContent: 'center', color }}>
+        <Icon size={28} />
+      </div>
+      <div>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.65rem', fontWeight: '900', letterSpacing: '1px' }}>{title}</p>
+        <p style={{ fontSize: '1.6rem', fontWeight: '900' }}>{val}</p>
+      </div>
     </div>
-    <div>
-      <p style={{ color: 'var(--text-muted)', fontSize: '0.65rem', fontWeight: '900', letterSpacing: '1px' }}>{title}</p>
-      <p style={{ fontSize: '1.6rem', fontWeight: '900' }}>{val}</p>
-    </div>
-  </div>
-);
+  );
+};
 
 const selectStyle = { width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', background: '#fff', fontSize: '0.9rem', color: '#0f172a' };
 const labelStyle = { display: 'block', fontSize: '0.7rem', fontWeight: '800', color: 'var(--text-muted)', marginBottom: '8px' };

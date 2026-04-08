@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import api, { lookupName } from '../../api';
-import { Check, X, FileText, Star, Clock, CheckCircle, Users, Mail, Search, Edit3, ShieldCheck, ClipboardCheck, AlertCircle, Upload, Eye } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Check, X, FileText, Clock, CheckCircle, Users, Mail, Search, Edit3, ShieldCheck, ClipboardCheck, AlertCircle, Upload, Eye } from 'lucide-react';
 
 function LecturerView({ user, activeTab }) {
   const [masterData, setMasterData] = useState(null);
@@ -13,7 +13,7 @@ function LecturerView({ user, activeTab }) {
   const fetchData = async () => {
     setLoading(true);
     try { setMasterData(await api.getMasterData()); }
-    catch (err) { console.error(err); }
+    catch { console.error('Error fetching data'); }
     finally { setLoading(false); }
   };
 
@@ -22,12 +22,11 @@ function LecturerView({ user, activeTab }) {
 
   const em = user.Email.toLowerCase();
   const allReg = masterData.linkGiangvien || [];
-  const users = masterData.users || [];
 
   // Lọc theo email GV và role
   const hdStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && (r.Role === 'GVHD' || r.Role === 'BCTT' || r.Role === 'KLTN'));
   const pbStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'GVPB');
-  const councilStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && ['CTHD','TVHD1','TVHD2','ThukyHD'].includes(r.Role));
+  const councilStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(r.Role));
   const cthdStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'CTHD');
   const thukyStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'ThukyHD');
 
@@ -39,34 +38,30 @@ function LecturerView({ user, activeTab }) {
   return (
     <div className="animate-fade-in" style={{ width: '100%' }}>
       <AnimatePresence mode="wait">
-        {activeTab === 'home' && <HomeView user={user} users={users} hd={hdStudents} pb={pbStudents} council={councilStudents} pending={pendingApproval.length} />}
+        {activeTab === 'home' && <HomeView user={user} hd={hdStudents} pb={pbStudents} council={councilStudents} pending={pendingApproval.length} />}
         {activeTab === 'guidance' && <GuidanceView students={hdStudents} masterData={masterData} onRefresh={fetchData} user={user} />}
-        {activeTab === 'reviewer' && <ReviewerView students={pbStudents} masterData={masterData} onRefresh={fetchData} user={user} />}
-        {activeTab === 'council' && <CouncilView students={councilStudents} masterData={masterData} user={user} onRefresh={fetchData} />}
+        {activeTab === 'reviewer' && <ReviewerView students={pbStudents} masterData={masterData} onRefresh={fetchData} />}
+        {activeTab === 'council' && <CouncilView students={councilStudents} masterData={masterData} onRefresh={fetchData} />}
         {activeTab === 'president' && <PresidentView students={cthdStudents} masterData={masterData} user={user} onRefresh={fetchData} />}
-        {activeTab === 'secretary' && <SecretaryView students={thukyStudents} masterData={masterData} user={user} onRefresh={fetchData} />}
-        {activeTab === 'suggestion' && <SuggestionView user={user} />}
-        {activeTab === 'grading' && (
-          selectedStudent
-            ? <GradingDetail student={selectedStudent} user={user} onBack={() => setSelectedStudent(null)} onRefresh={fetchData} masterData={masterData} />
-            : <GradingListView hd={hdStudents} pb={pbStudents} council={councilStudents} masterData={masterData} onSelect={setSelectedStudent} />
-        )}
+        {activeTab === 'secretary' && <SecretaryView students={thukyStudents} masterData={masterData} onRefresh={fetchData} />}
+        {activeTab === 'suggestion' && <SuggestionView />}
+        {activeTab === 'grading' && (selectedStudent ? <GradingDetail student={selectedStudent} onBack={() => setSelectedStudent(null)} onRefresh={fetchData} masterData={masterData} /> : <GradingListView hd={hdStudents} pb={pbStudents} council={councilStudents} masterData={masterData} onSelect={setSelectedStudent} />)}
       </AnimatePresence>
     </div>
   );
 }
 
 // ===================== HOME =====================
-function HomeView({ user, users, hd, pb, council, pending }) {
+function HomeView({ user, hd, pb, council, pending }) {
   return (
     <div>
       <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '8px' }}>Chào mừng, GV {user.Ten}</h2>
       <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>Hệ thống quản lý UniThesis - Phân hệ Giảng viên</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-         <StatCard title="HƯỚNG DẪN" val={hd.length} icon={Users} color="#004b91" />
-         <StatCard title="PHẢN BIỆN" val={pb.length} icon={ShieldCheck} color="#059669" />
-         <StatCard title="HỘI ĐỒNG" val={council.length} icon={Users} color="#7c3aed" />
-         <StatCard title="CHỜ DUYỆT" val={pending} icon={Clock} color="#ea580c" />
+        <StatCard title="HƯỚNG DẪN" val={hd.length} icon={Users} color="#004b91" />
+        <StatCard title="PHẢN BIỆN" val={pb.length} icon={ShieldCheck} color="#059669" />
+        <StatCard title="HỘI ĐỒNG" val={council.length} icon={Users} color="#7c3aed" />
+        <StatCard title="CHỜ DUYỆT" val={pending} icon={Clock} color="#ea580c" />
       </div>
       {pending > 0 && (
         <div className="card-flat" style={{ borderLeft: '4px solid #ea580c' }}>
@@ -93,7 +88,7 @@ function GuidanceView({ students, masterData, onRefresh, user }) {
       await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status, newTitle: title, loaiDeTai: loai });
       alert(`✓ Đã ${labels[status] || status}!`);
       onRefresh();
-    } catch (err) { alert('Lỗi thao tác!'); }
+    } catch { alert('Lỗi thao tác!'); }
   };
 
   const handleUploadTurnitin = async (emailSV) => {
@@ -108,7 +103,7 @@ function GuidanceView({ students, masterData, onRefresh, user }) {
         try {
           await api.uploadFile({ emailSV, name: `Turnitin_${emailSV}.pdf`, base64, loaiDeTai: 'KLTN', fieldName: 'Turnitin_Report' });
           alert('✓ Đã tải Turnitin!'); onRefresh();
-        } catch (err) { alert('Lỗi tải file!'); }
+        } catch { alert('Lỗi tải file!'); }
         finally { setUploading(null); }
       };
       reader.readAsDataURL(file);
@@ -168,7 +163,7 @@ function GuidanceView({ students, masterData, onRefresh, user }) {
                   {isNew && (
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', alignItems: 'center' }}>
                       <input type="text" placeholder="Đổi tên..." style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '0.75rem', width: '140px' }}
-                        onChange={(e) => setEditingTitle({...editingTitle, [s.EmailSV]: e.target.value})} />
+                        onChange={(e) => setEditingTitle({ ...editingTitle, [s.EmailSV]: e.target.value })} />
                       <button className="btn-success" onClick={() => handleApprove(s.EmailSV, 'Approved', loai)} title="Duyệt"><Check size={16} /></button>
                       <button style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 12px', cursor: 'pointer' }} onClick={() => handleApprove(s.EmailSV, 'Rejected', loai)} title="Từ chối"><X size={16} /></button>
                     </div>
@@ -219,11 +214,11 @@ function GuidanceView({ students, masterData, onRefresh, user }) {
                   {/* CASE 5: Trạng thái khác – badge thông báo */}
                   {!isNew && !(loai === 'BCTT' && isApproved && hasReport) && !(loai === 'KLTN' && isApproved && hasReport) && !isRevised && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end' }}>
-                       <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-                          {sub.BienBan_HD && <a href={sub.BienBan_HD} target="_blank" rel="noreferrer" style={{ fontSize: '0.6rem', color: 'var(--primary)' }}>BB Hội đồng</a>}
-                          {sub.KLTN_Revised && <a href={sub.KLTN_Revised} target="_blank" rel="noreferrer" style={{ fontSize: '0.6rem', color: 'var(--primary)' }}>Bản sửa</a>}
-                       </div>
-                       <span style={{ fontWeight: '800', fontSize: '0.8rem', color: isRejected ? '#ef4444' : isDone ? '#059669' : isGraded ? '#7c3aed' : isConfirmed ? '#2563eb' : 'var(--success)' }}>
+                      <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                        {sub.BienBan_HD && <a href={sub.BienBan_HD} target="_blank" rel="noreferrer" style={{ fontSize: '0.6rem', color: 'var(--primary)' }}>BB Hội đồng</a>}
+                        {sub.KLTN_Revised && <a href={sub.KLTN_Revised} target="_blank" rel="noreferrer" style={{ fontSize: '0.6rem', color: 'var(--primary)' }}>Bản sửa</a>}
+                      </div>
+                      <span style={{ fontWeight: '800', fontSize: '0.8rem', color: isRejected ? '#ef4444' : isDone ? '#059669' : isGraded ? '#7c3aed' : isConfirmed ? '#2563eb' : 'var(--success)' }}>
                         {isDone ? '✓ HOÀN TẤT' : isRejected ? '✕ ĐÃ TỪ CHỐI' : isGraded ? '✓ Qua Turnitin – Chờ HĐ' : isConfirmed ? '✓ Đã XN sửa – Chờ CT HĐ' : `✓ ${endVal}`}
                       </span>
                     </div>
@@ -239,7 +234,7 @@ function GuidanceView({ students, masterData, onRefresh, user }) {
 }
 
 // ===================== REVIEWER (Phản biện) =====================
-function ReviewerView({ students, masterData, onRefresh, user }) {
+function ReviewerView({ students, masterData, onRefresh }) {
   const [gradingEmail, setGradingEmail] = useState(null);
   const [score, setScore] = useState('');
   const [comment, setComment] = useState('');
@@ -251,7 +246,7 @@ function ReviewerView({ students, masterData, onRefresh, user }) {
       alert('Đã lưu điểm phản biện!');
       setGradingEmail(null); setScore(''); setComment('');
       onRefresh();
-    } catch(e) { alert('Lỗi lưu điểm!'); }
+    } catch { alert('Lỗi lưu điểm!'); }
   };
 
   return (
@@ -312,7 +307,7 @@ function ReviewerView({ students, masterData, onRefresh, user }) {
 }
 
 // ===================== COUNCIL (Hội đồng) =====================
-function CouncilView({ students, masterData, user, onRefresh }) {
+function CouncilView({ students, masterData, onRefresh }) {
   const users = masterData.users || [];
   const [gradingEmail, setGradingEmail] = useState(null);
   const [score, setScore] = useState('');
@@ -324,7 +319,7 @@ function CouncilView({ students, masterData, user, onRefresh }) {
       alert('Đã lưu điểm hội đồng!');
       setGradingEmail(null); setScore(''); setComment('');
       onRefresh();
-    } catch(e) { alert('Lỗi!'); }
+    } catch { alert('Lỗi!'); }
   };
 
   return (
@@ -383,9 +378,9 @@ function PresidentView({ students, masterData, user, onRefresh }) {
   const handleConfirm = async (emailSV, status) => {
     try {
       await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status: status, newTitle: '' });
-      alert(status === 'Completed' ? '✓ Đã chốt hoàn tất KLTN!' : '✓ Đã yêu cầu chỉnh sửa lại!'); 
+      alert(status === 'Completed' ? '✓ Đã chốt hoàn tất KLTN!' : '✓ Đã yêu cầu chỉnh sửa lại!');
       onRefresh();
-    } catch(e) { alert('Lỗi!'); }
+    } catch { alert('Lỗi!'); }
   };
 
   return (
@@ -432,14 +427,14 @@ function PresidentView({ students, masterData, user, onRefresh }) {
                     ? <span style={{ color: 'var(--success)', fontWeight: '800' }}>✓ HOÀN TẤT KLTN</span>
                     : (
                       <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
-                        <button 
-                          className="btn-success" 
+                        <button
+                          className="btn-success"
                           disabled={!isGVHDConfirmed}
-                          style={{ fontSize: '0.72rem', padding: '8px 16px', opacity: isGVHDConfirmed ? 1 : 0.5, cursor: isGVHDConfirmed ? 'pointer' : 'not-allowed' }} 
+                          style={{ fontSize: '0.72rem', padding: '8px 16px', opacity: isGVHDConfirmed ? 1 : 0.5, cursor: isGVHDConfirmed ? 'pointer' : 'not-allowed' }}
                           onClick={() => handleConfirm(s.EmailSV, 'Completed')}>
                           Đồng ý & Hoàn tất
                         </button>
-                        <button 
+                        <button
                           style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 12px', fontSize: '0.72rem', opacity: isGVHDConfirmed ? 1 : 0.5, cursor: isGVHDConfirmed ? 'pointer' : 'not-allowed' }}
                           disabled={!isGVHDConfirmed}
                           onClick={() => handleConfirm(s.EmailSV, 'Revised')}>
@@ -458,7 +453,7 @@ function PresidentView({ students, masterData, user, onRefresh }) {
 }
 
 // ===================== SECRETARY (Thư ký) =====================
-function SecretaryView({ students, masterData, user, onRefresh }) {
+function SecretaryView({ students, masterData, onRefresh }) {
   const users = masterData.users || [];
 
   const handleUploadBienBan = async (emailSV) => {
@@ -472,7 +467,7 @@ function SecretaryView({ students, masterData, user, onRefresh }) {
         try {
           await api.uploadFile({ emailSV, name: `BienBan_HD_${emailSV}.pdf`, base64, loaiDeTai: 'KLTN', fieldName: 'BienBan_HD' });
           alert('Đã tải biên bản hội đồng!'); onRefresh();
-        } catch (err) { alert('Lỗi tải file!'); }
+        } catch { alert('Lỗi tải file!'); }
       };
       reader.readAsDataURL(file);
     };
@@ -512,7 +507,7 @@ function SecretaryView({ students, masterData, user, onRefresh }) {
 }
 
 // ===================== SUGGESTION =====================
-function SuggestionView({ user }) {
+function SuggestionView() {
   return (
     <div className="card-flat">
       <h3 style={{ marginBottom: '24px', fontWeight: '800' }}>Gợi ý Đề tài mẫu</h3>
@@ -535,9 +530,9 @@ function SuggestionView({ user }) {
 function GradingListView({ hd, pb, council, masterData, onSelect }) {
   const users = masterData.users || [];
   const allStudents = [
-    ...hd.map(s => ({...s, gradingRole: 'GVHD'})),
-    ...pb.map(s => ({...s, gradingRole: 'GVPB'})),
-    ...council.map(s => ({...s, gradingRole: 'HỘI ĐỒNG'})),
+    ...hd.map(s => ({ ...s, gradingRole: 'GVHD' })),
+    ...pb.map(s => ({ ...s, gradingRole: 'GVPB' })),
+    ...council.map(s => ({ ...s, gradingRole: 'HỘI ĐỒNG' })),
   ];
   return (
     <div>
@@ -566,17 +561,20 @@ function GradingListView({ hd, pb, council, masterData, onSelect }) {
 }
 
 // ===================== GRADING DETAIL =====================
-function GradingDetail({ student, user, onBack, onRefresh, masterData }) {
+function GradingDetail({ student, onBack, onRefresh, masterData }) {
   const [scores, setScores] = useState({ t1: 0, t2: 0, t3: 0, t4: 0, t5: 0, t6: 0, t7: 0, t8: 0 });
   const [comment, setComment] = useState('');
   const [uploading, setUploading] = useState(false);
   const users = masterData.users || [];
-  
+
   const totalCriteria = Object.values(scores).reduce((a, b) => Number(a) + Number(b), 0);
   const officialScore = totalCriteria.toFixed(1);
   const svName = lookupName(student.EmailSV, users);
   const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(student.EmailSV).toLowerCase()) || {};
   const gradingRole = student.gradingRole || student.role || 'GVHD';
+  
+  // Xác định loaiDeTai từ submission (Linkbainop) hoặc từ student record
+  const loaiDeTai = sub.Loaidetai || String(student.Link || student.Role || 'KLTN').trim();
 
   const handleUploadTurnitin = async () => {
     const fileInput = document.createElement('input');
@@ -590,7 +588,7 @@ function GradingDetail({ student, user, onBack, onRefresh, masterData }) {
         try {
           await api.uploadFile({ emailSV: student.EmailSV, name: `Turnitin_${student.EmailSV}.pdf`, base64, loaiDeTai: 'KLTN', fieldName: 'Turnitin_Report' });
           alert('Đã tải báo cáo Turnitin!'); onRefresh();
-        } catch (err) { alert('Lỗi!'); }
+        } catch { alert('Lỗi!'); }
         finally { setUploading(false); }
       };
       reader.readAsDataURL(file);
@@ -600,9 +598,9 @@ function GradingDetail({ student, user, onBack, onRefresh, masterData }) {
 
   const handleSubmit = async () => {
     try {
-      await api.submitGrade({ emailSV: student.EmailSV, role: gradingRole, grade: officialScore, comment, loaiDeTai: String(student.Link || student.Role || 'KLTN').trim() });
+      await api.submitGrade({ emailSV: student.EmailSV, role: gradingRole, grade: officialScore, comment, loaiDeTai });
       alert('Đã lưu điểm!'); onBack(); onRefresh();
-    } catch(e) { alert('Lỗi lưu điểm!'); }
+    } catch { alert('Lỗi lưu điểm!'); }
   };
 
   return (
@@ -621,18 +619,18 @@ function GradingDetail({ student, user, onBack, onRefresh, masterData }) {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
-              <CriteriaInput label="Tiêu chí 1 (1đ)" val={scores.t1} onChange={v => setScores({...scores, t1: v})} />
-              <CriteriaInput label="Tiêu chí 2 (1đ)" val={scores.t2} onChange={v => setScores({...scores, t2: v})} />
-              <CriteriaInput label="Tiêu chí 3 (2đ)" val={scores.t3} onChange={v => setScores({...scores, t3: v})} />
-              <CriteriaInput label="Tiêu chí 4 (2đ)" val={scores.t4} onChange={v => setScores({...scores, t4: v})} />
-              <CriteriaInput label="Tiêu chí 5 (2đ)" val={scores.t5} onChange={v => setScores({...scores, t5: v})} />
-              <CriteriaInput label="Tiêu chí 6 (1đ)" val={scores.t6} onChange={v => setScores({...scores, t6: v})} />
-              <CriteriaInput label="Tiêu chí 7 (1đ)" val={scores.t7} onChange={v => setScores({...scores, t7: v})} />
-              <CriteriaInput label="Tiêu chí 8 (2đ)" val={scores.t8} onChange={v => setScores({...scores, t8: v})} />
+              <CriteriaInput label="Tiêu chí 1 (1đ)" val={scores.t1} onChange={v => setScores({ ...scores, t1: v })} />
+              <CriteriaInput label="Tiêu chí 2 (1đ)" val={scores.t2} onChange={v => setScores({ ...scores, t2: v })} />
+              <CriteriaInput label="Tiêu chí 3 (đ)" val={scores.t3} onChange={v => setScores({ ...scores, t3: v })} />
+              <CriteriaInput label="Tiêu chí 4 (2đ)" val={scores.t4} onChange={v => setScores({ ...scores, t4: v })} />
+              <CriteriaInput label="Tiêu chí 5 (1đ)" val={scores.t5} onChange={v => setScores({ ...scores, t5: v })} />
+              <CriteriaInput label="Tiêu chí 6 (1đ)" val={scores.t6} onChange={v => setScores({ ...scores, t6: v })} />
+              <CriteriaInput label="Tiêu chí 7 (1đ)" val={scores.t7} onChange={v => setScores({ ...scores, t7: v })} />
+              <CriteriaInput label="Tiêu chí 8 (1đ)" val={scores.t8} onChange={v => setScores({ ...scores, t8: v })} />
             </div>
 
             <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '12px', marginBottom: '32px' }}>
-              <p style={{ fontWeight: '800' }}>TỔNG ĐIỂM: {totalCriteria}/12 ➜ ĐIỂM QUY ĐỔI: <span style={{ color: 'var(--primary)', fontSize: '1.2rem' }}>{officialScore}</span></p>
+              <p style={{ fontWeight: '800' }}>TỔNG ĐIỂM: {totalCriteria}/10 ➜ ĐIỂM QUY ĐỔI: <span style={{ color: 'var(--primary)', fontSize: '1.2rem' }}>{officialScore}</span></p>
             </div>
 
             <div style={{ marginBottom: '32px' }}>
@@ -674,19 +672,22 @@ function GradingDetail({ student, user, onBack, onRefresh, masterData }) {
 // ===================== SHARED COMPONENTS =====================
 const CriteriaInput = ({ label, val, onChange }) => (
   <div>
-     <span style={{ display: 'block', fontSize: '0.7rem', fontWeight: '800', color: '#64748b', marginBottom: '8px' }}>{label}</span>
-     <input type="number" step="0.1" value={val} onChange={e => onChange(e.target.value)} className="input-field-custom" />
+    <span style={{ display: 'block', fontSize: '0.7rem', fontWeight: '800', color: '#64748b', marginBottom: '8px' }}>{label}</span>
+    <input type="number" step="0.1" value={val} onChange={e => onChange(e.target.value)} className="input-field-custom" />
   </div>
 );
 
-const StatCard = ({ title, val, icon: Icon, color }) => (
-  <div style={{ padding: '24px', background: 'white', borderRadius: '12px', border: '1px solid #f1f5f9', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
-     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color, marginBottom: '12px' }}>
+const StatCard = ({ title, val, icon, color }) => {
+  const Icon = icon;
+  return (
+    <div style={{ padding: '24px', background: 'white', borderRadius: '12px', border: '1px solid #f1f5f9', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color, marginBottom: '12px' }}>
         <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: `${color}10`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon size={18} /></div>
         <span style={{ fontWeight: '800', fontSize: '0.7rem', letterSpacing: '1px' }}>{title}</span>
-     </div>
-     <div style={{ fontSize: '1.8rem', fontWeight: '900', color: '#1e293b' }}>{val}</div>
-  </div>
-);
+      </div>
+      <div style={{ fontSize: '1.8rem', fontWeight: '900', color: '#1e293b' }}>{val}</div>
+    </div>
+  );
+};
 
 export default LecturerView;

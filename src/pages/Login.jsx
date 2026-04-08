@@ -27,7 +27,7 @@ function Login({ onLogin }) {
       } else {
         setError(response.message || 'Email không tồn tại trong hệ thống!');
       }
-    } catch (err) {
+    } catch {
       setError('Lỗi kết nối server. Hãy kiểm tra AppScript URL.');
     } finally {
       setLoading(false);
