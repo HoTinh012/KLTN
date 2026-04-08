@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import api, { lookupName } from '../../api';
 import { Check, X, FileText, Clock, CheckCircle, Users, Mail, Search, Edit3, ShieldCheck, ClipboardCheck, AlertCircle, Upload, Eye } from 'lucide-react';
 
