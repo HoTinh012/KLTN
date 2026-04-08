@@ -15,7 +15,7 @@ function Login({ onLogin }) {
   const navigate = useNavigate();
 
   // REPLACE THIS WITH YOUR ACTUAL GOOGLE CLIENT ID
-  const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+  const GOOGLE_CLIENT_ID = "183979120874-g3gjofg1r7e750ob449a3k9n9fdcgi2k.apps.googleusercontent.com";
 
   useEffect(() => {
     /* global google */
