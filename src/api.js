@@ -116,6 +116,28 @@ const api = {
     } catch (err) { console.error("Lỗi updatePeriod:", err); throw err; }
   },
 
+  approveLecturerQuota: async (payload) => {
+    try {
+      await fetch(API_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'approveLecturerQuota', payload })
+      });
+      return { success: true };
+    } catch (err) { console.error("Lỗi approveLecturerQuota:", err); throw err; }
+  },
+
+  approveFinalRevision: async (payload) => {
+    try {
+      await fetch(API_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'approveFinalRevision', payload })
+      });
+      return { success: true };
+    } catch (err) { console.error("Lỗi approveFinalRevision:", err); throw err; }
+  },
+
   // Upload file lên Drive
   uploadFile: async (payload) => {
     try {

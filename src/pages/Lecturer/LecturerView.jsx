@@ -200,19 +200,33 @@ function GuidanceView({ students, masterData, onRefresh, user }) {
                     </div>
                   )}
 
-                  {/* CASE 4: KLTN – SV đã upload bản sửa → GVHD xác nhận */}
+                  {/* CASE 4: KLTN – SV đã upload bản sửa → GVHD xem 3 link + duyệt */}
                   {loai === 'KLTN' && isRevised && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end' }}>
-                      <span style={{ fontSize: '0.65rem', color: '#059669', fontWeight: '700', background: '#dcfce7', padding: '2px 8px', borderRadius: '4px' }}>SV đã nộp bản sửa</span>
-                      <button className="btn-success" style={{ fontSize: '0.75rem', padding: '8px 16px' }} onClick={() => handleApprove(s.EmailSV, 'Confirmed', loai)}>✓ Xác nhận bản sửa (GVHD)</button>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end' }}>
+                      <span style={{ fontSize: '0.65rem', color: '#059669', fontWeight: '700', background: '#dcfce7', padding: '2px 8px', borderRadius: '4px' }}>SV đã nộp bản sửa – Chờ GVHD Duyệt</span>
+                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', justifyContent: 'flex-end', marginBottom: '4px' }}>
+                        {sub.BienBan_HD && <a href={sub.BienBan_HD} target="_blank" rel="noreferrer" className="btn-primary" style={{ fontSize: '0.62rem', padding: '4px 8px', background: '#475569' }}><FileText size={10} /> BB Hội đồng</a>}
+                        {sub.KLTN_Revised && <a href={sub.KLTN_Revised} target="_blank" rel="noreferrer" className="btn-primary" style={{ fontSize: '0.62rem', padding: '4px 8px', background: '#1e40af' }}><Edit3 size={10} /> Bản sửa</a>}
+                        {sub.KLTN_Explain && <a href={sub.KLTN_Explain} target="_blank" rel="noreferrer" className="btn-primary" style={{ fontSize: '0.62rem', padding: '4px 8px', background: '#7c3aed' }}><ClipboardCheck size={10} /> Giải trình</a>}
+                      </div>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        <button className="btn-success" style={{ fontSize: '0.72rem', padding: '6px 12px' }} onClick={() => handleApprove(s.EmailSV, 'Confirmed', loai)}>Đồng ý chỉnh sửa</button>
+                        <button style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer', fontSize: '0.72rem' }} onClick={() => handleApprove(s.EmailSV, 'Revised', loai)}>Không đồng ý</button>
+                      </div>
                     </div>
                   )}
 
                   {/* CASE 5: Trạng thái khác – badge thông báo */}
                   {!isNew && !(loai === 'BCTT' && isApproved && hasReport) && !(loai === 'KLTN' && isApproved && hasReport) && !isRevised && (
-                    <span style={{ fontWeight: '800', fontSize: '0.8rem', color: isRejected ? '#ef4444' : isDone ? '#059669' : isGraded ? '#7c3aed' : isConfirmed ? '#2563eb' : 'var(--success)' }}>
-                      {isDone ? '✓ HOÀN TẤT' : isRejected ? '✕ ĐÃ TỪ CHỐI' : isGraded ? '✓ Qua Turnitin – Chờ HĐ' : isConfirmed ? '✓ Đã XN sửa – Chờ CT HĐ' : `✓ ${endVal}`}
-                    </span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end' }}>
+                       <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                          {sub.BienBan_HD && <a href={sub.BienBan_HD} target="_blank" rel="noreferrer" style={{ fontSize: '0.6rem', color: 'var(--primary)' }}>BB Hội đồng</a>}
+                          {sub.KLTN_Revised && <a href={sub.KLTN_Revised} target="_blank" rel="noreferrer" style={{ fontSize: '0.6rem', color: 'var(--primary)' }}>Bản sửa</a>}
+                       </div>
+                       <span style={{ fontWeight: '800', fontSize: '0.8rem', color: isRejected ? '#ef4444' : isDone ? '#059669' : isGraded ? '#7c3aed' : isConfirmed ? '#2563eb' : 'var(--success)' }}>
+                        {isDone ? '✓ HOÀN TẤT' : isRejected ? '✕ ĐÃ TỪ CHỐI' : isGraded ? '✓ Qua Turnitin – Chờ HĐ' : isConfirmed ? '✓ Đã XN sửa – Chờ CT HĐ' : `✓ ${endVal}`}
+                      </span>
+                    </div>
                   )}
                 </td>
               </tr>
@@ -366,10 +380,11 @@ function PresidentView({ students, masterData, user, onRefresh }) {
   const users = masterData.users || [];
   const allReg = masterData.linkGiangvien || [];
 
-  const handleConfirm = async (emailSV) => {
+  const handleConfirm = async (emailSV, status) => {
     try {
-      await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status: 'Completed', newTitle: '' });
-      alert('✓ Đã chốt hoàn tất KLTN!'); onRefresh();
+      await api.approveTopicBulk({ emailGV: user.Email, svEmails: [emailSV], status: status, newTitle: '' });
+      alert(status === 'Completed' ? '✓ Đã chốt hoàn tất KLTN!' : '✓ Đã yêu cầu chỉnh sửa lại!'); 
+      onRefresh();
     } catch(e) { alert('Lỗi!'); }
   };
 
@@ -401,20 +416,37 @@ function PresidentView({ students, masterData, user, onRefresh }) {
                 <td style={{ fontWeight: '700', fontSize: '0.88rem' }}>{sub.Tendetai || '---'}</td>
                 <td>{s.Diadiem || '---'}</td>
                 <td>
-                  {isGVHDConfirmed
-                    ? <span style={{ color: '#059669', fontWeight: '800', fontSize: '0.78rem' }}>✓ Đã xác nhận</span>
-                    : <span style={{ color: '#f59e0b', fontWeight: '700', fontSize: '0.78rem' }}>⏳ Chờ GVHD xác nhận bản sửa</span>}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    {isGVHDConfirmed
+                      ? <span style={{ color: '#059669', fontWeight: '800', fontSize: '0.78rem' }}>✓ GVHD đã đồng ý</span>
+                      : <span style={{ color: '#f59e0b', fontWeight: '700', fontSize: '0.78rem' }}>⏳ Chờ GVHD xác nhận</span>}
+                    <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                      {sub.BienBan_HD && <a href={sub.BienBan_HD} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: 'var(--primary)' }}>BB Hội đồng</a>}
+                      {sub.KLTN_Revised && <a href={sub.KLTN_Revised} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: 'var(--primary)' }}>Bản sửa</a>}
+                      {sub.KLTN_Explain && <a href={sub.KLTN_Explain} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: 'var(--primary)' }}>Giải trình</a>}
+                    </div>
+                  </div>
                 </td>
                 <td style={{ textAlign: 'right' }}>
                   {isDone
                     ? <span style={{ color: 'var(--success)', fontWeight: '800' }}>✓ HOÀN TẤT KLTN</span>
-                    : isGVHDConfirmed
-                      ? <button className="btn-success" style={{ fontSize: '0.72rem', padding: '8px 16px' }} onClick={() => handleConfirm(s.EmailSV)}>
-                          <CheckCircle size={14} /> Chốt hoàn tất KLTN
+                    : (
+                      <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
+                        <button 
+                          className="btn-success" 
+                          disabled={!isGVHDConfirmed}
+                          style={{ fontSize: '0.72rem', padding: '8px 16px', opacity: isGVHDConfirmed ? 1 : 0.5, cursor: isGVHDConfirmed ? 'pointer' : 'not-allowed' }} 
+                          onClick={() => handleConfirm(s.EmailSV, 'Completed')}>
+                          Đồng ý & Hoàn tất
                         </button>
-                      : <button disabled style={{ fontSize: '0.72rem', padding: '8px 16px', background: '#e2e8f0', color: '#94a3b8', border: 'none', borderRadius: '6px', cursor: 'not-allowed' }}>
-                          Đợi GVHD xác nhận...
-                        </button>}
+                        <button 
+                          style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 12px', fontSize: '0.72rem', opacity: isGVHDConfirmed ? 1 : 0.5, cursor: isGVHDConfirmed ? 'pointer' : 'not-allowed' }}
+                          disabled={!isGVHDConfirmed}
+                          onClick={() => handleConfirm(s.EmailSV, 'Revised')}>
+                          Không đồng ý
+                        </button>
+                      </div>
+                    )}
                 </td>
               </tr>
             );

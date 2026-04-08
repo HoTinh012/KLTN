@@ -19,6 +19,8 @@ function doPost(e) {
       case 'submitGrade':      return createResponse(submitGrade(payload));
       case 'updatePeriod':     return createResponse(updatePeriodStatus(payload));
       case 'updateQuota':      return createResponse(updateQuota(payload));
+      case 'approveLecturerQuota': return createResponse(approveLecturerQuota(payload));
+      case 'approveFinalRevision': return createResponse(approveFinalRevision(payload));
       case 'uploadFile':       return createResponse(handleFileUpload(payload));
       default: return createResponse({ error: 'Hành động không hợp lệ' });
     }
@@ -249,6 +251,39 @@ function updateQuota(payload) {
     }
   }
   return { error: "Không tìm thấy GV" };
+}
+
+/**
+ * DUYỆT QUOTA GIẢNG VIÊN (Mở slot đăng ký)
+ */
+function approveLecturerQuota(payload) {
+  const { emailGV, status } = payload; // status: 'Approved' | 'Pending'
+  const sheet = findSheetByKeywords("Quota");
+  const data = sheet.getDataRange().getValues();
+  for(let i=1; i<data.length; i++) {
+    if(String(data[i][0]).toLowerCase().trim() === emailGV.toLowerCase().trim()) {
+      sheet.getRange(i+1, 5).setValue(status); // Column 5: Status
+      return { success: true };
+    }
+  }
+  return { error: "Không tìm thấy GV" };
+}
+
+/**
+ * DUYỆT BẢN SỬA SAU BẢO VỆ (GVHD & CTHD)
+ */
+function approveFinalRevision(payload) {
+  const { emailSV, role, status } = payload; // role: 'GVHD' | 'CTHD', status: 'Agree' | 'Disagree'
+  const sheet = findSheetByKeywords("LinkGiangvien");
+  const data = sheet.getDataRange().getValues();
+  
+  for(let i=1; i<data.length; i++) {
+    if(String(data[i][0]).toLowerCase() === emailSV.toLowerCase() && String(data[i][2]) === role) {
+      sheet.getRange(i+1, 8).setValue(status); // Column 8 will store the revision approval status
+      return { success: true };
+    }
+  }
+  return { error: "Không tìm thấy bản ghi tương ứng" };
 }
 
 /** 
