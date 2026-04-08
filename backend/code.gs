@@ -1,8 +1,8 @@
 const ss = SpreadsheetApp.getActiveSpreadsheet();
 
 function doGet() {
-  return ContentService.createTextOutput(JSON.stringify(getMasterData()))
-    .setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput("UniThesis Backend - Access Restricted")
+    .setMimeType(ContentService.MimeType.TEXT);
 }
 
 function doPost(e) {
@@ -18,6 +18,8 @@ function doPost(e) {
     const payload = res.payload;
 
     switch (action) {
+      case 'login':           return createResponse(handleLogin(payload));
+      case 'getMasterData':   return createResponse(getMasterData());
       case 'register':         return createResponse(registerTopic(payload));
       case 'approveTopicBulk': return createResponse(approveTopicBulk(payload));
       case 'assignGVPB':       return createResponse(assignGVPB(payload));
@@ -29,7 +31,7 @@ function doPost(e) {
       case 'approveLecturerQuota': return createResponse(approveLecturerQuota(payload));
       case 'approveFinalRevision': return createResponse(approveFinalRevision(payload));
       case 'uploadFile':       return createResponse(handleFileUpload(payload));
-      default: return createResponse({ error: 'Hành động không hợp lệ' });
+      default: return createResponse({ error: 'Hành động không hợp lệ: ' + action });
     }
   } catch (err) {
     return createResponse({ error: err.message });
@@ -52,6 +54,22 @@ function findSheetByKeywords(keyword) {
     }
   }
   return null; // Hoặc ss.getSheetByName(keyword) nếu chính xác
+}
+
+/** 
+ * XỬ LÝ ĐĂNG NHẬP
+ */
+function handleLogin(payload) {
+  const { email } = payload;
+  const users = getTableData("User");
+  const user = users.find(u => 
+    String(u.Email).toLowerCase().trim() === String(email).toLowerCase().trim()
+  );
+  
+  if (user) {
+    return { success: true, user };
+  }
+  return { success: false, message: "Email không tồn tại trong hệ thống!" };
 }
 
 /** 

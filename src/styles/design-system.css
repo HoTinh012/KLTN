@@ -359,6 +359,29 @@ table td {
   font-size: 1rem;
 }
 
+.google-login-btn-outline {
+  width: 100%;
+  padding: 14px;
+  background: white;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.google-login-btn-outline:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
 .google-login-btn:hover {
   background: #003a70;
   box-shadow: 0 8px 20px rgba(0,75,145,0.2);

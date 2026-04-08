@@ -1,4 +1,4 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbyCMsir7fLriatzKu6Iax2KZ5NYzUqNDQ92b16qslqPjvxDePyTLDqrTEjDvz78w9Kpew/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbweMYf_aoBzYU-PACemHZ0yMCdvOK6jPt5usthKw-8VA0nekhztLlVSx4Ti5i3LZeBfyA/exec';
 
 // === HELPER: Tra cứu tên SV/GV từ danh sách users ===
 function lookupName(email, users) {
@@ -10,7 +10,11 @@ function lookupName(email, users) {
 const api = {
   getMasterData: async () => {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(API_URL, {
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ action: 'getMasterData' })
+      });
       return await response.json();
     } catch (err) {
       console.error("Lỗi getMasterData:", err);
@@ -20,12 +24,12 @@ const api = {
 
   login: async (email) => {
     try {
-      const data = await api.getMasterData();
-      const user = data.users.find(u =>
-        String(u.Email).toLowerCase().trim() === String(email).toLowerCase().trim()
-      );
-      if (user) return { success: true, user };
-      return { success: false, message: "Email không tồn tại trong danh sách User!" };
+      const response = await fetch(API_URL, {
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ action: 'login', payload: { email } })
+      });
+      return await response.json();
     } catch (err) {
       console.error("Lỗi đăng nhập:", err);
       throw err;
