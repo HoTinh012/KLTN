@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api, { lookupName } from '../../api';
-import { Users, Folder, TrendingUp, CheckCircle, Clock, Search, User, Filter, ShieldCheck, Mail, Calendar, List, Star, FileText } from 'lucide-react';
+import { Users, Folder, TrendingUp, CheckCircle, Clock, Search, User, Filter, ShieldCheck, Mail, Calendar, List, Star, FileText, Plus, Trash2, Edit } from 'lucide-react';
 
 function AdminView({ user, activeTab }) {
   const [masterData, setMasterData] = useState(null);
@@ -214,18 +214,13 @@ function AssignmentView({ masterData, lecturers, onRefresh }) {
 
   // SV KLTN đã approved VÀ ĐÃ NỘP BÀI nhưng chưa có GVPB
   const kltnApproved = allReg.filter(r => {
-    const isKLTN = ((r.Role === 'GVHD' || r.Role === 'HD') && String(r.Link).toUpperCase().includes('KLTN')) || r.Role === 'KLTN';
-    const isApproved = r.End === 'Approved' || r.End === 'Yes' || r.End === 'Graded';
-    const hasGVPB = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && x.Role === 'GVPB');
+    const isKLTN = ((String(r.Role).toUpperCase() === 'GVHD' || String(r.Role).toUpperCase() === 'HD') && String(r.Link || '').toUpperCase().includes('KLTN')) || String(r.Role).toUpperCase().includes('KLTN');
+    const statusVal = String(r.End || '').toUpperCase().trim();
+    const isApproved = ['APPROVED', 'YES', 'GRADED', 'PASS'].includes(statusVal);
+    const hasGVPB = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && String(x.Role).toUpperCase() === 'GVPB');
     
-    // Kiểm tra đã nộp bài KLTN chưa
-    const hasSubmitted = (masterData.linkBainop || []).some(b => 
-      String(b.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && 
-      String(b.Loaidetai).trim().toUpperCase() === 'KLTN' && 
-      (b.Linkbai || b.Link || b.linkbai || b.link)
-    );
-
-    return isKLTN && isApproved && !hasGVPB && hasSubmitted;
+    // Relaxed check: Allow assigning reviewer even if submission is missing
+    return isKLTN && isApproved && !hasGVPB;
   });
 
   // Tất cả KLTN registrations
@@ -358,23 +353,16 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
     const end = String(r.End || '').trim();
     const emailSV = String(r.EmailSV || '').toLowerCase();
 
-    const isKLTN = ((role === 'GVHD' || role === 'HD') && String(r.Link).toUpperCase().includes('KLTN')) || role === 'KLTN';
-    // Mở rộng trạng thái: Approved (GVHD mới duyệt), Graded (GVHD đã chấm điểm), Yes/Pass (dữ liệu cũ/khác)
-    const isReady = ['Graded', 'Approved', 'Yes', 'Pass'].includes(end);
+    const isKLTN = ((role === 'GVHD' || role === 'HD') && String(r.Link || '').toUpperCase().includes('KLTN')) || role === 'KLTN';
+    const isReady = ['GRADED', 'APPROVED', 'YES', 'PASS'].includes(end.toUpperCase());
 
     const hasCouncil = allReg.some(x =>
       String(x.EmailSV || '').toLowerCase() === emailSV &&
       ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(String(x.Role || '').trim())
     );
 
-    // Kiểm tra đã nộp bài KLTN chưa
-    const hasSubmitted = (masterData.linkBainop || []).some(b => 
-      String(b.EmailSV).toLowerCase() === emailSV && 
-      String(b.Loaidetai).trim().toUpperCase() === 'KLTN' && 
-      (b.Linkbai || b.Link || b.linkbai || b.link)
-    );
-
-    return isKLTN && isReady && !hasCouncil && hasSubmitted;
+    // Relaxed check: Allow selecting students even if Linkbainop record is missing or empty
+    return isKLTN && isReady && !hasCouncil;
   });
 
   // Existing councils
