@@ -9,47 +9,47 @@ function LecturerView({ user, activeTab }) {
   const [loading, setLoading] = useState(true);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
-  useEffect(() => { fetchData(); }, [user.Email]);
+useEffect(() => { fetchData(); }, [user.Email]);
 
-  const fetchData = async () => {
-    setLoading(true);
-    try { setMasterData(await api.getMasterData()); }
-    catch { console.error('Error fetching data'); }
-    finally { setLoading(false); }
-  };
+const fetchData = async () => {
+  setLoading(true);
+  try { setMasterData(await api.getMasterData()); }
+  catch { console.error('Error fetching data'); }
+  finally { setLoading(false); }
+};
 
-  if (loading) return <div style={{ padding: '2rem' }}>Đang tải dữ liệu...</div>;
-  if (!masterData) return <div style={{ color: 'red', padding: '2rem' }}>Lỗi tải dữ liệu.</div>;
+if (loading) return <div style={{ padding: '2rem' }}>Đang tải dữ liệu...</div>;
+if (!masterData) return <div style={{ color: 'red', padding: '2rem' }}>Lỗi tải dữ liệu.</div>;
 
-  const em = user.Email.toLowerCase();
-  const allReg = masterData.linkGiangvien || [];
+const em = user.Email.toLowerCase();
+const allReg = masterData.linkGiangvien || [];
 
-  // Lọc theo email GV và role
-  const hdStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && (r.Role === 'GVHD' || r.Role === 'BCTT' || r.Role === 'KLTN'));
-  const pbStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'GVPB');
-  const councilStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(r.Role));
-  const cthdStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'CTHD');
-  const thukyStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'ThukyHD');
+// Lọc theo email GV và role
+const hdStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && (r.Role === 'GVHD' || r.Role === 'BCTT' || r.Role === 'KLTN'));
+const pbStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'GVPB');
+const councilStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(r.Role));
+const cthdStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'CTHD');
+const thukyStudents = allReg.filter(r => String(r.EmailGV).toLowerCase() === em && r.Role === 'ThukyHD');
 
-  const pendingApproval = hdStudents.filter(s => {
-    const end = String(s.End || '').trim();
-    return end === 'Registered' || end === 'New' || !end;
-  });
+const pendingApproval = hdStudents.filter(s => {
+  const end = String(s.End || '').trim();
+  return end === 'Registered' || end === 'New' || !end;
+});
 
-  return (
-    <div className="animate-fade-in" style={{ width: '100%' }}>
-      <AnimatePresence mode="wait">
-        {activeTab === 'home' && <HomeView user={user} hd={hdStudents} pb={pbStudents} council={councilStudents} pending={pendingApproval.length} />}
-        {activeTab === 'guidance' && <GuidanceView students={hdStudents} masterData={masterData} onRefresh={fetchData} user={user} />}
-        {activeTab === 'reviewer' && <ReviewerView students={pbStudents} masterData={masterData} onRefresh={fetchData} />}
-        {activeTab === 'council' && <CouncilView students={councilStudents} masterData={masterData} onRefresh={fetchData} />}
-        {activeTab === 'president' && <PresidentView students={cthdStudents} masterData={masterData} user={user} onRefresh={fetchData} />}
-        {activeTab === 'secretary' && <SecretaryView students={thukyStudents} masterData={masterData} onRefresh={fetchData} />}
-        {activeTab === 'suggestion' && <SuggestionView />}
-        {activeTab === 'grading' && (selectedStudent ? <GradingDetail student={selectedStudent} onBack={() => setSelectedStudent(null)} onRefresh={fetchData} masterData={masterData} /> : <GradingListView hd={hdStudents} pb={pbStudents} council={councilStudents} masterData={masterData} onSelect={setSelectedStudent} />)}
-      </AnimatePresence>
-    </div>
-  );
+return (
+  <div className="animate-fade-in" style={{ width: '100%' }}>
+    <AnimatePresence mode="wait">
+      {activeTab === 'home' && <HomeView user={user} hd={hdStudents} pb={pbStudents} council={councilStudents} pending={pendingApproval.length} />}
+      {activeTab === 'guidance' && <GuidanceView students={hdStudents} masterData={masterData} onRefresh={fetchData} user={user} />}
+      {activeTab === 'reviewer' && <ReviewerView students={pbStudents} masterData={masterData} onRefresh={fetchData} />}
+      {activeTab === 'council' && <CouncilView students={councilStudents} masterData={masterData} onRefresh={fetchData} />}
+      {activeTab === 'president' && <PresidentView students={cthdStudents} masterData={masterData} user={user} onRefresh={fetchData} />}
+      {activeTab === 'secretary' && <SecretaryView students={thukyStudents} masterData={masterData} onRefresh={fetchData} />}
+      {activeTab === 'suggestion' && <SuggestionView />}
+      {activeTab === 'grading' && (selectedStudent ? <GradingDetail student={selectedStudent} onBack={() => setSelectedStudent(null)} onRefresh={fetchData} masterData={masterData} /> : <GradingListView hd={hdStudents} pb={pbStudents} council={councilStudents} masterData={masterData} onSelect={setSelectedStudent} />)}
+    </AnimatePresence>
+  </div>
+);
 }
 
 // ===================== HOME =====================
@@ -822,7 +822,7 @@ function GradingDetail({ student, onBack, onRefresh, masterData }) {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
               <CriteriaInput label="Tiêu chí 1 (1đ)" val={scores.t1} onChange={v => setScores({ ...scores, t1: v })} />
               <CriteriaInput label="Tiêu chí 2 (1đ)" val={scores.t2} onChange={v => setScores({ ...scores, t2: v })} />
-              <CriteriaInput label="Tiêu chí 3 (1đ)" val={scores.t3} onChange={v => setScores({ ...scores, t3: v })} />
+              <CriteriaInput label="Tiêu chí 3 (2đ)" val={scores.t3} onChange={v => setScores({ ...scores, t3: v })} />
               <CriteriaInput label="Tiêu chí 4 (2đ)" val={scores.t4} onChange={v => setScores({ ...scores, t4: v })} />
               <CriteriaInput label="Tiêu chí 5 (1đ)" val={scores.t5} onChange={v => setScores({ ...scores, t5: v })} />
               <CriteriaInput label="Tiêu chí 6 (1đ)" val={scores.t6} onChange={v => setScores({ ...scores, t6: v })} />
@@ -841,50 +841,53 @@ function GradingDetail({ student, onBack, onRefresh, masterData }) {
               </label>
             </div>
 
-            {!sub.Linkbai && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '8px', padding: '10px 14px', marginBottom: '12px' }}>
-                <AlertCircle size={16} color="#d97706" />
-                <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#92400e' }}>Sinh viên chưa nộp bài — không thể lưu kết quả chấm điểm.</span>
-              </div>
-            )}
-            <div style={{ display: 'flex', gap: '12px' }}>
-              <button
-                onClick={handleExportDocx}
-                style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '6px', padding: '12px 18px', background: '#f1f5f9', border: '1px solid #cbd5e1', borderRadius: '8px', cursor: 'pointer', fontWeight: '700', fontSize: '0.8rem', color: '#334155' }}
-              >
-                <FileText size={16} color="#334155" /> Xuất DOCX
-              </button>
-              <button
-                className="btn-primary-blue"
-                onClick={handleSubmit}
-                disabled={!sub.Linkbai}
-                style={{ flex: 1, opacity: sub.Linkbai ? 1 : 0.45, cursor: sub.Linkbai ? 'pointer' : 'not-allowed' }}
-              >
-                LƯU KẾT QUẢ CHẤM ĐIỂM
-              </button>
-            </div>          </div>
-        </div>
-
-        <aside>
-          <div className="card-flat" style={{ marginBottom: '24px' }}>
-            <h4 style={{ fontWeight: '800', fontSize: '0.9rem', marginBottom: '16px' }}>THÔNG TIN SINH VIÊN</h4>
-            <p style={{ fontSize: '0.95rem', fontWeight: '700', marginBottom: '4px' }}>{svName}</p>
-            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '4px' }}>{student.EmailSV}</p>
-            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Đề tài: {sub.Tendetai || '---'}</p>
-            <hr style={{ margin: '16px 0', border: '0', borderTop: '1px solid #eee' }} />
-            {sub.Linkbai ? <a href={sub.Linkbai} target="_blank" rel="noreferrer" className="btn-primary" style={{ width: '100%', display: 'inline-block', textAlign: 'center' }}>Xem file bài nộp</a> : <p style={{ color: '#ef4444', fontSize: '0.8rem' }}>SV chưa nộp bài</p>}
-          </div>
-
-          {gradingRole === 'GVHD' && (
-            <div className="card-flat" style={{ border: '1px dashed var(--primary)' }}>
-              <h4 style={{ fontWeight: '800', fontSize: '0.9rem', marginBottom: '8px' }}>TURNITIN</h4>
-              <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '16px' }}>GVHD upload báo cáo Turnitin trước khi hội đồng chấm.</p>
-              <button className="btn-primary-blue" onClick={handleUploadTurnitin} disabled={uploading}>
-                <Upload size={16} /> {uploading ? 'ĐANG TẢI...' : 'TẢI FILE TURNITIN'}
-              </button>
+  {
+    !sub.Linkbai && (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '8px', padding: '10px 14px', marginBottom: '12px' }}>
+        <AlertCircle size={16} color="#d97706" />
+        <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#92400e' }}>Sinh viên chưa nộp bài — không thể lưu kết quả chấm điểm.</span>
+      </div>
+    )
+  }
+  <div style={{ display: 'flex', gap: '12px' }}>
+    <button
+      onClick={handleExportDocx}
+      style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '6px', padding: '12px 18px', background: '#f1f5f9', border: '1px solid #cbd5e1', borderRadius: '8px', cursor: 'pointer', fontWeight: '700', fontSize: '0.8rem', color: '#334155' }}
+    >
+      <FileText size={16} color="#334155" /> Xuất DOCX
+    </button>
+    <button
+      className="btn-primary-blue"
+      onClick={handleSubmit}
+      disabled={!sub.Linkbai}
+      style={{ flex: 1, opacity: sub.Linkbai ? 1 : 0.45, cursor: sub.Linkbai ? 'pointer' : 'not-allowed' }}
+    >
+      LƯU KẾT QUẢ CHẤM ĐIỂM
+    </button>
             </div>
-          )}
-        </aside>
+          </div>
+        </div >
+
+    <aside>
+      <div className="card-flat" style={{ marginBottom: '24px' }}>
+        <h4 style={{ fontWeight: '800', fontSize: '0.9rem', marginBottom: '16px' }}>THÔNG TIN SINH VIÊN</h4>
+        <p style={{ fontSize: '0.95rem', fontWeight: '700', marginBottom: '4px' }}>{svName}</p>
+        <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '4px' }}>{student.EmailSV}</p>
+        <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Đề tài: {sub.Tendetai || '---'}</p>
+        <hr style={{ margin: '16px 0', border: '0', borderTop: '1px solid #eee' }} />
+        {sub.Linkbai ? <a href={sub.Linkbai} target="_blank" rel="noreferrer" className="btn-primary" style={{ width: '100%', display: 'inline-block', textAlign: 'center' }}>Xem file bài nộp</a> : <p style={{ color: '#ef4444', fontSize: '0.8rem' }}>SV chưa nộp bài</p>}
+      </div>
+
+      {gradingRole === 'GVHD' && (
+        <div className="card-flat" style={{ border: '1px dashed var(--primary)' }}>
+          <h4 style={{ fontWeight: '800', fontSize: '0.9rem', marginBottom: '8px' }}>TURNITIN</h4>
+          <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '16px' }}>GVHD upload báo cáo Turnitin trước khi hội đồng chấm.</p>
+          <button className="btn-primary-blue" onClick={handleUploadTurnitin} disabled={uploading}>
+            <Upload size={16} /> {uploading ? 'ĐANG TẢI...' : 'TẢI FILE TURNITIN'}
+          </button>
+        </div>
+      )}
+    </aside>
       </div>
     </div>
   );
