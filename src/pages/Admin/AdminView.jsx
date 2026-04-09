@@ -66,9 +66,14 @@ function AdminHome({ masterData }) {
 
   // KLTN đã GV duyệt nhưng chưa có GVPB
   const pendingGVPB = allReg.filter(r => {
-    const isKLTN = ((r.Role === 'GVHD' || r.Role === 'HD') && String(r.Link).toUpperCase().includes('KLTN')) || r.Role === 'KLTN';
+    const role = String(r.Role || '').toUpperCase();
+    const link = String(r.Link || '').toUpperCase();
+    const end = String(r.End || '').toUpperCase().trim();
+
+    const isKLTN = (role === 'GVHD' && link === 'KLTN') || role === 'KLTN' || (role === 'HD' && link === 'KLTN');
     const hasGVPB = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && x.Role === 'GVPB');
-    return isKLTN && !hasGVPB && (r.End === 'Approved' || r.End === 'Yes');
+    const isApproved = ['APPROVED', 'YES', 'GRADED', 'PASS'].includes(end);
+    return isKLTN && !hasGVPB && isApproved;
   }).length;
 
   // KLTN đã được GV duyệt hoặc nộp bài, chờ lập Hội đồng
@@ -212,19 +217,26 @@ function AssignmentView({ masterData, lecturers, onRefresh }) {
   const allReg = masterData.linkGiangvien || [];
   const users = masterData.users || [];
 
-  // SV KLTN đã approved VÀ ĐÃ NỘP BÀI nhưng chưa có GVPB
+  // SV KLTN đã approved nhưng chưa có GVPB
   const kltnApproved = allReg.filter(r => {
-    const isKLTN = ((String(r.Role).toUpperCase() === 'GVHD' || String(r.Role).toUpperCase() === 'HD') && String(r.Link || '').toUpperCase().includes('KLTN')) || String(r.Role).toUpperCase().includes('KLTN');
-    const statusVal = String(r.End || '').toUpperCase().trim();
-    const isApproved = ['APPROVED', 'YES', 'GRADED', 'PASS'].includes(statusVal);
+    const role = String(r.Role || '').toUpperCase();
+    const link = String(r.Link || '').toUpperCase();
+    const end = String(r.End || '').toUpperCase().trim();
+
+    const isKLTN = (role === 'GVHD' && link === 'KLTN') || role === 'KLTN' || (role === 'HD' && link === 'KLTN');
+    const isApproved = ['APPROVED', 'YES', 'GRADED', 'PASS'].includes(end);
     const hasGVPB = allReg.some(x => String(x.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && String(x.Role).toUpperCase() === 'GVPB');
     
-    // Relaxed check: Allow assigning reviewer even if submission is missing
     return isKLTN && isApproved && !hasGVPB;
   });
 
   // Tất cả KLTN registrations
-  const allKLTN = allReg.filter(r => (r.Role === 'GVHD' && String(r.Link).trim() === 'KLTN') || r.Role === 'KLTN');
+  // Tất cả KLTN registrations (Supervisor records)
+  const allKLTN = allReg.filter(r => {
+    const role = String(r.Role || '').toUpperCase();
+    const link = String(r.Link || '').toUpperCase();
+    return (role === 'GVHD' && link === 'KLTN') || role === 'KLTN' || (role === 'HD' && link === 'KLTN');
+  });
 
   const handleAssign = async (e) => {
     e.preventDefault();
@@ -266,7 +278,7 @@ function AssignmentView({ masterData, lecturers, onRefresh }) {
             <h4 style={{ fontWeight: '800', fontSize: '0.9rem' }}>TRẠNG THÁI PHÂN CÔNG KLTN</h4>
           </div>
           <table style={{ width: '100%' }}>
-            <thead><tr><th>SINH VIÊN</th><th>ĐỀ TÀI & ĐỢT</th><th>GVHD</th><th>GVPB</th><th>HỘI ĐỒNG</th></tr></thead>
+            <thead><tr><th>SINH VIÊN</th><th>ĐỀ TÀI & ĐỢT</th><th>GVHD</th><th>TRẠNG THÁI</th><th>GVPB</th><th>HỘI ĐỒNG</th></tr></thead>
             <tbody>
               {allKLTN.map((r, idx) => {
                 const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(r.EmailSV).toLowerCase() && String(b.Loaidetai).trim() === 'KLTN') || {};
@@ -286,6 +298,11 @@ function AssignmentView({ masterData, lecturers, onRefresh }) {
                       </div>
                     </td>
                     <td style={{ fontSize: '0.8rem' }}>{lookupName(r.EmailGV, users)}</td>
+                    <td style={{ fontSize: '0.8rem' }}>
+                      <span style={{ fontWeight: '800', color: ['APPROVED', 'YES', 'GRADED', 'PASS'].includes(String(r.End || '').toUpperCase()) ? '#059669' : '#64748b' }}>
+                        {r.End || 'Registered'}
+                      </span>
+                    </td>
                     <td style={{ fontSize: '0.8rem' }}>
                       {gvpb ? <span style={{ color: 'var(--success)', fontWeight: '700' }}>{lookupName(gvpb.EmailGV, users)}</span> : <span style={{ color: '#ef4444' }}>Chờ TBM...</span>}
                     </td>
@@ -348,20 +365,19 @@ function CouncilManagement({ masterData, lecturers, onRefresh }) {
 
   // KLTN đã qua bước GVHD duyệt hoặc SV đã nộp bài/chấm điểm và chưa có hội đồng
   const eligibleSV = allReg.filter(r => {
-    const role = String(r.Role || '').trim();
-    const link = String(r.Link || '').trim();
-    const end = String(r.End || '').trim();
+    const role = String(r.Role || '').toUpperCase();
+    const link = String(r.Link || '').toUpperCase();
+    const end = String(r.End || '').toUpperCase().trim();
     const emailSV = String(r.EmailSV || '').toLowerCase();
 
-    const isKLTN = ((role === 'GVHD' || role === 'HD') && String(r.Link || '').toUpperCase().includes('KLTN')) || role === 'KLTN';
-    const isReady = ['GRADED', 'APPROVED', 'YES', 'PASS'].includes(end.toUpperCase());
+    const isKLTN = (role === 'GVHD' && link === 'KLTN') || role === 'KLTN' || (role === 'HD' && link === 'KLTN');
+    const isReady = ['GRADED', 'APPROVED', 'YES', 'PASS'].includes(end);
 
     const hasCouncil = allReg.some(x =>
       String(x.EmailSV || '').toLowerCase() === emailSV &&
       ['CTHD', 'TVHD1', 'TVHD2', 'ThukyHD'].includes(String(x.Role || '').trim())
     );
 
-    // Relaxed check: Allow selecting students even if Linkbainop record is missing or empty
     return isKLTN && isReady && !hasCouncil;
   });
 
