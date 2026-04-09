@@ -689,7 +689,9 @@ function GradingDetail({ student, onBack, onRefresh, masterData }) {
   const gradingRole = student.gradingRole || student.role || 'GVHD';
 
   // Xác định loaiDeTai từ submission (Linkbainop) hoặc từ student record
-  const loaiDeTai = sub.Loaidetai || String(student.Link || student.Role || 'KLTN').trim();
+  // Xác định loaiDeTai: Ưu tiên sub.Loaidetai, sau đó là student.Link (col 'Link' trong Sheet), fallback sang 'KLTN'
+  const rawLink = String(student.Link || student.link || '').trim().toUpperCase();
+  const loaiDeTai = sub.Loaidetai || (['KLTN', 'BCTT'].includes(rawLink) ? rawLink : 'KLTN');
 
   const handleUploadTurnitin = async () => {
     const fileInput = document.createElement('input');

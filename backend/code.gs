@@ -337,9 +337,14 @@ function submitGrade(payload) {
   if(!sheet) return { error: "Tab Điểm không tồn tại" };
   
   const data = sheet.getDataRange().getValues();
+  const targetLoai = String(loaiDeTai || "").trim().toUpperCase();
+  const targetEmail = String(emailSV || "").toLowerCase().trim();
+  
   let rowIdx = -1;
   for(let i=1; i<data.length; i++) {
-    if(String(data[i][1]).toLowerCase() === emailSV.toLowerCase() && String(data[i][2]).trim() === loaiDeTai) {
+    const rowEmail = String(data[i][1]).toLowerCase().trim();
+    const rowLoai = String(data[i][2]).trim().toUpperCase();
+    if(rowEmail === targetEmail && rowLoai === targetLoai) {
       rowIdx = i + 1; break;
     }
   }
@@ -353,73 +358,48 @@ function submitGrade(payload) {
     }
     if(comment) sheet.getRange(rowIdx, 7).setValue(comment);
   } else {
-    const newRow = [NgayHienTai(), emailSV, loaiDeTai, 
+    // Tạo row mới nếu chưa có
+    const newRow = [NgayHienTai(), targetEmail, targetLoai, 
       role==='GVHD'?grade:"", role==='GVPB'?grade:"", (role==='HD'||role==='HỘI ĐỒNG')?grade:"", 
       comment||"", councilMinutes||""];
     sheet.appendRow(newRow);
   }
   
-  // Nếu là GVHD chấm KLTN xong → cập nhật End = Graded
+  // === CẬP NHẬT TRẠNG THÁI LinkGiangvien ===
   if(role === 'GVHD') {
     const gvSheet = findSheetByKeywords("LinkGiangvien");
     if(gvSheet) {
       const gvData = gvSheet.getDataRange().getValues();
-      const targetLoai = String(loaiDeTai).trim().toUpperCase();
       for(let i=1; i<gvData.length; i++) {
+        const rowEmail = String(gvData[i][0]).toLowerCase().trim();
         const rowLoai = String(gvData[i][6]).trim().toUpperCase();
-        if(String(gvData[i][0]).toLowerCase() === emailSV.toLowerCase() && 
+        if(rowEmail === targetEmail && 
            String(gvData[i][2]).trim() === 'GVHD' && 
            rowLoai === targetLoai) {
-          const currentEnd = String(gvData[i][5]).trim();
-          if(currentEnd === 'Approved') gvSheet.getRange(i+1, 6).setValue('Graded');
+          // Bất kể đang là Registered hay Approved, hễ chấm điểm xong là lên Graded/Completed
+          const newStatus = targetLoai === 'KLTN' ? 'Graded' : 'Completed';
+          gvSheet.getRange(i+1, 6).setValue(newStatus);
           break;
         }
       }
     }
     
-    // TỰ ĐỘNG: Khi GVHD chấm BCTT xong → Mở KLTN (chỉ khi loaiDeTai rõ ràng là BCTT)
-    let loaiDeTaiCheck = String(loaiDeTai || '').trim().toUpperCase();
-    
-    // Nếu loaiDeTai trống, kiểm tra trong LinkGiangvien xem có BCTT không
-    if(loaiDeTaiCheck === '') {
-      const gvSheet2 = findSheetByKeywords("LinkGiangvien");
-      if(gvSheet2) {
-        const gvData2 = gvSheet2.getDataRange().getValues();
-        for(let j = 1; j < gvData2.length; j++) {
-          const gvEmail2 = cleanEmailStr(gvData2[j][0]);
-          if(gvEmail2 === emailSV.toLowerCase() && String(gvData2[j][2]).trim() === 'GVHD') {
-            const storedLoai = String(gvData2[j][6] || '').trim().toUpperCase();
-            if(storedLoai === 'BCTT') {
-              loaiDeTaiCheck = 'BCTT';
-              break;
-            }
-          }
-        }
-      }
-    }
-    
-    // ✓ Chỉ mở KLTN khi loaiDeTai rõ ràng là BCTT
-    if(loaiDeTaiCheck === 'BCTT') {
+    // TỰ ĐỘNG: Khi GVHD chấm BCTT xong → Mở KLTN
+    if(targetLoai === 'BCTT') {
       const gvSheet = findSheetByKeywords("LinkGiangvien");
       let emailGV = '';
       if(gvSheet) {
         const gvData = gvSheet.getDataRange().getValues();
         for(let i=1; i<gvData.length; i++) {
-          if(String(gvData[i][0]).toLowerCase() === emailSV.toLowerCase() && String(gvData[i][2]).trim() === 'GVHD') {
-            const currentLoai = String(gvData[i][6] || '').trim().toUpperCase();
-            if(currentLoai === 'BCTT') {
-              emailGV = String(gvData[i][1]).toLowerCase().trim();
-              break;
-            }
+          const rowEmail = String(gvData[i][0]).toLowerCase().trim();
+          if(rowEmail === targetEmail && String(gvData[i][2]).trim() === 'GVHD' && String(gvData[i][6]).trim().toUpperCase() === 'BCTT') {
+            emailGV = String(gvData[i][1]).toLowerCase().trim();
+            break;
           }
         }
       }
       if(emailGV) {
-        try {
-          activateKLTN({ emailSV, emailGV });
-        } catch(e) {
-          Logger.log("Warning: Không thể auto-activate KLTN: " + e.message);
-        }
+        try { activateKLTN({ emailSV: targetEmail, emailGV }); } catch(e) {}
       }
     }
   }
