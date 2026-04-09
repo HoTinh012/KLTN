@@ -474,39 +474,66 @@ function SecretaryView({ students, masterData, onRefresh }) {
     };
     fileInput.click();
   };
-  const handleExportBienBan = async (s, sub, svName) => {
-    const allReg = masterData.linkGiangvien || [];
-    const allGrades = allReg.filter(r =>
-      String(r.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()
-    );
-    const roleLabel = { GVHD: 'GV Hướng dẫn', GVPB: 'GV Phản biện', CTHD: 'Chủ tịch HĐ', TVHD1: 'Thành viên 1', TVHD2: 'Thành viên 2', ThukyHD: 'Thư ký' };
+    const handleExportBienBan = async (s, sub, svName) => {
+      const allReg = masterData.linkGiangvien || [];
+      const diemData = masterData.diem || [];
+      const loai = String(sub.Loaidetai || s.Link || 'KLTN').trim().toUpperCase();
+      
+      // Tìm bản ghi điểm tập trung
+      const diemRecord = diemData.find(d => 
+        String(d.EmailSV).toLowerCase().trim() === String(s.EmailSV).toLowerCase().trim() &&
+        String(d.Loaidetai).trim().toUpperCase() === loai
+      ) || {};
 
-    const cell = (text, bold = false, fill = 'FFFFFF', alignRight = false) =>
-      new TableCell({
-        shading: { fill },
-        margins: { top: 80, bottom: 80, left: 120, right: 120 },
-        children: [new Paragraph({
-          alignment: alignRight ? AlignmentType.RIGHT : AlignmentType.LEFT,
-          children: [new TextRun({ text: String(text ?? '---'), bold, size: 22 })],
-        })],
-      });
+      const committee = allReg.filter(r =>
+        String(r.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase() && 
+        String(r.Link || '').trim().toUpperCase() === loai
+      );
 
-    const gradeRows = allGrades
-      .filter(r => r.Role !== 'ThukyHD')
-      .map(r => new TableRow({
-        children: [
-          cell(roleLabel[r.Role] || r.Role, false, 'F8FAFC'),
-          cell(lookupName(r.EmailGV, users), false, 'F8FAFC'),
-          cell(r.Diem ? String(r.Diem) : '', !!r.Diem, r.Diem ? 'F0FDF4' : 'FEF3C7', true),
-        ],
-      }));
+      const roleLabel = { GVHD: 'GV Hướng dẫn', GVPB: 'GV Phản biển', CTHD: 'Chủ tịch HĐ', TVHD1: 'Thành viên 1', TVHD2: 'Thành viên 2', ThukyHD: 'Thư ký' };
 
-    const avgScore = (() => {
-      const graded = allGrades.filter(r => r.Diem && r.Role !== 'ThukyHD');
-      if (!graded.length) return '';
-      const avg = graded.reduce((a, r) => a + Number(r.Diem), 0) / graded.length;
-      return avg.toFixed(1);
-    })();
+      const cell = (text, bold = false, fill = 'FFFFFF', alignRight = false) =>
+        new TableCell({
+          shading: { fill },
+          margins: { top: 80, bottom: 80, left: 120, right: 120 },
+          children: [new Paragraph({
+            alignment: alignRight ? AlignmentType.RIGHT : AlignmentType.LEFT,
+            children: [new TextRun({ text: String(text ?? '---'), bold, size: 22 })],
+          })],
+        });
+
+      // Ánh xạ điểm cho từng vai trò
+      const getMemberScore = (role) => {
+        if (role === 'GVHD' || role === 'KLTN' || role === 'BCTT') return diemRecord.DiemGVHD;
+        if (role === 'GVPB') return diemRecord.DiemGVPB;
+        if (['CTHD', 'TVHD1', 'TVHD2'].includes(role)) return diemRecord.DiemHD;
+        return '';
+      };
+
+      const gradeRows = committee
+        .filter(r => r.Role !== 'ThukyHD')
+        .map(r => {
+          const mScore = getMemberScore(r.Role);
+          return new TableRow({
+            children: [
+              cell(roleLabel[r.Role] || r.Role, false, 'F8FAFC'),
+              cell(lookupName(r.EmailGV, users), false, 'F8FAFC'),
+              cell(mScore ? String(mScore) : '', !!mScore, mScore ? 'F0FDF4' : 'FEF3C7', true),
+            ],
+          });
+        });
+
+      const avgScore = (() => {
+        const scores = committee
+          .filter(r => r.Role !== 'ThukyHD')
+          .map(r => getMemberScore(r.Role))
+          .filter(v => v !== undefined && v !== null && v !== '');
+        
+        if (!scores.length) return '';
+        const uniqueScores = [...new Set(scores)]; // Tùy logic: có thể lấy TB các loại điểm khác nhau
+        const sum = scores.reduce((a, b) => a + Number(b), 0);
+        return (sum / scores.length).toFixed(1);
+      })();
 
     const doc = new Document({
       sections: [{
