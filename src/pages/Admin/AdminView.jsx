@@ -325,7 +325,12 @@ function ThesisListView({ masterData }) {
   const allReg = masterData.linkGiangvien || [];
   const users = masterData.users || [];
   // Chỉ hiện GVHD records (mỗi SV 1 row)
-  const gvhdRecords = allReg.filter(r => r.Role === 'GVHD' || r.Role === 'BCTT' || r.Role === 'KLTN');
+  const gvhdRecords = allReg.filter(r => {
+    const role = String(r.Role || '').toUpperCase();
+    const link = String(r.Link || '').toUpperCase();
+    return (role === 'GVHD' && link === 'KLTN') || role === 'KLTN' || (role === 'HD' && link === 'KLTN') ||
+           (role === 'GVHD' && link === 'BCTT') || role === 'BCTT' || (role === 'HD' && link === 'BCTT');
+  });
 
   return (
     <motion.div key="thesis_list" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
