@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api, { lookupName } from '../../api';
 import { Check, X, FileText, Clock, CheckCircle, Users, Mail, Search, Edit3, ShieldCheck, ClipboardCheck, AlertCircle, Upload, Eye } from 'lucide-react';
+import { Document, Paragraph, Table, TableRow, TableCell, TextRun, AlignmentType, HeadingLevel, WidthType, Packer } from 'docx';
+import { saveAs } from 'file-saver';
 
 function LecturerView({ user, activeTab }) {
   const [masterData, setMasterData] = useState(null);
@@ -572,7 +574,7 @@ function GradingDetail({ student, onBack, onRefresh, masterData }) {
   const svName = lookupName(student.EmailSV, users);
   const sub = (masterData.linkBainop || []).find(b => String(b.EmailSV).toLowerCase() === String(student.EmailSV).toLowerCase()) || {};
   const gradingRole = student.gradingRole || student.role || 'GVHD';
-  
+
   // Xác định loaiDeTai từ submission (Linkbainop) hoặc từ student record
   const loaiDeTai = sub.Loaidetai || String(student.Link || student.Role || 'KLTN').trim();
 
@@ -603,6 +605,93 @@ function GradingDetail({ student, onBack, onRefresh, masterData }) {
     } catch { alert('Lỗi lưu điểm!'); }
   };
 
+  const handleExportDocx = async () => {
+    const criteriaLabels = [
+      'Tiêu chí 1 (1đ)', 'Tiêu chí 2 (1đ)', 'Tiêu chí 3 (2đ)',
+      'Tiêu chí 4 (2đ)', 'Tiêu chí 5 (1đ)', 'Tiêu chí 6 (1đ)',
+      'Tiêu chí 7 (1đ)', 'Tiêu chí 8 (1đ)',
+    ];
+    const scoreKeys = ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8'];
+
+    const cell = (text, bold = false, fill = 'FFFFFF') =>
+      new TableCell({
+        shading: { fill },
+        margins: { top: 80, bottom: 80, left: 120, right: 120 },
+        children: [new Paragraph({
+          alignment: AlignmentType.CENTER,
+          children: [new TextRun({ text: String(text ?? '---'), bold, size: 22 })],
+        })],
+      });
+
+    const infoRows = [
+      ['Họ và tên', svName],
+      ['Email', student.EmailSV],
+      ['Đề tài', sub.Tendetai || '---'],
+      ['Vai trò chấm', gradingRole],
+      ['Loại đề tài', loaiDeTai],
+    ].map(([label, val]) =>
+      new TableRow({ children: [cell(label, true, 'EFF6FF'), cell(val)] })
+    );
+
+    const scoreRows = scoreKeys.map((k, i) =>
+      new TableRow({ children: [cell(criteriaLabels[i], false, 'F8FAFC'), cell(scores[k])] })
+    );
+
+    const doc = new Document({
+      sections: [{
+        properties: {},
+        children: [
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [new TextRun({ text: 'BẢNG ĐIỂM CHẤM KHÓA LUẬN TỐT NGHIỆP', bold: true, size: 28, color: '004B91' })],
+          }),
+          new Paragraph({ text: '' }),
+
+          new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            rows: infoRows,
+          }),
+          new Paragraph({ text: '' }),
+
+          new Paragraph({
+            children: [new TextRun({ text: 'ĐIỂM CHI TIẾT THEO TIÊU CHÍ', bold: true, size: 24, color: '1E40AF' })],
+          }),
+          new Paragraph({ text: '' }),
+
+          new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            rows: [
+              new TableRow({
+                tableHeader: true,
+                children: [cell('TIÊU CHÍ', true, 'DBEAFE'), cell('ĐIỂM', true, 'DBEAFE')],
+              }),
+              ...scoreRows,
+              new TableRow({
+                children: [cell('TỔNG ĐIỂM', true, 'FEF9C3'), cell(`${officialScore} / 10`, true, 'FEF9C3')],
+              }),
+            ],
+          }),
+          new Paragraph({ text: '' }),
+
+          new Paragraph({
+            children: [
+              new TextRun({ text: 'NHẬN XÉT: ', bold: true, size: 22 }),
+              new TextRun({ text: comment || '(Không có nhận xét)', size: 22 }),
+            ],
+          }),
+          new Paragraph({ text: '' }),
+          new Paragraph({
+            alignment: AlignmentType.RIGHT,
+            children: [new TextRun({ text: `Ngày xuất: ${new Date().toLocaleDateString('vi-VN')}`, italics: true, size: 20, color: '64748B' })],
+          }),
+        ],
+      }],
+    });
+
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, `BangDiem_${gradingRole}_${student.EmailSV}.docx`);
+  };
+
   return (
     <div className="animate-fade-in">
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
@@ -621,7 +710,7 @@ function GradingDetail({ student, onBack, onRefresh, masterData }) {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
               <CriteriaInput label="Tiêu chí 1 (1đ)" val={scores.t1} onChange={v => setScores({ ...scores, t1: v })} />
               <CriteriaInput label="Tiêu chí 2 (1đ)" val={scores.t2} onChange={v => setScores({ ...scores, t2: v })} />
-              <CriteriaInput label="Tiêu chí 3 (đ)" val={scores.t3} onChange={v => setScores({ ...scores, t3: v })} />
+              <CriteriaInput label="Tiêu chí 3 (2đ)" val={scores.t3} onChange={v => setScores({ ...scores, t3: v })} />
               <CriteriaInput label="Tiêu chí 4 (2đ)" val={scores.t4} onChange={v => setScores({ ...scores, t4: v })} />
               <CriteriaInput label="Tiêu chí 5 (1đ)" val={scores.t5} onChange={v => setScores({ ...scores, t5: v })} />
               <CriteriaInput label="Tiêu chí 6 (1đ)" val={scores.t6} onChange={v => setScores({ ...scores, t6: v })} />
@@ -640,7 +729,28 @@ function GradingDetail({ student, onBack, onRefresh, masterData }) {
               </label>
             </div>
 
-            <button className="btn-primary-blue" onClick={handleSubmit} style={{ width: '100%' }}>LƯU KẾT QUẢ CHẤM ĐIỂM</button>
+            {!sub.Linkbai && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '8px', padding: '10px 14px', marginBottom: '12px' }}>
+                <AlertCircle size={16} color="#d97706" />
+                <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#92400e' }}>Sinh viên chưa nộp bài — không thể lưu kết quả chấm điểm.</span>
+              </div>
+            )}
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                onClick={handleExportDocx}
+                style={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', gap: '6px', padding: '12px 18px', background: '#f1f5f9', border: '1px solid #cbd5e1', borderRadius: '8px', cursor: 'pointer', fontWeight: '700', fontSize: '0.8rem', color: '#334155' }}
+              >
+                <FileText size={16} color="#334155" /> Xuất DOCX
+              </button>
+              <button
+                className="btn-primary-blue"
+                onClick={handleSubmit}
+                disabled={!sub.Linkbai}
+                style={{ flex: 1, opacity: sub.Linkbai ? 1 : 0.45, cursor: sub.Linkbai ? 'pointer' : 'not-allowed' }}
+              >
+                LƯU KẾT QUẢ CHẤM ĐIỂM
+              </button>
+            </div>
           </div>
         </div>
 
