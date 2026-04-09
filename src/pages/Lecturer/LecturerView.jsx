@@ -476,6 +476,112 @@ function SecretaryView({ students, masterData, onRefresh }) {
     fileInput.click();
   };
 
+  const handleExportBienBan = async (s, sub, svName) => {
+    const allReg = masterData.linkGiangvien || [];
+    const allGrades = allReg.filter(r =>
+      String(r.EmailSV).toLowerCase() === String(s.EmailSV).toLowerCase()
+    );
+    const roleLabel = { GVHD: 'GV Hướng dẫn', GVPB: 'GV Phản biện', CTHD: 'Chủ tịch HĐ', TVHD1: 'Thành viên 1', TVHD2: 'Thành viên 2', ThukyHD: 'Thư ký' };
+
+    const cell = (text, bold = false, fill = 'FFFFFF', alignRight = false) =>
+      new TableCell({
+        shading: { fill },
+        margins: { top: 80, bottom: 80, left: 120, right: 120 },
+        children: [new Paragraph({
+          alignment: alignRight ? AlignmentType.RIGHT : AlignmentType.LEFT,
+          children: [new TextRun({ text: String(text ?? '---'), bold, size: 22 })],
+        })],
+      });
+
+    const gradeRows = allGrades
+      .filter(r => r.Role !== 'ThukyHD')
+      .map(r => new TableRow({
+        children: [
+          cell(roleLabel[r.Role] || r.Role, false, 'F8FAFC'),
+          cell(lookupName(r.EmailGV, users), false, 'F8FAFC'),
+          cell(r.Diem ? String(r.Diem) : '', !!r.Diem, r.Diem ? 'F0FDF4' : 'FEF3C7', true),
+        ],
+      }));
+
+    const avgScore = (() => {
+      const graded = allGrades.filter(r => r.Diem && r.Role !== 'ThukyHD');
+      if (!graded.length) return '';
+      const avg = graded.reduce((a, r) => a + Number(r.Diem), 0) / graded.length;
+      return avg.toFixed(1);
+    })();
+
+    const doc = new Document({
+      sections: [{
+        properties: {},
+        children: [
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [new TextRun({ text: 'BIÊN BẢN HỘI ĐỒNG CHẤM KHÓA LUẬN TỐT NGHIỆP', bold: true, size: 28, color: '7C3AED' })],
+          }),
+          new Paragraph({ text: '' }),
+
+          new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            rows: [
+              new TableRow({ children: [cell('Họ và tên SV', true, 'EDE9FE'), cell(svName, false, 'EDE9FE')] }),
+              new TableRow({ children: [cell('Email', true, 'F5F3FF'), cell(s.EmailSV)] }),
+              new TableRow({ children: [cell('Tên đề tài', true, 'EDE9FE'), cell(sub.Tendetai || '---', false, 'EDE9FE')] }),
+              new TableRow({ children: [cell('Đợt / Học kỳ', true, 'F5F3FF'), cell(sub.DotHK || '---')] }),
+              new TableRow({ children: [cell('Địa điểm bảo vệ', true, 'EDE9FE'), cell(s.Diadiem || '---', false, 'EDE9FE')] }),
+            ],
+          }),
+          new Paragraph({ text: '' }),
+
+          new Paragraph({
+            children: [new TextRun({ text: 'BẢNG ĐIỂM CÁC THÀNH VIÊN HỘI ĐỒNG', bold: true, size: 24, color: '6D28D9' })],
+          }),
+          new Paragraph({ text: '' }),
+
+          new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            rows: [
+              new TableRow({
+                tableHeader: true,
+                children: [
+                  cell('VAI TRÒ', true, 'DDD6FE'),
+                  cell('HỌ VÀ TÊN GIẢNG VIÊN', true, 'DDD6FE'),
+                  cell('ĐIỂM', true, 'DDD6FE', true),
+                ],
+              }),
+              ...gradeRows,
+              new TableRow({
+                children: [
+                  cell('', false, 'FEF9C3'),
+                  cell('ĐIỂM TRUNG BÌNH', true, 'FEF9C3'),
+                  cell(avgScore, true, 'FEF9C3', true),
+                ],
+              }),
+            ],
+          }),
+          new Paragraph({ text: '' }),
+
+          new Paragraph({
+            children: [new TextRun({ text: 'Nhận xét chung: ', bold: true, size: 22 })],
+          }),
+          new Paragraph({
+            children: [new TextRun({ text: '..............................................................................................................', size: 22, color: 'CBD5E1' })],
+          }),
+          new Paragraph({
+            children: [new TextRun({ text: '..............................................................................................................', size: 22, color: 'CBD5E1' })],
+          }),
+          new Paragraph({ text: '' }),
+          new Paragraph({
+            alignment: AlignmentType.RIGHT,
+            children: [new TextRun({ text: `Ngày lập biên bản: ${new Date().toLocaleDateString('vi-VN')}`, italics: true, size: 20, color: '64748B' })],
+          }),
+        ],
+      }],
+    });
+
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, `BienBan_HD_${s.EmailSV}.docx`);
+  };
+
   return (
     <div className="card-flat" style={{ padding: '0', overflow: 'hidden' }}>
       <div style={{ padding: '24px', borderBottom: '1px solid #f1f5f9' }}>
@@ -495,9 +601,17 @@ function SecretaryView({ students, masterData, onRefresh }) {
                 <td style={{ fontWeight: '700', fontSize: '0.88rem' }}>{sub.Tendetai || '---'}</td>
                 <td>{s.Diadiem || '---'}</td>
                 <td style={{ textAlign: 'right' }}>
-                  <button className="btn-primary-blue" style={{ fontSize: '0.72rem', padding: '8px 16px' }} onClick={() => handleUploadBienBan(s.EmailSV)}>
-                    <Upload size={14} /> Tải Biên bản
-                  </button>
+                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                    <button
+                      onClick={() => handleExportBienBan(s, sub, svName)}
+                      style={{ fontSize: '0.72rem', padding: '8px 14px', background: '#f5f3ff', border: '1px solid #c4b5fd', borderRadius: '8px', cursor: 'pointer', fontWeight: '700', color: '#6d28d9', display: 'flex', alignItems: 'center', gap: '6px' }}
+                    >
+                      <FileText size={13} /> Xuất Biên bản
+                    </button>
+                    <button className="btn-primary-blue" style={{ fontSize: '0.72rem', padding: '8px 16px' }} onClick={() => handleUploadBienBan(s.EmailSV)}>
+                      <Upload size={14} /> Tải Biên bản
+                    </button>
+                  </div>
                 </td>
               </tr>
             );
@@ -643,7 +757,7 @@ function GradingDetail({ student, onBack, onRefresh, masterData }) {
         children: [
           new Paragraph({
             alignment: AlignmentType.CENTER,
-            children: [new TextRun({ text: 'BẢNG ĐIỂM CHẤM KHÓA LUẬN TỐT NGHIỆP', bold: true, size: 28, color: '004B91' })],
+            children: [new TextRun({ text: 'BẢNG ĐIỂM', bold: true, size: 28, color: '004B91' })],
           }),
           new Paragraph({ text: '' }),
 
